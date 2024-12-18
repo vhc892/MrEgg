@@ -23,9 +23,10 @@ public class LevelManager : MonoBehaviour
     }
     public void LoadLevel(int level)
     {
-        if (level < 0 || level >= levelPrefab.Length)
+        if (level < 0 || level > levelPrefab.Length)
         {
-            Debug.LogError($"Level index {level} is out of range. Available levels: 0 to {levelPrefab.Length - 1}");
+            Debug.Log(level);
+            Debug.LogError($"Level index {level} is out of range. Available levels: 1 to {levelPrefab.Length}");
             return;
         }
         if (currentLevelPrefab != null)

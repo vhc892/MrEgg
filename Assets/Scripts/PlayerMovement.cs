@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
     }
 
-    void Jump()
+    public void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumps)
         {

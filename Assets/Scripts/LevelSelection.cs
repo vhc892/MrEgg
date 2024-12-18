@@ -18,12 +18,16 @@ public class LevelSelection : MonoBehaviour
     private void Update()
     {
         UpdateLevelImage();//TODO MOve this method later
-        //UpdateLevelStatus();//TODO MOve this method later
+        UpdateLevelStatus();//TODO MOve this method later
     }
 
     private void UpdateLevelStatus()
-    { 
-        //if win unlock = true
+    {
+        int previousLevelIndex = int.Parse(gameObject.name) - 1;
+        if (PlayerPrefs.GetInt("Level" + previousLevelIndex + "Win", 0) == 1)
+        {
+            unlocked = true;
+        }
     }
 
     private void UpdateLevelImage()

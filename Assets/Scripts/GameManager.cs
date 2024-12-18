@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class GameManager : MonoBehaviour
             levelCompletePopup.SetActive(true);
             Time.timeScale = 0f;
         }
+        PlayerPrefs.SetInt("Level" + LevelManager.Instance.levelIndex + "Win", 1);
+        PlayerPrefs.Save();
     }
     public void NextLevelButton()
     {
@@ -33,5 +36,9 @@ public class GameManager : MonoBehaviour
         int level = ++LevelManager.Instance.levelIndex;
         LevelManager.Instance.LoadLevel(level);
         Time.timeScale = 1f;
+    }
+    public void BackMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
