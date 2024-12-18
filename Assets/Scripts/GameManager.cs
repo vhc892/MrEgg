@@ -27,4 +27,11 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0f;
         }
     }
+    public void NextLevelButton()
+    {
+        levelCompletePopup.SetActive(false);
+        int level = ++LevelManager.Instance.levelIndex;
+        LevelManager.Instance.LoadLevel(level);
+        Time.timeScale = 1f;
+    }
 }

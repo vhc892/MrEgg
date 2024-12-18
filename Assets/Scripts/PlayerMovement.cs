@@ -55,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Finish"))
         {
+            rb.velocity = Vector2.zero;
             GameManager.Instance.LevelCompleted();
         }
     }
