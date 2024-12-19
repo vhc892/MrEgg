@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public GameObject levelCompletePopup;
+    public PlayerMovement player;
 
     private void Awake()
     {
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
     }
     public void NextLevelButton()
     {
+        player.ResetPosition();
         levelCompletePopup.SetActive(false);
         int level = ++LevelManager.Instance.levelIndex;
         LevelManager.Instance.LoadLevel(level);

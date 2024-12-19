@@ -8,32 +8,74 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 10f;
 
     private Rigidbody2D rb;
+    private bool moveLeft;
+    private bool moveRight;
+    private float horizontalMove;
+
+
     private bool isGrounded;
     private int jumpCount;
     private const int maxJumps = 2;
+    private Vector2 startPosition;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        moveLeft = false;
+        moveRight = false;
+        startPosition = transform.position;
     }
-
+    public void PointerDownLeft()
+    {
+        moveLeft = true;
+    }
+    public void PointerUpLeft()
+    {
+        moveLeft = false;
+    }
+    public void PointerDownRight() 
+    {
+        moveRight = true; 
+    }
+    public void PointerUpRight()
+    {
+        moveRight = false;
+    }
     void Update()
     {
-        Move();
-        Jump();
+        MovePlayer();
     }
-
-    void Move()
+    private void MovePlayer()
     {
-        float moveInput = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+        if(moveLeft)
+        {
+            horizontalMove = -moveSpeed;
+        }
+        else if (moveRight)
+        {
+            horizontalMove = moveSpeed;
+        }
+        else
+        {
+            horizontalMove = 0;
+        }
     }
+    private void FixedUpdate()
+    {
+        rb.velocity = new Vector2 (horizontalMove, rb.velocity.y);
+    }
+    //void Move()
+    //{
+    //    float moveInput = Input.GetAxis("Horizontal");
+    //    rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+    //}
 
     public void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumps)
+        if (jumpCount < maxJumps)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            //rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
             jumpCount++;
         }
     }
@@ -51,12 +93,8 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = false;
     }
-    private void OnTriggerEnter2D(Collider2D other)
+    public void ResetPosition()
     {
-        if (other.CompareTag("Finish"))
-        {
-            rb.velocity = Vector2.zero;
-            GameManager.Instance.LevelCompleted();
-        }
+        transform.position = startPosition;
     }
 }
