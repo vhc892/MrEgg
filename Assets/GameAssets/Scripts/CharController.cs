@@ -96,7 +96,7 @@ public class CharController : MonoBehaviour
                 playerMovementInput.PlayerMove.Jump.performed -= Jump;
             }
         }
-        if (Mathf.Abs(rb.velocity.y) < 0.01f)
+        if (Mathf.Abs(rb.velocity.y) < 0.01f )
         {
             isGrounded = true;
             jumpCount = maxJumpCount;

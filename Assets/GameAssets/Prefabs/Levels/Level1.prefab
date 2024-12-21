@@ -569,4 +569,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unlock: 1
+  clickToUnlock: 0
   lockImage: {fileID: 0}

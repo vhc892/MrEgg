@@ -5,10 +5,18 @@ public class DragObjectOnXAxis : MonoBehaviour, IPointerDownHandler, IPointerUpH
 {
     private bool isDragging = false;
     private Vector3 offset;
+    private Camera mainCamera;
+
+    private void Start()
+    {
+        mainCamera = Camera.main;
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (mainCamera == null) return;
+
+        Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         offset = transform.position - new Vector3(mousePosition.x, transform.position.y, transform.position.z);
         isDragging = true;
     }
@@ -18,11 +26,11 @@ public class DragObjectOnXAxis : MonoBehaviour, IPointerDownHandler, IPointerUpH
         isDragging = false;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        if (isDragging)
+        if (isDragging && mainCamera != null)
         {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             transform.position = new Vector3(mousePosition.x + offset.x, transform.position.y, transform.position.z);
         }
     }

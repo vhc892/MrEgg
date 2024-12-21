@@ -1,30 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public float FollowSpeed = 2f;
-    public float yOffset = 1f;
+    [Header("Camera Settings")]
+    public float followSpeed = 2f;
+    //public float yOffset = 0f;
     public Transform target;
     public bool isCameraFollow;
+
     private Vector3 startPosition;
 
     private void Start()
     {
         startPosition = transform.position;
     }
+
     private void Update()
     {
-        if (isCameraFollow)
+        if (!isCameraFollow || target == null) return;
+
+        if (target.position.x >= 0f)
         {
-            if (target.position.x >= 0f)
+            Vector3 targetPosition = new Vector3(
+                Mathf.Lerp(transform.position.x, target.position.x, followSpeed * Time.deltaTime),
+                startPosition.y, 
+                -10f
+            );
+
+            if ((targetPosition - transform.position).sqrMagnitude > 0.001f)
             {
-                Vector3 newPos = new Vector3(target.position.x, transform.position.y, -10f);
-                transform.position = Vector3.Slerp(transform.position, newPos, FollowSpeed * Time.deltaTime);
+                transform.position = targetPosition;
             }
         }
     }
+
     public void ResetPosition()
     {
         transform.position = startPosition;

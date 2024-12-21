@@ -1,51 +1,55 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MovingDoor : MonoBehaviour , IPointerDownHandler, IPointerUpHandler
+public class MovingDoor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public float detectionRadius = 5f;
     public float moveSpeed = 3f;
     private Transform player;
-    private bool isPlayerNear = false;
-    private bool isMouseHeld = false;
+    private bool isMouseHold = false;
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player").transform;
+        player = GameObject.FindWithTag("Player")?.transform;
     }
 
     private void Update()
     {
-        float distance = Vector2.Distance(transform.position, player.position);
-        isPlayerNear = distance <= detectionRadius;
-
-        if (isPlayerNear)
+        if (player == null) return;
+        //distance 
+        float sqrDistance = (transform.position - player.position).sqrMagnitude;
+        if (sqrDistance <= detectionRadius * detectionRadius)
         {
             MoveDoor();
         }
-        if (isMouseHeld)
+
+        if (isMouseHold && moveSpeed > 0)
         {
             moveSpeed = Mathf.Max(0, moveSpeed - 0.15f);
+            Debug.Log(moveSpeed);
         }
     }
 
     private void MoveDoor()
     {
-        transform.position += new Vector3(moveSpeed * Time.deltaTime, 0f, 0f);
+        transform.Translate(moveSpeed * Time.deltaTime, 0f, 0f);
     }
+
     public void OnPointerDown(PointerEventData eventData)
     {
-        isMouseHeld = true;
+        isMouseHold = true;
     }
+
     public void OnPointerUp(PointerEventData eventData)
     {
-        isMouseHeld = false;
+        isMouseHold = false;
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            GameManager.Instance.LevelCompleted();
+            GameManager.Instance?.LevelCompleted();
         }
     }
 }
