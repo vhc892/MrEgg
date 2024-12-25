@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class GameEvents : MonoBehaviour
+public static class GameEvents
 {
-    // Start is called before the first frame update
-    void Start()
+    #region Ingame Events
+    public delegate void OnLevelStart();
+    public static OnLevelStart onLevelStart;    
+    public static void LevelStart()
     {
-        
+        onLevelStart?.Invoke();
     }
 
-    // Update is called once per frame
-    void Update()
+    public delegate void OnLevelFinish();
+    public static OnLevelStart onLevelFinish;
+    public static void LevelFinish()
     {
-        
+        onLevelFinish?.Invoke();
     }
+    #endregion
 }

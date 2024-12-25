@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public ButtonSequence buttonSequence;
     public static GameManager Instance;
     public GameObject levelCompletePopup;
     public CharController player;
+    public ButtonSequence buttonSequence;
+
+    GameConfig gameConfig;
 
     private void Awake()
     {
@@ -20,41 +22,40 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        gameConfig = GameConfig.Instance;
     }
 
     public void LevelCompleted()
     {
+        SaveSystemData.SavePlayer(GameConfig.Instance.gameData);
         if (levelCompletePopup != null)
         {
             StartCoroutine(WaitWinPopUp());
         }
-        PlayerPrefs.SetInt("Level" + LevelManager.Instance.levelIndex + "Win", 1);
-        PlayerPrefs.Save();
+        Debug.Log("win");
+
     }
     private IEnumerator WaitWinPopUp()
     {
         yield return new WaitForSeconds(0.1f);
         levelCompletePopup.SetActive(true);
-        Time.timeScale = 0f;
+        player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        player.enabled = false;
     }
     public void NextLevelButton()
     {
         buttonSequence.DeactivateButtons();
-        player.ResetPosition();
         LevelManager.Instance.cameraFollow.ResetPosition();
         levelCompletePopup.SetActive(false);
-        int level = ++LevelManager.Instance.levelIndex;
+        int level = ++GameConfig.Instance.CurrentLevel;
         LevelManager.Instance.LoadLevel(level);
-        Time.timeScale = 1f;
-        StartCoroutine(WaitAndActivateButton());
+        player.enabled = true;
     }
     public void BackMenu()
     {
+        SaveSystemData.SavePlayer(GameConfig.Instance.gameData);
+        UIManager.Instance.BackToMainMenu();
         SceneManager.LoadScene(0);
-    }
-    private IEnumerator WaitAndActivateButton()
-    {
-        yield return null;
-        buttonSequence.StartSequence();
     }
 }

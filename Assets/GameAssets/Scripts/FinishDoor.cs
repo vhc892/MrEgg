@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using NaughtyAttributes;
 
 
 public class FinishDoor : MonoBehaviour, IPointerClickHandler
@@ -10,13 +11,12 @@ public class FinishDoor : MonoBehaviour, IPointerClickHandler
     [SerializeField] private bool unlock;
     [SerializeField] private bool clickToUnlock;
     [SerializeField] private SpriteRenderer lockImage;
-    private SpriteRenderer doorSprite;
     private float clickCountToOpen = 3;
 
-
+    Animator anim;
     private void Start()
     {
-        doorSprite = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
     public void UnlockDoor()
     {
@@ -25,25 +25,51 @@ public class FinishDoor : MonoBehaviour, IPointerClickHandler
         {
             lockImage.gameObject.SetActive(false);
         }
+        anim?.Play("DoorOpen");
     }
     public void OnPointerClick(PointerEventData eventData)
     {
         if (clickToUnlock)
         {
             --clickCountToOpen;
-            Debug.Log(clickCountToOpen);
+            var knockEffect = GetComponentInChildren<KnockEffect>();
+            if (!unlock && knockEffect != null)
+            {
+                knockEffect.PlayKnockAnimation();
+            }
             if (clickCountToOpen == 0)
             {
                 UnlockDoor();
-                doorSprite.color = Color.red;
             }
         }
     }
+
+    public void DoorSwitch()
+    {
+        GameEvents.LevelFinish();
+        anim?.Play("DoorOpen");
+    }
+
+    public void EndLevel()
+    {
+        if (GameConfig.Instance.LevelPass > GameConfig.Instance.CurrentLevel)
+        {
+            GameManager.Instance.LevelCompleted();
+        }
+        else 
+        {
+            GameConfig.Instance.LevelPass = GameConfig.Instance.CurrentLevel;
+            GameManager.Instance.LevelCompleted();
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && unlock)
         {
-            GameManager.Instance.LevelCompleted();
+            transform.position = transform.position;
+            DoorSwitch();
+            EndLevel();
         }
     }
 }

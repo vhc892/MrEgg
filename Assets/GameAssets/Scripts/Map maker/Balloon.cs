@@ -7,6 +7,8 @@ public class Balloon : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] BalloonedDoor balloonedDoor;
     [SerializeField] float upForce = 5;
+    [SerializeField] private KnockEffect knockEffectPrefab;
+
     Rigidbody2D rb;
     LineRenderer lineRenderer;
 
@@ -36,5 +38,12 @@ public class Balloon : MonoBehaviour, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         eventData.pointerCurrentRaycast.gameObject.SetActive(false);
+        Vector3 position = transform.position;
+        eventData.pointerCurrentRaycast.gameObject.SetActive(false);
+        if (knockEffectPrefab != null)
+        {
+            KnockEffect knockEffect = Instantiate(knockEffectPrefab, position, Quaternion.identity);
+            knockEffect.PlayKnockAnimation();
+        }
     }
 }

@@ -1,37 +1,41 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LevelSelection : MonoBehaviour
 {
-    [SerializeField] private bool unlocked;
     [SerializeField] private Image lockImage;
 
-    private void Start()
-    {
-        InitializeLevel();
-        //PlayerPrefs.DeleteAll();
-    }
+    public TextMeshProUGUI levelText;
 
-    private void InitializeLevel()
+    
+    int _levelIndex;
+    bool _unlocked;
+
+    public void OnInit(int index)
     {
-        int previousLevelIndex = int.Parse(gameObject.name) - 1;
-        if (PlayerPrefs.GetInt("Level" + previousLevelIndex + "Win", 0) == 1)
+        _levelIndex = index;
+        levelText.text = (index+1).ToString();
+        if (index > GameConfig.Instance.LevelPass)
         {
-            unlocked = true;
+            _unlocked = false;
+            lockImage.gameObject.SetActive(true);
         }
-        lockImage.gameObject.SetActive(!unlocked);
+        else
+        {
+            _unlocked = true;
+            lockImage.gameObject.SetActive(false);
+        }
     }
 
     
     public void PressSelection()
     {
-        if (unlocked)
+        if (_unlocked)
         {
-            int level = int.Parse(gameObject.name);
-            Debug.Log("load level");
-            PlayerPrefs.SetInt("SelectedLevel", level);
-            PlayerPrefs.Save();
+            int level = int.Parse(levelText.text);
+            GameConfig.Instance.CurrentLevel = level;
             SceneManager.LoadScene(1);
         }
     }

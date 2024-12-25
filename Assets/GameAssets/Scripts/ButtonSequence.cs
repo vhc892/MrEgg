@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class ButtonSequence : MonoBehaviour
@@ -8,7 +8,7 @@ public class ButtonSequence : MonoBehaviour
 
     private void Start()
     {
-        StartSequence();
+        //StartSequence();
     }
 
     private IEnumerator ActivateButtons()
@@ -17,8 +17,8 @@ public class ButtonSequence : MonoBehaviour
         {
             if (button != null)
             {
-                button.SetActive(true); 
-                yield return new WaitForSeconds(animationDelay); 
+                button.SetActive(true);
+                yield return new WaitForSeconds(animationDelay);
             }
         }
     }

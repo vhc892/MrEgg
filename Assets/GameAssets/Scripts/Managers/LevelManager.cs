@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance;
     private GameObject currentLevelPrefab;
     public CameraFollow cameraFollow;
-    public int levelIndex = 0;
+    //public int levelIndex = 0;
     public TextMeshProUGUI levelText;
 
     private void Awake()
@@ -21,27 +21,24 @@ public class LevelManager : MonoBehaviour
     }
     private void Start()
     {
-        levelIndex = PlayerPrefs.GetInt("SelectedLevel", 0);
-        LoadLevel(levelIndex);
+        //levelIndex = PlayerPrefs.GetInt("SelectedLevel", 0);
+        LoadLevel(GameConfig.Instance.CurrentLevel);
     }
     public void LoadLevel(int level)
     {
+        if (transform.childCount > 0)
+            Destroy(transform.GetChild(0).gameObject);
+
+        cameraFollow.isCameraFollow = false;
+        GameManager.Instance.player.canJumpManyTimes = false;
+
         if (level == 7)
-        {
             cameraFollow.isCameraFollow = true;
-        }
-        else
-        {
-            cameraFollow.isCameraFollow = false;
-        }
+
         if (level == 10)
-        {
             GameManager.Instance.player.canJumpManyTimes = true;
-        }
-        else
-        {
-            GameManager.Instance.player.canJumpManyTimes = false;
-        }
+
+
         if (level < 0 || level > levelData.levelPrefabs.Length)
         {
             Debug.Log(level);
@@ -52,8 +49,12 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(currentLevelPrefab);
         }
-        currentLevelPrefab = Instantiate(levelData.levelPrefabs[level - 1]);
+        currentLevelPrefab = Instantiate(levelData.levelPrefabs[level - 1], this.transform);
         levelText.text = $"Level {level}";
+        GameManager.Instance.buttonSequence.StartSequence();
+
+        //UIManager.Instance.OnLevelLoaded();
+        GameEvents.LevelStart();
     }
 
 }
