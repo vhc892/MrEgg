@@ -1,6 +1,9 @@
-﻿using Spine.Unity;
+﻿
+using Spine.Unity;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,20 +16,23 @@ public class CharController : MonoBehaviour
     [SerializeField] private SkeletonAnimation anim;
     [SerializeField] private LayerMask boxLayer;
 
-    private Vector2 direction;
+    Vector2 inputVector;
     private Vector2 startPosition;
 
     bool isFinished = false;
 
-    //SPEED
+    //MOVING
     [SerializeField] private float movementSpeed = 6;
-    bool isRunning = false;
+    bool isMovementPressed = false;
+    bool isPushing = false;
 
 
     //JUMPING
+
+    private float lastYposition;
     private bool isGrounded;
-    private bool isFalling;
     public bool canJumpManyTimes;
+    private bool isJumpPressed;
 
     private float timeJump;
     private float maxHeight = 4f;
@@ -35,110 +41,156 @@ public class CharController : MonoBehaviour
     private int maxJumpCount = 2;
     private int jumpCount;
 
+    //STRING CACHING
+    string[] groundTags = { "Ground", "Box" };
+    string[] runAnimation = { "run", "run2", "run3" } ;
+    int currentRunAnimation = 0;
+    string idleAnimation = "idle";
+    string jumpUpAnimation = "jump_up";
+    string jumpDownAnimation = "jump_down";
+    string pushAnimation = "push";
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         anim = GetComponentInChildren<SkeletonAnimation>();
+
+        playerMovementInput = new PlayerMovement();
     }
 
     private void Start()
     {
         startPosition = transform.position;
         Application.targetFrameRate = 60;
-        jumpCount = maxJumpCount;
         jumpForce = Mathf.Sqrt(maxHeight * (Physics2D.gravity.y * rb.gravityScale) * -2) * rb.mass;
     }
 
     void OnStart()
     {
         rb.isKinematic = false;
-        isFinished = false; 
+        isFinished = false;
+        if (canJumpManyTimes) jumpCount = maxJumpCount;
+        else jumpCount = 1;
         transform.position = startPosition;
+        anim.AnimationState.SetAnimation(0, idleAnimation, true);
     }
 
     private void Update()
     {
+        if (isFinished)
+        {
+            return;
+        }
         CheckJump();
+        if (isJumpPressed)
+        {
+            return;
+        }
+        else if (isPushing)
+        {
+            if (anim.AnimationName != pushAnimation)
+            {
+                anim.AnimationState.SetAnimation(0, pushAnimation, true);
+            }
+        }
+        else if (isMovementPressed)
+        {
+            if (anim.AnimationName != runAnimation[currentRunAnimation])
+            {
+                var track = anim.AnimationState.SetAnimation(0, runAnimation[currentRunAnimation], true);
+            }
+        }
+        else
+        //if (!isJumpPressed && !isMovementPressed && isGrounded && !isPushing)
+        {
+            if (anim.AnimationName != idleAnimation)
+            {
+                anim.AnimationState.SetAnimation(0, idleAnimation, true);
+            }
+        }
     }
 
     private void FixedUpdate()
     {
         //MOVE
-        Vector2 inputVector = playerMovementInput.PlayerMove.Left_Right_Movement.ReadValue<Vector2>();
+        inputVector = playerMovementInput.PlayerMove.Left_Right_Movement.ReadValue<Vector2>();
         rb.velocity = new Vector2(inputVector.x * movementSpeed, rb.velocity.y);
     }
 
-    void Idle(InputAction.CallbackContext context)
-    {
-        anim.AnimationState.SetAnimation(0, "idle", true);
-        isRunning = false;
-    }
     void Move(InputAction.CallbackContext context)
     {
-        anim.AnimationState.SetAnimation(0, "run", true);
+        if (context.started)
+        {
+            System.Random rnd = new System.Random();
+            currentRunAnimation = rnd.Next(0, runAnimation.Length);
 
-        isRunning = true;
-        Vector2 inputVector = playerMovementInput.PlayerMove.Left_Right_Movement.ReadValue<Vector2>();
-        transform.rotation = Quaternion.Euler(0, inputVector.x > 0 ? 0 : 180, 0);
+            isMovementPressed = true;
+            inputVector = playerMovementInput.PlayerMove.Left_Right_Movement.ReadValue<Vector2>();
+            transform.rotation = Quaternion.Euler(0, inputVector.x > 0 ? 0 : 180, 0);
+        }
+        else if (context.performed && isGrounded && !isPushing)
+        {
+            anim.AnimationState.SetAnimation(0, runAnimation[currentRunAnimation], true);
+        }
+        else if (context.canceled)
+        {
+            isMovementPressed = false;
+        }
     }
     void Jump(InputAction.CallbackContext context)
     {
         isGrounded = false;
-        isFalling = false;
         rb.velocity = Vector2.zero;
 
-        jumpCount--;
-
+        if (context.started)
+        {
+            isGrounded = false;
+            isJumpPressed = true;
+            isPushing = false;
+            anim.AnimationState.SetAnimation(0, jumpUpAnimation, false);
+            anim.AnimationState.AddAnimation(0, jumpDownAnimation, false, 0);
+            jumpCount--;
+            lastYposition = transform.position.y;
+        }
         if (context.performed)
         {
             //rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
     }
+
     void CheckJump()
     {
         if (!isGrounded)
         {
             if (jumpCount > 0)
             {
+                playerMovementInput.PlayerMove.Jump.started += Jump;
                 playerMovementInput.PlayerMove.Jump.performed += Jump;
             }
             else
             {
+                playerMovementInput.PlayerMove.Jump.started -= Jump;
                 playerMovementInput.PlayerMove.Jump.performed -= Jump;
             }
         }
-        if (Mathf.Abs(rb.velocity.y) < 0.01f)
-        {
-            isGrounded = true;
-            jumpCount = maxJumpCount;
-            playerMovementInput.PlayerMove.Jump.performed += Jump;
-            if (!canJumpManyTimes)
-            {
-                jumpCount = 1;
-            }
-        }
-    }
-    bool CheckFall()
-    {
-        if (rb.velocity.y < 0)
-        {
-            isFalling = true;
-        }
-        else
-        {
-            isFalling = false;
-        }
-        return isFalling;
     }
     
+
+
     private void OnFinishshLevel()
     {
         rb.isKinematic = true;
         rb.velocity = Vector2.zero;
+
         isFinished = true;
-        anim.AnimationState.SetAnimation(0, "idle", true);
+        isGrounded = true;
+        isJumpPressed = false;
+        isMovementPressed = false;
+        isPushing = false;
+
+        anim.AnimationState.SetAnimation(0, idleAnimation, true);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -146,7 +198,32 @@ public class CharController : MonoBehaviour
         {
             if (IsBoxToSide(Vector2.left) || IsBoxToSide(Vector2.right))
             {
-                anim.AnimationState.SetAnimation(0, "push", true);
+                isPushing = true;
+                //anim.AnimationState.SetAnimation(0, "push", true);
+            }
+        }
+
+        if (groundTags.Contains(collision.gameObject.tag))
+        {
+            if (collision.transform.position.y < transform.position.y && Mathf.Abs(rb.velocity.y) < 2f )
+            {
+                isJumpPressed = false;
+                isGrounded = true;
+                jumpCount = maxJumpCount;
+                playerMovementInput.PlayerMove.Jump.started += Jump;
+                playerMovementInput.PlayerMove.Jump.performed += Jump;
+                if (!canJumpManyTimes)
+                {
+                    jumpCount = 1;
+                }
+                //if (isMovementPressed)
+                //{
+                //    anim.AnimationState.SetAnimation(0, "run", true);
+                //}
+                //else
+                //{
+                //    anim.AnimationState.SetAnimation(0, "idle", true);
+                //}
             }
         }
     }
@@ -159,8 +236,6 @@ public class CharController : MonoBehaviour
 
         if (hit.collider != null)
         {
-            Debug.Log($"Raycast hit: {hit.collider.gameObject.name}");
-
             if (hit.collider.CompareTag("Box"))
             {
                 return true;
@@ -174,15 +249,15 @@ public class CharController : MonoBehaviour
         if (collision.gameObject.tag == "Box")
         {
             Vector2 inputVector = playerMovementInput.PlayerMove.Left_Right_Movement.ReadValue<Vector2>();
-
-            if (Mathf.Abs(inputVector.x) > 0.1f)
-            {
-                anim.AnimationState.SetAnimation(0, "run", true);
-            }
-            else
-            {
-                anim.AnimationState.SetAnimation(0, "idle", true);
-            }
+            isPushing = false;
+            //if (isMovementPressed && !isJumpPressed)
+            //{
+            //    anim.AnimationState.SetAnimation(0, "run", true);
+            //}
+            //else
+            //{
+            //    anim.AnimationState.SetAnimation(0, "idle", true);
+            //}
         }
     }
     private void OnDrawGizmos()
@@ -199,24 +274,31 @@ public class CharController : MonoBehaviour
 
     private void OnEnable()
     {
-        playerMovementInput = new PlayerMovement();
         playerMovementInput.Enable();
+        playerMovementInput.PlayerMove.Jump.started += Jump;
         playerMovementInput.PlayerMove.Jump.performed += Jump;
+
+        playerMovementInput.PlayerMove.Left_Right_Movement.started += Move;
         playerMovementInput.PlayerMove.Left_Right_Movement.performed += Move;
-        playerMovementInput.PlayerMove.Left_Right_Movement.canceled += Idle;
+        playerMovementInput.PlayerMove.Left_Right_Movement.canceled += Move;
+
 
         GameEvents.onLevelStart += OnStart;
-
         GameEvents.onLevelFinish += OnFinishshLevel;
+
     }
-    private void OnDestroy()
+    private void OnDisable()
     {
+        playerMovementInput.PlayerMove.Jump.started -= Jump;
         playerMovementInput.PlayerMove.Jump.performed -= Jump;
+
+        playerMovementInput.PlayerMove.Left_Right_Movement.started -= Move;
         playerMovementInput.PlayerMove.Left_Right_Movement.performed -= Move;
-        playerMovementInput.PlayerMove.Left_Right_Movement.canceled -= Idle;
+        playerMovementInput.PlayerMove.Left_Right_Movement.canceled -= Move;
 
         GameEvents.onLevelStart -= OnStart;
-
         GameEvents.onLevelFinish -= OnFinishshLevel;
+
     }
+
 }

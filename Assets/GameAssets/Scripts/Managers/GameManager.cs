@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     public void LevelCompleted()
     {
+        GameEvents.LevelFinish();
         SaveSystemData.SavePlayer(GameConfig.Instance.gameData);
         if (levelCompletePopup != null)
         {
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
         int level = ++GameConfig.Instance.CurrentLevel;
         LevelManager.Instance.LoadLevel(level);
         player.enabled = true;
+        GameEvents.LevelStart();
     }
     public void BackMenu()
     {

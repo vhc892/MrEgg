@@ -30,7 +30,6 @@ public class Pin : MonoBehaviour, IPointerDownHandler
     {
         Vector3 position = transform.position;
 
-        Debug.Log("Clicked: " + eventData.pointerCurrentRaycast.gameObject.name);
         eventData.pointerCurrentRaycast.gameObject.SetActive(false);
         if (knockEffectPrefab != null)
         {

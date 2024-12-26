@@ -38,10 +38,12 @@ public class LevelDisplay : MonoBehaviour
                 RectTransform groupRect = group.AddComponent<RectTransform>();
                 GridLayoutGroup groupGrid = group.AddComponent<GridLayoutGroup>();
                 groupRect.anchoredPosition = new Vector2(i * 2400, 0);
-                groupRect.sizeDelta = new Vector2(900, 350);
-                groupGrid.cellSize = new Vector2(150, 150);
-                groupGrid.spacing = new Vector2(20, 20);
+                groupRect.sizeDelta = new Vector2(1768, 769);
+                groupGrid.cellSize = new Vector2(191, 193);
+                groupGrid.spacing = new Vector2(30, 40);
                 groupGrid.childAlignment = TextAnchor.MiddleCenter;
+                groupGrid.constraint = GridLayoutGroup.Constraint.FixedRowCount;
+                groupGrid.constraintCount = 2;
 
                 currentGroup = group;
             }

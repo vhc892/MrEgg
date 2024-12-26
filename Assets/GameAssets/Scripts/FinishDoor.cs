@@ -14,10 +14,20 @@ public class FinishDoor : MonoBehaviour, IPointerClickHandler
     private float clickCountToOpen = 3;
 
     Animator anim;
-    private void Start()
+    Collider2D col;
+    Rigidbody2D rb;
+    DoorChild doorChild;
+
+    bool isFinished;
+
+    private void Awake()
     {
         anim = GetComponent<Animator>();
+        col = GetComponent<Collider2D>();
+        rb = GetComponent<Rigidbody2D>();
+        doorChild = GetComponentInChildren<DoorChild>();
     }
+
     public void UnlockDoor()
     {
         unlock = true;
@@ -63,13 +73,22 @@ public class FinishDoor : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void OnFinish()
     {
-        if (other.CompareTag("Player") && unlock)
-        {
-            transform.position = transform.position;
-            DoorSwitch();
-            EndLevel();
-        }
+        rb.isKinematic = true;
+        rb.velocity = Vector2.zero;
+        col.isTrigger = true;
+        EndLevel();
+        DoorSwitch();
     }
+
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.CompareTag("Player") && unlock)
+    //    {
+    //        transform.position = transform.position;
+    //        DoorSwitch();
+    //        EndLevel();
+    //    }
+    //}
 }

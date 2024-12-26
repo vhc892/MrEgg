@@ -147,7 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46e4ce30bf0a7394fa43ab4a61e3953e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 1
   lockImage: {fileID: 9188266353058768665}
   levelText: {fileID: 5920640508280900854}
 --- !u!1 &7347476461332435230
