@@ -1,4 +1,5 @@
 ﻿
+using DG.Tweening;
 using Spine.Unity;
 using System;
 using System.Collections;
@@ -9,20 +10,24 @@ using UnityEngine.InputSystem;
 
 public class CharController : MonoBehaviour
 {
-    [Header("Player Movement")]
-    private Rigidbody2D rb;
-    private PlayerInput playerInput;
-    private PlayerMovement playerMovementInput;
-    [SerializeField] private SkeletonAnimation anim;
-    [SerializeField] private LayerMask boxLayer;
 
+    private Rigidbody2D rb;
+    private Collider2D col;
+    private CharChildCtrl childCtrl;
+    private PlayerMovement playerMovementInput;
+    private SkeletonAnimation anim;
+    [SerializeField] private LayerMask boxLayer;
+    [SerializeField] RescueBalloon balloon;
+
+    public Vector2 startPosition;
+
+    [Header("Player Movement")]
     Vector2 inputVector;
-    private Vector2 startPosition;
 
     bool isFinished = false;
 
     //MOVING
-    [SerializeField] private float movementSpeed = 6;
+    private float movementSpeed = 6;
     bool isMovementPressed = false;
     bool isPushing = false;
 
@@ -49,11 +54,13 @@ public class CharController : MonoBehaviour
     string jumpUpAnimation = "jump_up";
     string jumpDownAnimation = "jump_down";
     string pushAnimation = "push";
+    string dieAnimation = "die";
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerInput = GetComponent<PlayerInput>();
+        col = GetComponent<Collider2D>();
+        childCtrl = GetComponentInChildren<CharChildCtrl>();
         anim = GetComponentInChildren<SkeletonAnimation>();
 
         playerMovementInput = new PlayerMovement();
@@ -68,12 +75,15 @@ public class CharController : MonoBehaviour
 
     void OnStart()
     {
+        col.enabled = true;
+        childCtrl.col.enabled = true;
         rb.isKinematic = false;
         isFinished = false;
         if (canJumpManyTimes) jumpCount = maxJumpCount;
         else jumpCount = 1;
         transform.position = startPosition;
         anim.AnimationState.SetAnimation(0, idleAnimation, true);
+        EnableInput();
     }
 
     private void Update()
@@ -114,6 +124,10 @@ public class CharController : MonoBehaviour
     private void FixedUpdate()
     {
         //MOVE
+        if (isFinished)
+        {
+            return;
+        }
         inputVector = playerMovementInput.PlayerMove.Left_Right_Movement.ReadValue<Vector2>();
         rb.velocity = new Vector2(inputVector.x * movementSpeed, rb.velocity.y);
     }
@@ -176,19 +190,49 @@ public class CharController : MonoBehaviour
             }
         }
     }
-    
 
+    public void ReturnToStartPosition()
+    {
+        OnFinishshLevel();
+        anim.AnimationState.SetAnimation(0, dieAnimation, false);
+        Rescue();
+    }
+
+    public void Rescue()
+    {
+        transform.DOMove(transform.position + Vector3.down * 2, 2f).OnComplete(() =>
+        {
+            balloon.transform.DOMove(transform.position + Vector3.up * 3, 2f).OnComplete(() =>
+            {
+                balloon.rescueTarget = gameObject;
+                balloon.isRescueing = true;
+                balloon.transform.DOMove(startPosition + Vector2.up * 3, 1f).OnComplete(() =>
+                {
+                    balloon.isRescueing = false;
+                    balloon.transform.DOMove(balloon.startPos, 1f);
+                });
+                transform.DOMove(startPosition, 1f).OnComplete(() =>
+                {
+                    OnStart();
+                });
+            });
+        });
+    }
 
     private void OnFinishshLevel()
     {
         rb.isKinematic = true;
         rb.velocity = Vector2.zero;
 
+        col.enabled = false;
+        childCtrl.col.enabled = false;
         isFinished = true;
         isGrounded = true;
         isJumpPressed = false;
         isMovementPressed = false;
         isPushing = false;
+
+        DisableInput();
 
         anim.AnimationState.SetAnimation(0, idleAnimation, true);
     }
@@ -274,6 +318,21 @@ public class CharController : MonoBehaviour
 
     private void OnEnable()
     {
+        EnableInput();
+
+        GameEvents.onLevelStart += OnStart;
+        GameEvents.onLevelFinish += OnFinishshLevel;
+    }
+    private void OnDisable()
+    {
+        DisableInput();
+
+        GameEvents.onLevelStart -= OnStart;
+        GameEvents.onLevelFinish -= OnFinishshLevel;
+    }
+
+    void EnableInput()
+    {
         playerMovementInput.Enable();
         playerMovementInput.PlayerMove.Jump.started += Jump;
         playerMovementInput.PlayerMove.Jump.performed += Jump;
@@ -281,13 +340,8 @@ public class CharController : MonoBehaviour
         playerMovementInput.PlayerMove.Left_Right_Movement.started += Move;
         playerMovementInput.PlayerMove.Left_Right_Movement.performed += Move;
         playerMovementInput.PlayerMove.Left_Right_Movement.canceled += Move;
-
-
-        GameEvents.onLevelStart += OnStart;
-        GameEvents.onLevelFinish += OnFinishshLevel;
-
     }
-    private void OnDisable()
+    void DisableInput()
     {
         playerMovementInput.PlayerMove.Jump.started -= Jump;
         playerMovementInput.PlayerMove.Jump.performed -= Jump;
@@ -295,9 +349,6 @@ public class CharController : MonoBehaviour
         playerMovementInput.PlayerMove.Left_Right_Movement.started -= Move;
         playerMovementInput.PlayerMove.Left_Right_Movement.performed -= Move;
         playerMovementInput.PlayerMove.Left_Right_Movement.canceled -= Move;
-
-        GameEvents.onLevelStart -= OnStart;
-        GameEvents.onLevelFinish -= OnFinishshLevel;
 
     }
 

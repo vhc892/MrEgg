@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class Balloon : MonoBehaviour, IPointerDownHandler
 {
-    [SerializeField] BalloonedDoor balloonedDoor;
+    [SerializeField] GameObject lineTarget;
     [SerializeField] float upForce = 5;
     [SerializeField] private KnockEffect knockEffectPrefab;
 
@@ -23,7 +23,7 @@ public class Balloon : MonoBehaviour, IPointerDownHandler
     {
         rb.AddForce(Vector2.up * upForce, ForceMode2D.Force);
         lineRenderer.SetPosition(0, transform.position);
-        lineRenderer.SetPosition(1, balloonedDoor.transform.position);
+        lineRenderer.SetPosition(1, lineTarget.transform.position);
     }
 
     private void AddPhysics2DRaycaster()

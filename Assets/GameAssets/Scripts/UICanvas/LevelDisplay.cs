@@ -23,7 +23,7 @@ public class LevelDisplay : MonoBehaviour
 
     private void OnStart()
     {
-        int totalLevels = levelPrefabs.levelPrefabs.Length;
+        int totalLevels = levelPrefabs.levelPrefabs.Count;
 
         GameObject currentGroup = null;
         for (int i  = 0; i < totalLevels; i++)

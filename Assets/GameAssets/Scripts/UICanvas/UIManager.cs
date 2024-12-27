@@ -1,35 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Helper;
+using TMPro;
+using Hapiga.Core.Runtime.Singleton;
+using Hapiga.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : UIManagerSingleton<UIManager>
 {
-    public static UIManager Instance;
 
-    private void Awake()
+    public UIPanel startMenu;
+    public LevelDisplay levelDisplay;
+    public IngameUI ingameUI;
+    public MenuUI menuUI;
+    public LevelUI levelUI;
+
+
+    public override void Init()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        base.Init();
+        DontDestroyOnLoad(this.gameObject);
     }
-
-    [SerializeField] GameObject startMenu;
-    [SerializeField] LevelDisplay levelDisplay;
+    public void ShowLevel()
+    {
+        levelUI.Show();
+    }
+    public void HideLevel()
+    {
+        levelUI.Hide();
+    }
+    private void Start()
+    {
+        //startMenu?.Show(true);
+        //levelDisplay?.gameObject.SetActive(false);
+        //ingameUI?.Hide();
+    }
 
     public void OnLevelLoaded()
     {
-        startMenu?.SetActive(false);
+        startMenu?.Hide(true);
         levelDisplay?.gameObject.SetActive(false);
+        ingameUI?.Show();
+        ingameUI?.OnStart();
     }
 
     public void BackToMainMenu()
     {
-        startMenu?.SetActive(true);
+        startMenu?.Show(true);
     }
 
     private void OnEnable()

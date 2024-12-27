@@ -8,9 +8,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public GameObject levelCompletePopup;
     public CharController player;
-    public ButtonSequence buttonSequence;
+    //public ButtonSequence buttonSequence;
 
     GameConfig gameConfig;
+    LevelManager levelManager;
 
     private void Awake()
     {
@@ -23,41 +24,21 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        gameConfig = GameConfig.Instance;
     }
 
-    public void LevelCompleted()
+    public void LoadLevel(int index)
     {
-        GameEvents.LevelFinish();
-        SaveSystemData.SavePlayer(GameConfig.Instance.gameData);
-        if (levelCompletePopup != null)
-        {
-            StartCoroutine(WaitWinPopUp());
-        }
-        Debug.Log("win");
-
-    }
-    private IEnumerator WaitWinPopUp()
-    {
-        yield return new WaitForSeconds(0.1f);
-        levelCompletePopup.SetActive(true);
-        player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        player.enabled = false;
-    }
-    public void NextLevelButton()
-    {
-        buttonSequence.DeactivateButtons();
-        LevelManager.Instance.cameraFollow.ResetPosition();
-        levelCompletePopup.SetActive(false);
-        int level = ++GameConfig.Instance.CurrentLevel;
-        LevelManager.Instance.LoadLevel(level);
+        levelManager.cameraFollow.ResetPosition();
+        levelManager.LoadLevel(index); 
+        player.startPosition = levelManager.levelData.levelPrefabs[index-1].startPos;
         player.enabled = true;
         GameEvents.LevelStart();
     }
-    public void BackMenu()
+
+    private void Start()
     {
-        SaveSystemData.SavePlayer(GameConfig.Instance.gameData);
-        UIManager.Instance.BackToMainMenu();
-        SceneManager.LoadScene(0);
+        gameConfig = GameConfig.Instance;
+        levelManager = LevelManager.Instance;
+        LoadLevel(GameConfig.Instance.CurrentLevel);
     }
 }

@@ -14,7 +14,7 @@ public class GameConfig : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(this);
     }
 
     public GameData gameData;

@@ -8,11 +8,11 @@ public class CameraFollow : MonoBehaviour
     public Transform target;
     public bool isCameraFollow;
 
-    private Vector3 startPosition;
+    private Vector3 startPosition = new Vector3(0f, 2f, -10f);
 
     private void Start()
     {
-        startPosition = transform.position;
+
     }
 
     private void Update()

@@ -10,7 +10,8 @@ public class LevelManager : MonoBehaviour
     private GameObject currentLevelPrefab;
     public CameraFollow cameraFollow;
     //public int levelIndex = 0;
-    public TextMeshProUGUI levelText;
+
+
 
     private void Awake()
     {
@@ -22,7 +23,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         //levelIndex = PlayerPrefs.GetInt("SelectedLevel", 0);
-        LoadLevel(GameConfig.Instance.CurrentLevel);
+        //LoadLevel(GameConfig.Instance.CurrentLevel);
     }
     public void LoadLevel(int level)
     {
@@ -39,22 +40,23 @@ public class LevelManager : MonoBehaviour
             GameManager.Instance.player.canJumpManyTimes = true;
 
 
-        if (level < 0 || level > levelData.levelPrefabs.Length)
+        if (level < 0 || level > levelData.levelPrefabs.Count)
         {
             Debug.Log(level);
-            Debug.LogError($"Level index {level} is out of range. Available levels: 1 to {levelData.levelPrefabs.Length}");
+            Debug.LogError($"Level index {level} is out of range. Available levels: 1 to {levelData.levelPrefabs.Count}");
             return;
         }
         if (currentLevelPrefab != null)
         {
             Destroy(currentLevelPrefab);
         }
-        currentLevelPrefab = Instantiate(levelData.levelPrefabs[level - 1], this.transform);
-        levelText.text = $"Level {level}";
-        GameManager.Instance.buttonSequence.StartSequence();
+        currentLevelPrefab = Instantiate(levelData.levelPrefabs[level - 1].prefabs, this.transform);
+        SetUpLevel setUpLevel = currentLevelPrefab.GetComponent<SetUpLevel>();
+        setUpLevel.SetLevelData(levelData.levelPrefabs[level - 1]);
+
+        //GameManager.Instance.buttonSequence.StartSequence();
 
         //UIManager.Instance.OnLevelLoaded();
         GameEvents.LevelStart();
     }
-
 }

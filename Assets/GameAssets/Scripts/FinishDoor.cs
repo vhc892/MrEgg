@@ -64,17 +64,19 @@ public class FinishDoor : MonoBehaviour, IPointerClickHandler
     {
         if (GameConfig.Instance.LevelPass > GameConfig.Instance.CurrentLevel)
         {
-            GameManager.Instance.LevelCompleted();
+            UIManager.Instance.ingameUI.LevelCompleted();
         }
         else 
         {
+            GameConfig.Instance.CurrentLevel = 0;
             GameConfig.Instance.LevelPass = GameConfig.Instance.CurrentLevel;
-            GameManager.Instance.LevelCompleted();
+            UIManager.Instance.ingameUI.LevelCompleted();
         }
     }
 
     public void OnFinish()
     {
+        if (!unlock) return;
         rb.isKinematic = true;
         rb.velocity = Vector2.zero;
         col.isTrigger = true;

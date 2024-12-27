@@ -1,3 +1,4 @@
+using Helper;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,15 +8,18 @@ public class SetUpLevel : MonoBehaviour
 {
     public Transform playerStartPosition;
     public TextMeshProUGUI hintText;
+    private LevelData data;
 
-    public string hintMessage;
-
-    void Start()
+    private void Awake()
     {
-        GameManager.Instance.player.transform.position = playerStartPosition.position;
-        if(hintText != null)
-        {
-            hintText.text = hintMessage;
-        }
+        hintText = GetComponentInChildren<TextMeshProUGUI>();
+        playerStartPosition = transform.Find("StartPos");
+    }
+
+    public void SetLevelData(LevelData data)
+    {
+        this.data = data;
+        playerStartPosition.position = data.startPos;
+        hintText.text = data.hint;
     }
 }
