@@ -3,7 +3,7 @@ public class GameData
 {
     private int levelPass;
     private int currentLevel;
-
+    private int lightBulb;
 
     public int LevelPass
     {
@@ -25,6 +25,17 @@ public class GameData
         set
         {
             currentLevel = value;
+        }
+    }
+    public int LightBulb
+    {
+        get
+        {
+            return lightBulb;
+        }
+        set
+        {
+            lightBulb = value;
         }
     }
 }

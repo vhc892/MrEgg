@@ -28,4 +28,19 @@ public class RescueBalloon : MonoBehaviour
             line.enabled = false;
         }
     }
+
+    private void StopRescue()
+    {
+        isRescueing = false;
+    }
+
+    private void OnEnable()
+    {
+        GameEvents.onLevelRestart += StopRescue;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.onLevelRestart -= StopRescue;
+    }
 }

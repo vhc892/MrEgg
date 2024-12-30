@@ -14,7 +14,7 @@ public class GameConfig : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public GameData gameData;
@@ -24,12 +24,9 @@ public class GameConfig : MonoBehaviour
         LoadData();
     }
 
-
-    private int levelPass;
-    private int currentLevel;
     public int LevelPass { get { return gameData.LevelPass; } set { gameData.LevelPass = value; } }
-    public int CurrentLevel { get { return gameData.CurrentLevel; } set { gameData.CurrentLevel = value; } }
-
+    public int CurrentLevel { get { return gameData.CurrentLevel; } set { gameData.CurrentLevel = value; GameEvents.LevelIndexChange(); } }
+    public int LightBulb { get { return gameData.LightBulb; } set { gameData.LightBulb = value; GameEvents.LightBulbChange(); } }
 
     void LoadData()
     {
@@ -40,11 +37,13 @@ public class GameConfig : MonoBehaviour
         {
             gameData.LevelPass = playerData.levelPass;
             gameData.CurrentLevel = playerData.currentLevel;
+            gameData.LightBulb = playerData.lightBulb;
         }
         else
         {
             gameData.LevelPass = 0;
             gameData.CurrentLevel = 1;
+            gameData.LightBulb = 0;
         }
     }
 }

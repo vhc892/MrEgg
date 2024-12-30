@@ -15,6 +15,10 @@ public class UIManager : UIManagerSingleton<UIManager>
     public MenuUI menuUI;
     public LevelUI levelUI;
 
+    //private int lightBulbCount;
+    //[SerializeField] GameObject lightBulbFrame;
+    //[SerializeField] TextMeshProUGUI lightBulbText;
+
 
     public override void Init()
     {
@@ -23,11 +27,11 @@ public class UIManager : UIManagerSingleton<UIManager>
     }
     public void ShowLevel()
     {
-        levelUI.Show();
+        levelUI.SetInfor();
     }
     public void HideLevel()
     {
-        levelUI.Hide();
+        levelUI.Close();
     }
     private void Start()
     {
@@ -39,14 +43,16 @@ public class UIManager : UIManagerSingleton<UIManager>
     public void OnLevelLoaded()
     {
         startMenu?.Hide(true);
-        levelDisplay?.gameObject.SetActive(false);
+        HideLevel();
         ingameUI?.Show();
         ingameUI?.OnStart();
     }
 
     public void BackToMainMenu()
     {
+        ingameUI?.Hide();
         startMenu?.Show(true);
+        levelUI?.SetInfor();
     }
 
     private void OnEnable()

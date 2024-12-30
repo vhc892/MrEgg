@@ -14,7 +14,9 @@ public class DragObjectOnXAxis : MonoBehaviour, IPointerDownHandler, IPointerUpH
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (isDragging) return;
         if (mainCamera == null) return;
+
 
         Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         offset = transform.position - new Vector3(mousePosition.x, transform.position.y, transform.position.z);

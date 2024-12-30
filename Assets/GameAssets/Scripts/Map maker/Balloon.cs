@@ -12,6 +12,8 @@ public class Balloon : MonoBehaviour, IPointerDownHandler
     Rigidbody2D rb;
     LineRenderer lineRenderer;
 
+    bool isStopped;
+
     private void Awake()
     {
         AddPhysics2DRaycaster();
@@ -21,9 +23,13 @@ public class Balloon : MonoBehaviour, IPointerDownHandler
 
     private void FixedUpdate()
     {
-        rb.AddForce(Vector2.up * upForce, ForceMode2D.Force);
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, lineTarget.transform.position);
+        if (isStopped)
+        {
+            return;
+        }
+        rb.AddForce(Vector2.up * upForce, ForceMode2D.Force);
     }
 
     private void AddPhysics2DRaycaster()
@@ -45,5 +51,36 @@ public class Balloon : MonoBehaviour, IPointerDownHandler
             KnockEffect knockEffect = Instantiate(knockEffectPrefab, position, Quaternion.identity);
             knockEffect.PlayKnockAnimation();
         }
+    }
+
+    private void StopFlying()
+    {
+        rb.isKinematic = true;
+        rb.velocity = Vector2.zero;
+        isStopped = true;
+    }
+    private void Resume()
+    {
+        rb.isKinematic = false;
+        if (GameConfig.Instance.CurrentLevel.Equals(8))
+        {
+            isStopped = true;
+            rb.isKinematic = true;
+        }
+        else
+            isStopped = false;
+    }
+
+
+    private void OnEnable()
+    {
+        GameEvents.onLevelResume += Resume;
+        GameEvents.onLevelPause += StopFlying;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.onLevelResume -= Resume;
+        GameEvents.onLevelPause -= StopFlying;
     }
 }

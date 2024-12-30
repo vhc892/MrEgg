@@ -34,8 +34,7 @@ public class LevelSelection : MonoBehaviour
     {
         if (_unlocked)
         {
-            int level = int.Parse(levelText.text);
-            GameConfig.Instance.CurrentLevel = level;
+            GameConfig.Instance.CurrentLevel = _levelIndex;
             SceneManager.LoadScene(1);
         }
     }

@@ -28,6 +28,16 @@ public class FinishDoor : MonoBehaviour, IPointerClickHandler
         doorChild = GetComponentInChildren<DoorChild>();
     }
 
+    public void OnStart()
+    {
+        if (!unlock)
+        {
+            doorChild.col.enabled = false;
+        }
+        else
+            doorChild.enabled = true;
+    }
+
     public void UnlockDoor()
     {
         unlock = true;
@@ -35,6 +45,7 @@ public class FinishDoor : MonoBehaviour, IPointerClickHandler
         {
             lockImage.gameObject.SetActive(false);
         }
+        doorChild.col.enabled = true;
         anim?.Play("DoorOpen");
     }
     public void OnPointerClick(PointerEventData eventData)
@@ -56,22 +67,12 @@ public class FinishDoor : MonoBehaviour, IPointerClickHandler
 
     public void DoorSwitch()
     {
-        GameEvents.LevelFinish();
         anim?.Play("DoorOpen");
     }
 
     public void EndLevel()
     {
-        if (GameConfig.Instance.LevelPass > GameConfig.Instance.CurrentLevel)
-        {
-            UIManager.Instance.ingameUI.LevelCompleted();
-        }
-        else 
-        {
-            GameConfig.Instance.CurrentLevel = 0;
-            GameConfig.Instance.LevelPass = GameConfig.Instance.CurrentLevel;
-            UIManager.Instance.ingameUI.LevelCompleted();
-        }
+        UIManager.Instance.ingameUI.LevelCompleted();
     }
 
     public void OnFinish()
@@ -93,4 +94,14 @@ public class FinishDoor : MonoBehaviour, IPointerClickHandler
     //        EndLevel();
     //    }
     //}
+
+    private void OnEnable()
+    {
+        GameEvents.onLevelStart += OnStart;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.onLevelStart -= OnStart;
+    }
 }

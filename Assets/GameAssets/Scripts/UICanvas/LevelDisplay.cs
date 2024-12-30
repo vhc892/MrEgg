@@ -1,12 +1,14 @@
+using Hapiga.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelDisplay : MonoBehaviour
+public class LevelDisplay : BaseUI
 {
     [SerializeField] LevelPrefabData levelPrefabs;
     [SerializeField] LevelSelection levelSelectorPrefab;
+    public RectTransform levelPage;
     int levelPerGroup = 10;
 
     GameConfig gameConfig;
@@ -18,10 +20,10 @@ public class LevelDisplay : MonoBehaviour
 
     private void Start()
     {
-        OnStart();
+
     }
 
-    private void OnStart()
+    public void OnStart()
     {
         int totalLevels = levelPrefabs.levelPrefabs.Count;
 
@@ -31,8 +33,16 @@ public class LevelDisplay : MonoBehaviour
             if (i % levelPerGroup == 0)
             {
                 // Instantiate a new group
-                GameObject group = new GameObject("Group " + i/10);
-                group.transform.SetParent(transform);
+                string groupName = "Group " + i / 10;
+                Transform existingGroup = levelPage.Find(groupName);
+                if (existingGroup != null)
+                {
+                    Destroy(existingGroup.gameObject);
+                }
+                GameObject group = new GameObject(groupName);
+                group.transform.SetParent(levelPage);
+                group.transform.localScale = Vector3.one;
+
 
                 //Set properties for the group
                 RectTransform groupRect = group.AddComponent<RectTransform>();

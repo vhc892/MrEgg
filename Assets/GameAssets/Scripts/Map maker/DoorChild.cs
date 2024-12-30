@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class DoorChild : MonoBehaviour
 {
+    public Collider2D col;
     private FinishDoor finishDoor;
 
     private void Awake()
     {
+        col = GetComponent<Collider2D>();
         finishDoor = GetComponentInParent<FinishDoor>();
     }
 

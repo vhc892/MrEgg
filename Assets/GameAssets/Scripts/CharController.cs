@@ -16,6 +16,7 @@ public class CharController : MonoBehaviour
     private CharChildCtrl childCtrl;
     private PlayerMovement playerMovementInput;
     private SkeletonAnimation anim;
+    private Guid[] guid;
     [SerializeField] private LayerMask boxLayer;
     [SerializeField] RescueBalloon balloon;
 
@@ -23,14 +24,13 @@ public class CharController : MonoBehaviour
 
     [Header("Player Movement")]
     Vector2 inputVector;
-
     bool isFinished = false;
+    float animCD = 0.5f;
 
     //MOVING
     private float movementSpeed = 6;
     bool isMovementPressed = false;
     bool isPushing = false;
-
 
     //JUMPING
 
@@ -43,7 +43,7 @@ public class CharController : MonoBehaviour
     private float maxHeight = 4f;
     private float jumpForce;
 
-    private int maxJumpCount = 2;
+    private int maxJumpCount = 20;
     private int jumpCount;
 
     //STRING CACHING
@@ -55,6 +55,7 @@ public class CharController : MonoBehaviour
     string jumpDownAnimation = "jump_down";
     string pushAnimation = "push";
     string dieAnimation = "die";
+
 
     private void Awake()
     {
@@ -101,23 +102,20 @@ public class CharController : MonoBehaviour
         {
             if (anim.AnimationName != pushAnimation)
             {
-                anim.AnimationState.SetAnimation(0, pushAnimation, true);
+                AnimationCooldown(pushAnimation, true);
             }
         }
-        else if (isMovementPressed)
+        else if (isMovementPressed || inputVector.x != 0)
         {
             if (anim.AnimationName != runAnimation[currentRunAnimation])
             {
-                var track = anim.AnimationState.SetAnimation(0, runAnimation[currentRunAnimation], true);
+                AnimationCooldown(runAnimation[currentRunAnimation], true);
             }
         }
         else
         //if (!isJumpPressed && !isMovementPressed && isGrounded && !isPushing)
         {
-            if (anim.AnimationName != idleAnimation)
-            {
-                anim.AnimationState.SetAnimation(0, idleAnimation, true);
-            }
+            AnimationCooldown(idleAnimation, true);
         }
     }
 
@@ -132,6 +130,14 @@ public class CharController : MonoBehaviour
         rb.velocity = new Vector2(inputVector.x * movementSpeed, rb.velocity.y);
     }
 
+
+    private void AnimationCooldown(string animName, bool loop)
+    {
+        if (anim.AnimationName != animName)
+        {
+            anim.AnimationState.SetAnimation(0, animName, loop);
+        }
+    }
     void Move(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -194,27 +200,29 @@ public class CharController : MonoBehaviour
     public void ReturnToStartPosition()
     {
         OnFinishshLevel();
+        GameEvents.LevelPause();
         anim.AnimationState.SetAnimation(0, dieAnimation, false);
-        Rescue();
+        transform.DOMove(transform.position + Vector3.down * 2, 2f).OnComplete(() =>
+        {
+            Rescue();
+        });
     }
 
     public void Rescue()
     {
-        transform.DOMove(transform.position + Vector3.down * 2, 2f).OnComplete(() =>
+        balloon.transform.DOMove(transform.position + Vector3.up * 3, 2f).OnComplete(() =>
         {
-            balloon.transform.DOMove(transform.position + Vector3.up * 3, 2f).OnComplete(() =>
+            balloon.rescueTarget = gameObject;
+            balloon.isRescueing = true;
+            balloon.transform.DOMove(startPosition + Vector2.up * 3, 1f).OnComplete(() =>
             {
-                balloon.rescueTarget = gameObject;
-                balloon.isRescueing = true;
-                balloon.transform.DOMove(startPosition + Vector2.up * 3, 1f).OnComplete(() =>
-                {
-                    balloon.isRescueing = false;
-                    balloon.transform.DOMove(balloon.startPos, 1f);
-                });
-                transform.DOMove(startPosition, 1f).OnComplete(() =>
-                {
-                    OnStart();
-                });
+                balloon.isRescueing = false;
+                balloon.transform.DOMove(balloon.startPos, 1f);
+            });
+            transform.DOMove(startPosition, 1f).OnComplete(() =>
+            {
+                OnStart();
+                GameEvents.LevelResume();
             });
         });
     }
@@ -235,6 +243,29 @@ public class CharController : MonoBehaviour
         DisableInput();
 
         anim.AnimationState.SetAnimation(0, idleAnimation, true);
+    }
+
+    private void OnPause()
+    {
+        isFinished = true;
+        isMovementPressed = false;
+        rb.isKinematic = true;
+        rb.velocity = Vector2.zero;
+        anim.AnimationState.SetAnimation(0, idleAnimation, true);
+        DisableInput();
+    }
+
+    private void OnResume()
+    {
+        anim.AnimationState.SetAnimation(0, jumpDownAnimation, true);
+        isFinished = false;
+        rb.isKinematic = false;
+        EnableInput();
+    }
+
+    private void OnRestart()
+    {
+        OnStart();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -316,12 +347,16 @@ public class CharController : MonoBehaviour
         Gizmos.DrawLine(rayOriginRight, rayOriginRight + Vector2.right * rayDistance);
     }
 
+
     private void OnEnable()
     {
         EnableInput();
 
         GameEvents.onLevelStart += OnStart;
         GameEvents.onLevelFinish += OnFinishshLevel;
+        GameEvents.onLevelPause += OnPause;
+        GameEvents.onLevelResume += OnResume;
+        GameEvents.onLevelRestart += OnRestart;
     }
     private void OnDisable()
     {
@@ -329,6 +364,9 @@ public class CharController : MonoBehaviour
 
         GameEvents.onLevelStart -= OnStart;
         GameEvents.onLevelFinish -= OnFinishshLevel;
+        GameEvents.onLevelPause -=OnPause;
+        GameEvents.onLevelResume -= OnResume;
+        GameEvents.onLevelRestart -= OnRestart;
     }
 
     void EnableInput()
@@ -349,7 +387,6 @@ public class CharController : MonoBehaviour
         playerMovementInput.PlayerMove.Left_Right_Movement.started -= Move;
         playerMovementInput.PlayerMove.Left_Right_Movement.performed -= Move;
         playerMovementInput.PlayerMove.Left_Right_Movement.canceled -= Move;
-
     }
 
 }

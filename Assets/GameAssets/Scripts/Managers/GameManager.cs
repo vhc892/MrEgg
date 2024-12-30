@@ -1,3 +1,4 @@
+using Helper;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,9 @@ public class GameManager : MonoBehaviour
     public GameObject levelCompletePopup;
     public CharController player;
     //public ButtonSequence buttonSequence;
+
+    private GameMode gameMode;
+    public GameMode GameMode { get { return gameMode; } set { gameMode = value; } }
 
     GameConfig gameConfig;
     LevelManager levelManager;
@@ -23,22 +27,37 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        Input.multiTouchEnabled = false;
     }
-
-    public void LoadLevel(int index)
-    {
-        levelManager.cameraFollow.ResetPosition();
-        levelManager.LoadLevel(index); 
-        player.startPosition = levelManager.levelData.levelPrefabs[index-1].startPos;
-        player.enabled = true;
-        GameEvents.LevelStart();
-    }
-
     private void Start()
     {
         gameConfig = GameConfig.Instance;
         levelManager = LevelManager.Instance;
         LoadLevel(GameConfig.Instance.CurrentLevel);
+    }
+
+    public void LoadLevel(int index)
+    {
+        int level = index % 10;
+        levelManager.cameraFollow.ResetPosition();
+        levelManager.LoadLevel(level); 
+        player.startPosition = levelManager.levelData.levelPrefabs[level%10].startPos;
+        player.enabled = true;
+        GameEvents.LevelStart();
+    }
+
+    private void RestartLevel()
+    {
+        LoadLevel(gameConfig.CurrentLevel);
+    }
+
+    private void OnEnable()
+    {
+        GameEvents.onLevelRestart += RestartLevel;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.onLevelRestart -= RestartLevel;
     }
 }
