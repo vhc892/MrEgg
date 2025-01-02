@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class SwipeController : MonoBehaviour
@@ -17,6 +18,7 @@ public class SwipeController : MonoBehaviour
         currentPage = 1;
         targetPos = levelPageRect.localPosition;
     }
+
     public void Next()
     {
         if(currentPage < maxPage)
@@ -24,6 +26,8 @@ public class SwipeController : MonoBehaviour
             currentPage++;
             targetPos += pageStep;
             MovePage();
+            Debug.Log("currentPage" + currentPage);
+            Debug.Log(targetPos.x);
         }
     }
     public void Previus()
@@ -33,10 +37,14 @@ public class SwipeController : MonoBehaviour
             currentPage--;
             targetPos -= pageStep;
             MovePage();
+            Debug.Log("currentPage" + currentPage);
         }
     }
     private void MovePage()
     {
-        levelPageRect.LeanMoveLocal(targetPos, tweenTime).setEase(tweenType);
+        levelPageRect.localPosition = targetPos;
+        //levelPageRect.LeanMoveLocal(targetPos, tweenTime).setEase(tweenType);
+        //levelPageRect.DOLocalMove(targetPos, tweenTime);
+        Debug.Log("move effect");
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using NaughtyAttributes;
 
 
 public class FinishDoor : MonoBehaviour, IPointerClickHandler
@@ -81,27 +80,27 @@ public class FinishDoor : MonoBehaviour, IPointerClickHandler
         rb.isKinematic = true;
         rb.velocity = Vector2.zero;
         col.isTrigger = true;
-        EndLevel();
         DoorSwitch();
+        EndLevel();
     }
-
-    //private void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    if (other.CompareTag("Player") && unlock)
-    //    {
-    //        transform.position = transform.position;
-    //        DoorSwitch();
-    //        EndLevel();
-    //    }
-    //}
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Lock")
+        {
+            unlock = true;
+            doorChild.col.enabled = true;
+        }
+    }
 
     private void OnEnable()
     {
+        GameEvents.onDoorUnlocked += UnlockDoor;
         GameEvents.onLevelStart += OnStart;
     }
 
     private void OnDisable()
     {
+        GameEvents.onDoorUnlocked -= UnlockDoor;
         GameEvents.onLevelStart -= OnStart;
     }
 }

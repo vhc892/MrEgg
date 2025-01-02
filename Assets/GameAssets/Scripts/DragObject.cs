@@ -1,11 +1,15 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DragObjectOnXAxis : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class DragObject : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     private bool isDragging = false;
     private Vector3 offset;
     private Camera mainCamera;
+    
+
+    [SerializeField] private bool allowDragX = true;
+    [SerializeField] private bool allowDragY = true;
 
     private void Start()
     {
@@ -16,7 +20,6 @@ public class DragObjectOnXAxis : MonoBehaviour, IPointerDownHandler, IPointerUpH
     {
         if (isDragging) return;
         if (mainCamera == null) return;
-
 
         Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         offset = transform.position - new Vector3(mousePosition.x, transform.position.y, transform.position.z);
@@ -33,7 +36,9 @@ public class DragObjectOnXAxis : MonoBehaviour, IPointerDownHandler, IPointerUpH
         if (isDragging && mainCamera != null)
         {
             Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            transform.position = new Vector3(mousePosition.x + offset.x, transform.position.y, transform.position.z);
+            float newX = allowDragX ? mousePosition.x + offset.x : transform.position.x;
+            float newY = allowDragY ? mousePosition.y + offset.y : transform.position.y;
+            transform.position = new Vector3(newX, newY, transform.position.z);
         }
     }
 }

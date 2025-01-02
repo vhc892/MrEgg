@@ -35,6 +35,13 @@ public static class GameEvents
     {
         onLevelRestart?.Invoke();
     }
+
+    public delegate void OnDoorUnlocked();
+    public static OnDoorUnlocked onDoorUnlocked;
+    public static void UnlockDoor()
+    {
+        onDoorUnlocked?.Invoke();
+    }
     #endregion
 
     #region VALUES

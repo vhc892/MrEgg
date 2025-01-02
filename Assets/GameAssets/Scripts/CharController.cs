@@ -16,9 +16,10 @@ public class CharController : MonoBehaviour
     private CharChildCtrl childCtrl;
     private PlayerMovement playerMovementInput;
     private SkeletonAnimation anim;
-    private Guid[] guid;
+    private Tween sequence;
     [SerializeField] private LayerMask boxLayer;
     [SerializeField] RescueBalloon balloon;
+    public Drag drag;
 
     public Vector2 startPosition;
 
@@ -31,6 +32,7 @@ public class CharController : MonoBehaviour
     private float movementSpeed = 6;
     bool isMovementPressed = false;
     bool isPushing = false;
+    bool isResueing = false;
 
     //JUMPING
 
@@ -50,7 +52,7 @@ public class CharController : MonoBehaviour
     string[] groundTags = { "Ground", "Box" };
     string[] runAnimation = { "run", "run2", "run3" } ;
     int currentRunAnimation = 0;
-    string idleAnimation = "idle";
+    string idleAnimation = "idle2";
     string jumpUpAnimation = "jump_up";
     string jumpDownAnimation = "jump_down";
     string pushAnimation = "push";
@@ -76,15 +78,12 @@ public class CharController : MonoBehaviour
 
     void OnStart()
     {
-        col.enabled = true;
-        childCtrl.col.enabled = true;
-        rb.isKinematic = false;
-        isFinished = false;
+        PlayerEnable();
         if (canJumpManyTimes) jumpCount = maxJumpCount;
         else jumpCount = 1;
         transform.position = startPosition;
         anim.AnimationState.SetAnimation(0, idleAnimation, true);
-        EnableInput();
+        DOTween.KillAll();
     }
 
     private void Update()
@@ -98,6 +97,7 @@ public class CharController : MonoBehaviour
         {
             return;
         }
+        if (drag.isDragging) return;
         else if (isPushing)
         {
             if (anim.AnimationName != pushAnimation)
@@ -199,15 +199,14 @@ public class CharController : MonoBehaviour
 
     public void ReturnToStartPosition()
     {
-        OnFinishshLevel();
-        GameEvents.LevelPause();
+        PlayerDisable();
+        isResueing = true;
         anim.AnimationState.SetAnimation(0, dieAnimation, false);
         transform.DOMove(transform.position + Vector3.down * 2, 2f).OnComplete(() =>
         {
             Rescue();
         });
     }
-
     public void Rescue()
     {
         balloon.transform.DOMove(transform.position + Vector3.up * 3, 2f).OnComplete(() =>
@@ -219,15 +218,21 @@ public class CharController : MonoBehaviour
                 balloon.isRescueing = false;
                 balloon.transform.DOMove(balloon.startPos, 1f);
             });
-            transform.DOMove(startPosition, 1f).OnComplete(() =>
-            {
-                OnStart();
-                GameEvents.LevelResume();
-            });
+            transform.DOMove(startPosition, 1f).OnComplete(() => PlayerEnable());
         });
     }
 
-    private void OnFinishshLevel()
+    private void PlayerEnable()
+    {
+        col.enabled = true;
+        childCtrl.col.enabled = true;
+        rb.isKinematic = false;
+        isFinished = false;
+        isResueing = false;
+
+        EnableInput();
+    }
+    private void PlayerDisable()
     {
         rb.isKinematic = true;
         rb.velocity = Vector2.zero;
@@ -241,30 +246,31 @@ public class CharController : MonoBehaviour
         isPushing = false;
 
         DisableInput();
+    }
 
+    private void OnFinishshLevel()
+    {
+        PlayerDisable();
         anim.AnimationState.SetAnimation(0, idleAnimation, true);
+        balloon.transform.DOMove(balloon.startPos, 1f);
     }
 
     private void OnPause()
     {
-        isFinished = true;
-        isMovementPressed = false;
-        rb.isKinematic = true;
-        rb.velocity = Vector2.zero;
-        anim.AnimationState.SetAnimation(0, idleAnimation, true);
-        DisableInput();
+
     }
 
     private void OnResume()
     {
-        anim.AnimationState.SetAnimation(0, jumpDownAnimation, true);
-        isFinished = false;
-        rb.isKinematic = false;
-        EnableInput();
+        if (!isResueing)
+        {
+            anim.AnimationState.SetAnimation(0, jumpDownAnimation, true);
+        }
     }
 
     private void OnRestart()
     {
+        OnFinishshLevel();
         OnStart();
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -364,7 +370,7 @@ public class CharController : MonoBehaviour
 
         GameEvents.onLevelStart -= OnStart;
         GameEvents.onLevelFinish -= OnFinishshLevel;
-        GameEvents.onLevelPause -=OnPause;
+        GameEvents.onLevelPause -= OnPause;
         GameEvents.onLevelResume -= OnResume;
         GameEvents.onLevelRestart -= OnRestart;
     }

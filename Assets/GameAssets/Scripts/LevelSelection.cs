@@ -36,6 +36,7 @@ public class LevelSelection : MonoBehaviour
         {
             GameConfig.Instance.CurrentLevel = _levelIndex;
             SceneManager.LoadScene(1);
+            //GameManager.Instance.LoadLevel(_levelIndex);
         }
     }
 }

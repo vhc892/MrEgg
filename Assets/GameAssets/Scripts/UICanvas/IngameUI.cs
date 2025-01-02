@@ -44,9 +44,8 @@ public class IngameUI : BaseUI
     {
         gameConfig.CurrentLevel = nextLevel;
         SaveSystemData.SavePlayer(GameConfig.Instance.gameData);
-
-        levelCompletePopup?.Show(true);
         GameEvents.LevelFinish();
+        levelCompletePopup?.Show(true);
     }
 
     public void NextLevelButton()
@@ -54,6 +53,7 @@ public class IngameUI : BaseUI
         //buttonSequence.DeactivateButtons();
         levelCompletePopup.Hide(true);
         gameManager.LoadLevel(currentLevel);
+        GameEvents.LevelStart();
     }
     public void BackMenu()
     {
@@ -97,15 +97,14 @@ public class IngameUI : BaseUI
     }
     public void Pause()
     {
-        gameManager.GameMode = GameMode.Pause;
-        GameEvents.LevelPause();   
         panelPause.Show(true);
+        GameEvents.LevelPause();   
     }
 
     public void Unpause()
     {
-        panelPause.Hide(true);
         GameEvents.LevelResume();
+        panelPause.Hide(true);
     }
     #endregion
 

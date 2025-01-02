@@ -34,16 +34,18 @@ public class GameManager : MonoBehaviour
         gameConfig = GameConfig.Instance;
         levelManager = LevelManager.Instance;
         LoadLevel(GameConfig.Instance.CurrentLevel);
+        GameEvents.LevelStart();
     }
 
     public void LoadLevel(int index)
     {
-        int level = index % 10;
+        //int level = index % 10;
+        GameMode = GameMode.Gameplay;
         levelManager.cameraFollow.ResetPosition();
-        levelManager.LoadLevel(level); 
-        player.startPosition = levelManager.levelData.levelPrefabs[level%10].startPos;
+        levelManager.LoadLevel(index); 
+        player.startPosition = levelManager.levelData.levelPrefabs[index].startPos;
         player.enabled = true;
-        GameEvents.LevelStart();
+        Time.timeScale = 1;
     }
 
     private void RestartLevel()
@@ -51,13 +53,29 @@ public class GameManager : MonoBehaviour
         LoadLevel(gameConfig.CurrentLevel);
     }
 
+    public void PauseGame()
+    {
+        GameMode = GameMode.Pause;
+        Time.timeScale = 0;
+    }
+
+    public void ResumeGame()
+    {
+        GameMode = GameMode.Gameplay;
+        Time.timeScale = 1;
+    }
+
     private void OnEnable()
     {
         GameEvents.onLevelRestart += RestartLevel;
+        GameEvents.onLevelPause += PauseGame;
+        GameEvents.onLevelResume += ResumeGame;
     }
 
     private void OnDisable()
     {
         GameEvents.onLevelRestart -= RestartLevel;
+        GameEvents.onLevelPause -= PauseGame;
+        GameEvents.onLevelResume -= ResumeGame;
     }
 }

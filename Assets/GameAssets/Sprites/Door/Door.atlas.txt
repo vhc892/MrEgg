@@ -1,0 +1,25 @@
+Door.png
+size:388,388
+filter:Linear,Linear
+pma:true
+Bubble 1
+bounds:322,160,37,35
+offsets:1,1,39,37
+rotate:90
+Bubble 2
+bounds:360,360,24,24
+offsets:1,1,26,26
+Door_1
+bounds:2,2,163,186
+rotate:90
+Door_2
+bounds:205,199,153,185
+Door_3
+bounds:2,167,201,217
+L_Leg
+bounds:205,99,98,115
+offsets:1,0,99,116
+rotate:90
+Layer 47
+bounds:190,46,56,51
+offsets:1,2,58,54

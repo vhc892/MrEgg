@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameConfig : MonoBehaviour
 {
@@ -42,8 +43,12 @@ public class GameConfig : MonoBehaviour
         else
         {
             gameData.LevelPass = 0;
-            gameData.CurrentLevel = 1;
+            gameData.CurrentLevel = 0;
             gameData.LightBulb = 0;
+
+            SceneManager.LoadScene(1);
+
+            //UIManager.Instance.OnLevelLoaded();
         }
     }
 }

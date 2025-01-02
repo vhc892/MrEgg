@@ -27,7 +27,6 @@ public class LevelManager : MonoBehaviour
     }
     public void LoadLevel(int level)
     {
-
         if (transform.childCount > 0)
             Destroy(transform.GetChild(0).gameObject);
 
@@ -51,16 +50,7 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(currentLevelPrefab);
         }
-        if (PlayerPrefs.GetInt("HasPlayed", 0) == 0)
-        {
-            currentLevelPrefab = Instantiate(levelData.levelPrefabs[0].prefabs, this.transform);
-            PlayerPrefs.SetInt("HasPlayed", 1);
-            PlayerPrefs.Save();
-        }
-        else
-        {
-            currentLevelPrefab = Instantiate(levelData.levelPrefabs[level].prefabs, this.transform);
-        }
+        currentLevelPrefab = Instantiate(levelData.levelPrefabs[level].prefabs, this.transform);
         SetUpLevel setUpLevel = currentLevelPrefab.GetComponent<SetUpLevel>();
         setUpLevel.SetLevelData(levelData.levelPrefabs[level]);
 

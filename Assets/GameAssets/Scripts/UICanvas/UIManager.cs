@@ -27,22 +27,25 @@ public class UIManager : UIManagerSingleton<UIManager>
     }
     public void ShowLevel()
     {
-        levelUI.SetInfor();
+        levelDisplay.Show();
+        levelDisplay.OnStart();
     }
     public void HideLevel()
     {
-        levelUI.Close();
+        levelDisplay.Hide();
     }
     private void Start()
     {
+        menuUI.SetInfor();
         //startMenu?.Show(true);
-        //levelDisplay?.gameObject.SetActive(false);
         //ingameUI?.Hide();
+        //HideLevel();
     }
 
     public void OnLevelLoaded()
     {
-        startMenu?.Hide(true);
+        //startMenu?.Hide(true);
+        menuUI.Close();
         HideLevel();
         ingameUI?.Show();
         ingameUI?.OnStart();
@@ -52,6 +55,7 @@ public class UIManager : UIManagerSingleton<UIManager>
     {
         ingameUI?.Hide();
         startMenu?.Show(true);
+        menuUI.SetInfor();
         levelUI?.SetInfor();
     }
 

@@ -227,6 +227,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fc212796dd60d94fa31cf170c4f2f90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowDragX: 1
+  allowDragY: 1
 --- !u!1 &5284339020505585954
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,6 +440,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fc212796dd60d94fa31cf170c4f2f90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowDragX: 1
+  allowDragY: 0
 --- !u!4 &6218268282144419518 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3795200090396281876, guid: 7fcf86b0ada3eca42b5a9d1fe4e52640, type: 3}

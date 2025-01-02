@@ -33,17 +33,17 @@ public class BalloonedDoor : MonoBehaviour
         col.enabled = true;
     }
 
-    private void OnEnable()
-    {
-        GameEvents.onLevelResume += Resume;
-        GameEvents.onLevelPause += Stopped;
-    }
+    //private void OnEnable()
+    //{
+    //    GameEvents.onLevelResume += Resume;
+    //    GameEvents.onLevelPause += Stopped;
+    //}
 
-    private void OnDisable()
-    {
-        GameEvents.onLevelResume -= Resume;
-        GameEvents.onLevelPause -= Stopped;
-    }
+    //private void OnDisable()
+    //{
+    //    GameEvents.onLevelResume -= Resume;
+    //    GameEvents.onLevelPause -= Stopped;
+    //}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
