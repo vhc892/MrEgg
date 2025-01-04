@@ -72,15 +72,15 @@ public class Balloon : MonoBehaviour, IPointerDownHandler
     }
 
 
-    //private void OnEnable()
-    //{
-    //    GameEvents.onLevelResume += Resume;
-    //    GameEvents.onLevelPause += StopFlying;
-    //}
+    private void OnEnable()
+    {
+        GameEvents.onLevelResume += Resume;
+        GameEvents.onLevelPause += StopFlying;
+    }
 
-    //private void OnDisable()
-    //{
-    //    GameEvents.onLevelResume -= Resume;
-    //    GameEvents.onLevelPause -= StopFlying;
-    //}
+    private void OnDisable()
+    {
+        GameEvents.onLevelResume -= Resume;
+        GameEvents.onLevelPause -= StopFlying;
+    }
 }

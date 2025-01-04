@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "600481972612",
+    "project_id": "egg-puzzle",
+    "storage_bucket": "egg-puzzle.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:600481972612:android:3caefc9f9df3ba18b5ddd1",
+        "android_client_info": {
+          "package_name": "com.eggpuzzle.platformer.run"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx_i0l64UpXQfDpxkyxU2WfhoT5uFf-1s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

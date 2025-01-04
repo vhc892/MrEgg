@@ -68,7 +68,7 @@ MonoBehaviour:
     hint: Can't see it but can walk on it
     rewardHint: Hit the block to create a path
     reward_amount: 0
-  - startPos: {x: 0, y: 0}
+  - startPos: {x: -6.8, y: 3.2}
     prefabs: {fileID: 2626619664812095647, guid: 22ef7f287c1f14145815d215ec0f320a, type: 3}
     hint: 
     rewardHint: 
@@ -78,63 +78,63 @@ MonoBehaviour:
     hint: The store opens at 9 o'clock
     rewardHint: Use the block to increase hour
     reward_amount: 0
-  - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 0}
+  - startPos: {x: -8.8, y: 1}
+    prefabs: {fileID: 8134674596747237315, guid: e97ff1f257f6d054db4e858505faf2b3, type: 3}
+    hint: Pull it up
+    rewardHint: Hit the block twice
+    reward_amount: 0
+  - startPos: {x: -9.5, y: 0}
+    prefabs: {fileID: 2626619664812095647, guid: fcbaac5ad75de13418e6299b931662bf, type: 3}
+    hint: 
+    rewardHint: 
+    reward_amount: 0
+  - startPos: {x: -6.6, y: 2.5}
+    prefabs: {fileID: 2626619664812095647, guid: c420da2ab7d7071468c543391a4af2ad, type: 3}
+    hint: 
+    rewardHint: 
+    reward_amount: 0
+  - startPos: {x: -7.7, y: 0}
+    prefabs: {fileID: 2626619664812095647, guid: 999a89ce5a4fcf741ace2cdefa9e1db9, type: 3}
     hint: 
     rewardHint: 
     reward_amount: 0
   - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 0}
+    prefabs: {fileID: 2626619664812095647, guid: 3aa0f165811b0564697bb3cf18bf3327, type: 3}
     hint: 
     rewardHint: 
     reward_amount: 0
   - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 0}
+    prefabs: {fileID: 2626619664812095647, guid: 3aa0f165811b0564697bb3cf18bf3327, type: 3}
     hint: 
     rewardHint: 
     reward_amount: 0
   - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 0}
+    prefabs: {fileID: 2626619664812095647, guid: 3aa0f165811b0564697bb3cf18bf3327, type: 3}
     hint: 
     rewardHint: 
     reward_amount: 0
   - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 0}
+    prefabs: {fileID: 2626619664812095647, guid: 223ef2ed1c7a7d6419e48043a065fd81, type: 3}
     hint: 
     rewardHint: 
     reward_amount: 0
   - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 0}
+    prefabs: {fileID: 1225140425252191559, guid: 7746eb1dc4c02fe45b452f50d74e6bed, type: 3}
     hint: 
     rewardHint: 
     reward_amount: 0
-  - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 0}
+  - startPos: {x: -6.2, y: 5}
+    prefabs: {fileID: 2626619664812095647, guid: 03d0ee188520eae4295f4c7334d996fc, type: 3}
     hint: 
     rewardHint: 
     reward_amount: 0
-  - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 0}
+  - startPos: {x: -9.5, y: 0}
+    prefabs: {fileID: 2626619664812095647, guid: 0265808dbf1fe124a8091a9ba2d1f553, type: 3}
     hint: 
     rewardHint: 
     reward_amount: 0
-  - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 0}
-    hint: 
-    rewardHint: 
-    reward_amount: 0
-  - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 0}
-    hint: 
-    rewardHint: 
-    reward_amount: 0
-  - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 0}
-    hint: 
-    rewardHint: 
-    reward_amount: 0
-  - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 0}
+  - startPos: {x: -5.7, y: 0}
+    prefabs: {fileID: 2626619664812095647, guid: 309284d08360f1644a371d33312718db, type: 3}
     hint: 
     rewardHint: 
     reward_amount: 0

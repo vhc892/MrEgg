@@ -8,8 +8,8 @@ public class DragObject : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private Camera mainCamera;
     
 
-    [SerializeField] private bool allowDragX = true;
-    [SerializeField] private bool allowDragY = true;
+    public bool allowDragX = true;
+    public bool allowDragY = true;
 
     private void Start()
     {

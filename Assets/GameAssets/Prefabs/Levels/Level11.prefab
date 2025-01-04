@@ -325,6 +325,10 @@ PrefabInstance:
       propertyPath: invisPath
       value: 
       objectReference: {fileID: 6065388519385041527}
+    - target: {fileID: 4972543815052834202, guid: 3ce37f22b3ab68941a7f132153383f97, type: 3}
+      propertyPath: levelIndex
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6097202143875404340, guid: 3ce37f22b3ab68941a7f132153383f97, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.79

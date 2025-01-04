@@ -33,10 +33,10 @@ public class LevelManager : MonoBehaviour
         cameraFollow.isCameraFollow = false;
         GameManager.Instance.player.canJumpManyTimes = false;
 
-        if (level == 6)
+        if (level == 6 || level == 24)
             cameraFollow.isCameraFollow = true;
 
-        if (level == 9)
+        if (level == 9 || level == 17)
             GameManager.Instance.player.canJumpManyTimes = true;
 
 

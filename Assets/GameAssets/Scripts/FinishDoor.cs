@@ -19,6 +19,8 @@ public class FinishDoor : MonoBehaviour, IPointerClickHandler
 
     bool isFinished;
 
+    public bool Unlock { get => unlock; set => unlock = value; }
+
     private void Awake()
     {
         anim = GetComponent<Animator>();

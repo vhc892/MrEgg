@@ -9,6 +9,7 @@ TagManager:
   - Border
   - Lock
   - PlayerChild
+  - Flower
   layers:
   - Default
   - TransparentFX

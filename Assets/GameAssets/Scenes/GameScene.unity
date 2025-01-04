@@ -1184,8 +1184,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 537784174842244465, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 537784174842244465, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
       propertyPath: m_BodyType
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 537784174842244465, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 537784174842244465, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
+      propertyPath: m_GravityScale
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 537784174842244465, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 643832262089527509, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
       propertyPath: m_Name

@@ -13,6 +13,8 @@ public class MovingDoor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private bool moveDoor;
     private Vector3 lastPlayerPosition;
     private SkeletonAnimation anim;
+    private Rigidbody2D rb;
+    private bool stop;
 
     private enum DoorState { Idle, Run, Open, Idle2 }
     private DoorState currentDoorState;
@@ -20,6 +22,7 @@ public class MovingDoor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private void Awake()
     {
         anim = GetComponentInChildren<SkeletonAnimation>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -83,7 +86,7 @@ public class MovingDoor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             moveSpeed = Mathf.Max(0, moveSpeed - 0.5f);
         }
-        if (!isMouseHold)
+        if (!isMouseHold && stop == false)
         {
             moveSpeed = startMoveSpeed;
         }
@@ -91,12 +94,14 @@ public class MovingDoor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void DoorMoveRight()
     {
-        transform.Translate(moveSpeed * Time.deltaTime, 0f, 0f);
+        Vector2 newPosition = rb.position + Vector2.right * moveSpeed * Time.deltaTime;
+        rb.MovePosition(newPosition);
     }
 
     private void DoorMoveLeft()
     {
-        transform.Translate(-moveSpeed * Time.deltaTime, 0f, 0f);
+        Vector2 newPosition = rb.position + Vector2.left * moveSpeed * Time.deltaTime;
+        rb.MovePosition(newPosition);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -111,6 +116,10 @@ public class MovingDoor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (GameConfig.Instance.CurrentLevel.Equals(24))
+        {
+            return;
+        }
         isMouseHold = true;
     }
 
@@ -149,5 +158,31 @@ public class MovingDoor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         Vector3 scale = transform.localScale;
         scale.x = faceLeft ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
         transform.localScale = scale;
+    }
+    private void Stopped()
+    {
+        stop = true;
+        moveSpeed = 0f;
+    }
+
+    private void Resume()
+    {
+        if (GameConfig.Instance.CurrentLevel.Equals(24))
+        {
+            return;
+        }
+        moveSpeed = startMoveSpeed;
+        stop = false;
+    }
+    private void OnEnable()
+    {
+        GameEvents.onLevelResume += Resume;
+        GameEvents.onLevelPause += Stopped;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.onLevelResume -= Resume;
+        GameEvents.onLevelPause -= Stopped;
     }
 }

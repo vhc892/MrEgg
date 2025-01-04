@@ -130,7 +130,6 @@ public class CharController : MonoBehaviour
         rb.velocity = new Vector2(inputVector.x * movementSpeed, rb.velocity.y);
     }
 
-
     private void AnimationCooldown(string animName, bool loop)
     {
         if (anim.AnimationName != animName)
@@ -252,7 +251,7 @@ public class CharController : MonoBehaviour
     {
         PlayerDisable();
         anim.AnimationState.SetAnimation(0, idleAnimation, true);
-        balloon.transform.DOMove(balloon.startPos, 1f);
+        //balloon.transform.DOMove(balloon.startPos, 1f);
     }
 
     private void OnPause()
@@ -352,8 +351,6 @@ public class CharController : MonoBehaviour
         Vector2 rayOriginRight = new Vector2(transform.position.x, transform.position.y + 0.1f);
         Gizmos.DrawLine(rayOriginRight, rayOriginRight + Vector2.right * rayDistance);
     }
-
-
     private void OnEnable()
     {
         EnableInput();

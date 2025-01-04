@@ -15,6 +15,7 @@ public class IngameUI : BaseUI
     [SerializeField] UIPanel blackScreen;
     [SerializeField] HintSystem hintSystem;
     [SerializeField] Button[] allButtons;
+    [SerializeField] Button[] playerControll;
 
     GameManager gameManager;
     GameConfig gameConfig;
@@ -31,6 +32,13 @@ public class IngameUI : BaseUI
         gameConfig = GameConfig.Instance;
         uiManager = UIManager.Instance;
 
+        if (GameConfig.Instance.CurrentLevel == 20)
+        {
+            foreach(Button button in playerControll)
+            {
+                button.gameObject.SetActive(false);
+            }
+        }
         txtLevel.text = "Level " + (GameConfig.Instance.CurrentLevel + 1);
         panelPause.Hide(true);
         levelCompletePopup.Hide(true);

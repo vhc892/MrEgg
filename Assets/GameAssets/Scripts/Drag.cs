@@ -52,8 +52,8 @@ public class Drag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             //transform.position = new Vector3(mousePosition.x + offset.x, mousePosition.y + offset.y, transform.position.z);
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("trigger");
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    Debug.Log("trigger");
+    //}
 }

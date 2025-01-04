@@ -50,5 +50,7 @@ public class GameConfig : MonoBehaviour
 
             //UIManager.Instance.OnLevelLoaded();
         }
+
+        Pool.Instance.InitPool();
     }
 }

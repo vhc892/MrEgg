@@ -26,18 +26,24 @@ namespace Hapiga.UI
         public UIBackground GetBackgroundPanel()
         {
             UIBackground bg = null;
-            if (backgroundQueue.Count < 1)
+            Debug.Log(backgroundQueue.Count);
+            if (backgroundQueue != null)
             {
-                UIBackground newBg = Instantiate<UIBackground>(background, transform);
-                // newBg.transform.SetParent(canvasTransform, false);
-                newBg.uiElement.Hide(true);
-                backgroundQueue.Enqueue(newBg);
-            }
+                if (backgroundQueue.Count < 1)
+                {
+                    UIBackground newBg = Instantiate<UIBackground>(background, transform);
+                    // newBg.transform.SetParent(canvasTransform, false);
+                    newBg.uiElement.Hide(true);
+                    backgroundQueue.Enqueue(newBg);
+                }
 
-            if (backgroundQueue.Count > 0)
-            {
-                bg = backgroundQueue.Dequeue();
+                if (backgroundQueue.Count > 0)
+                {
+                    bg = backgroundQueue.Dequeue();
+                }
             }
+            else
+                Debug.LogError("bg queue null");
 
             return bg;
         }
@@ -50,6 +56,7 @@ namespace Hapiga.UI
 
         public void InitBackgroundQueue(int initCount = 1)
         {
+            
             if (!isUseBackground)
             {
                 return;
@@ -60,6 +67,7 @@ namespace Hapiga.UI
                 Debug.LogError("No background attached");
                 return;
             }
+            
             backgroundQueue = new Queue<UIBackground>(3);
 
             for (int i = 0; i < initCount; i++)

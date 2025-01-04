@@ -1,3 +1,4 @@
+using Hapiga.Ads;
 using Hapiga.UI;
 using Helper;
 using System.Collections;
@@ -34,7 +35,7 @@ public class HintSystem : BaseUI
             yes.gameObject.SetActive(true);
             hintText.text = "DO YOU GET ANY TIPS ?";
         }
-        currentLevelData = levelData.levelPrefabs[level% 12];
+        currentLevelData = levelData.levelPrefabs[level];
         hintCost.text = "-" + cost.ToString();  
         lightBulb = GameConfig.Instance.LightBulb;
         UpdateCostText();
@@ -73,12 +74,16 @@ public class HintSystem : BaseUI
 
     public void GetLightBulb()
     {
+        //AdManager.Instance.ShowRewardedVideo(CallbackRewardLB, "get_light_bulb");
+        CallbackRewardLB();
+    }
+    private void CallbackRewardLB()
+    {
         lightBulb += cost;
         GameConfig.Instance.LightBulb = lightBulb;
         getBulbPanel.Hide(true);
         Show();
     }
-
     private void ResetHint()
     {
         hintAvailable = false;

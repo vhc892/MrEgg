@@ -36,7 +36,7 @@ public class UIManager : UIManagerSingleton<UIManager>
     }
     private void Start()
     {
-        menuUI.SetInfor();
+        menuUI?.SetInfor();
         //startMenu?.Show(true);
         //ingameUI?.Hide();
         //HideLevel();
