@@ -14,13 +14,12 @@ public class IngameUI : BaseUI
     [SerializeField] UIPanel levelCompletePopup;
     [SerializeField] UIPanel blackScreen;
     [SerializeField] HintSystem hintSystem;
-    [SerializeField] Button[] allButtons;
-    [SerializeField] Button[] playerControll;
+    public Button[] allButtons;
+    public Button[] playerControll;
 
     GameManager gameManager;
     GameConfig gameConfig;
     UIManager uiManager;
-
     private int currentLevel;
     private int nextLevel;
     private void Awake()
@@ -32,13 +31,21 @@ public class IngameUI : BaseUI
         gameConfig = GameConfig.Instance;
         uiManager = UIManager.Instance;
 
-        if (GameConfig.Instance.CurrentLevel == 20)
+        foreach (Button button in playerControll)
         {
-            foreach(Button button in playerControll)
-            {
+            if (GameConfig.Instance.CurrentLevel == 20)
                 button.gameObject.SetActive(false);
-            }
+            else
+                button.gameObject.SetActive(true);
         }
+        foreach (Button button in allButtons)
+        {
+            if(GameConfig.Instance.CurrentLevel == 25)
+                button.gameObject.SetActive(false);
+            else
+                button.gameObject.SetActive(true);
+        }
+
         txtLevel.text = "Level " + (GameConfig.Instance.CurrentLevel + 1);
         panelPause.Hide(true);
         levelCompletePopup.Hide(true);

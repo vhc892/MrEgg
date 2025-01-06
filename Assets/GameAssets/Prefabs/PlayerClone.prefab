@@ -13,11 +13,10 @@ GameObject:
   - component: {fileID: 5329696966790792320}
   - component: {fileID: 5885484307260615691}
   - component: {fileID: 537784174842244465}
-  - component: {fileID: 3016704744725842495}
-  - component: {fileID: 7058179848362961737}
-  m_Layer: 7
-  m_Name: Player
-  m_TagString: Player
+  - component: {fileID: 7281939354549570249}
+  m_Layer: 8
+  m_Name: PlayerClone
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +96,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643832262089527509}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -212,7 +211,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &3016704744725842495
+--- !u!114 &7281939354549570249
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,29 +220,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 643832262089527509}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d2e839d24698ec44898d7fa97344fec, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ba2a19bf642a9742a98b3caaf04cce0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  balloon: {fileID: 0}
-  drag: {fileID: 7058179848362961737}
-  startPosition: {x: 0, y: 0}
-  canJumpManyTimes: 0
---- !u!114 &7058179848362961737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 643832262089527509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aedba44ec14347142958344d49952d56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDragging: 0
+  moveSpeed: 5
+  knockEffectPrefab: {fileID: 3783971749473561031, guid: 2ce1ed613508021498798efadb74ba97, type: 3}
 --- !u!1 &6801842918223169856
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,7 +239,7 @@ GameObject:
   - component: {fileID: 7966446008026898104}
   - component: {fileID: 4813616058911439373}
   - component: {fileID: 3945266923155378068}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Spine GameObject (MrEgg_Char)
   m_TagString: PlayerChild
   m_Icon: {fileID: 0}
@@ -380,7 +361,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6801842918223169856}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

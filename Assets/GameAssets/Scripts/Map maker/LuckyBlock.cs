@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Helper;
 using DG.Tweening;
+using Hapiga.UI;
 
 public class LuckyBlock : MonoBehaviour
 {
@@ -45,6 +46,10 @@ public class LuckyBlock : MonoBehaviour
     [ShowIf("levelIndex", Levels.level22)]
     [SerializeField] GameObject starPrefab;
 
+    //LEVEL27
+    [ShowIf("levelIndex", Levels.level27)]
+    [SerializeField] UIPanel endText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,11 +58,8 @@ public class LuckyBlock : MonoBehaviour
 
     public void OnStart()
     {
-        original.SetActive(true);
-        reveal.SetActive(false);
-        broken.SetActive(false);
-
         FunctionOnInit();
+        SetBlockState();
     }
 
     private void FunctionOnInit()
@@ -75,6 +77,9 @@ public class LuckyBlock : MonoBehaviour
                 break;
             case Levels.level22:
                 Level22onInit();
+                break;
+            case Levels.level27:
+                Level27onInit();
                 break;
         }
     }
@@ -96,6 +101,9 @@ public class LuckyBlock : MonoBehaviour
             case Levels.level22:
                 Level22onHit();
                 break;
+            case Levels.level27:
+                Level27onHit();
+                break; 
         }
     }
     #region LEVEL11
@@ -206,30 +214,57 @@ public class LuckyBlock : MonoBehaviour
 
     private void Level22onHit()
     {
+        if (numberOfHits <= 0)
+        {
+            return;
+        }
         ObjPool star = Pool.Instance.star.GetPrefabInstance();
         star.transform.SetParent(transform);
         star.transform.localPosition = Vector3.zero;
         //star.ReturnObjToPool(1f);
     }
     #endregion
+
+    #region LEVEL27
+    private void Level27onInit()
+    {
+
+    }
+
+    private void Level27onHit()
+    {
+        endText.Show(true);
+    }
+    #endregion
     void OnHit()
     {
-        if (isBroken)
-        {
-            return;
-        }
-        switch (numberOfHits)
-        {
-            case 1:
-                reveal.SetActive(true);
-                original.SetActive(false);
-                break;
-            case <= 0:
-                broken.SetActive(true);
-                reveal.SetActive(false);
-                original.SetActive(false);
-                break;
+        FunctionOnHit();
+        numberOfHits--;
+        SetBlockState();
+    }
 
+    void SetBlockState()
+    {
+        if (numberOfHits >= 1)
+        {
+            isBroken = false;
+            original.SetActive(true);
+            reveal.SetActive(false);
+            broken.SetActive(false);
+        }
+        else if (numberOfHits == 0)
+        {
+            isBroken = false;
+            original.SetActive(false);
+            reveal.SetActive(true);
+            broken.SetActive(false);
+        }
+        else
+        {
+            original.SetActive(false);
+            reveal.SetActive(false);
+            broken.SetActive(true);
+            isBroken = true;
         }
     }
 
@@ -242,12 +277,7 @@ public class LuckyBlock : MonoBehaviour
                 return;
             }
             OnHit();
-            FunctionOnHit();
-            numberOfHits--;
-            if (numberOfHits < 0)
-            {
-                isBroken = true;
-            }
+
         }
     }
 

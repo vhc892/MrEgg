@@ -138,18 +138,18 @@ MonoBehaviour:
     hint: 
     rewardHint: 
     reward_amount: 0
-  - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 0}
+  - startPos: {x: -6, y: 0}
+    prefabs: {fileID: 2626619664812095647, guid: edcfaf84172f5fa42b8ec83a1154a403, type: 3}
     hint: 
     rewardHint: 
     reward_amount: 0
   - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 0}
+    prefabs: {fileID: 1498041998335131829, guid: 6354bef1ffdf79940bb88712dda42910, type: 3}
     hint: 
     rewardHint: 
     reward_amount: 0
   - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 0}
+    prefabs: {fileID: 2626619664812095647, guid: 6190ff26703510342a8647afbc7062f0, type: 3}
     hint: 
     rewardHint: 
     reward_amount: 0

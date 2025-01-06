@@ -29,7 +29,7 @@ public class CharController : MonoBehaviour
     float animCD = 0.5f;
 
     //MOVING
-    private float movementSpeed = 6;
+    private float movementSpeed = 5;
     bool isMovementPressed = false;
     bool isPushing = false;
     bool isResueing = false;

@@ -1183,53 +1183,17 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 537784174842244465, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 537784174842244465, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 537784174842244465, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
-      propertyPath: m_Interpolate
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 537784174842244465, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
-      propertyPath: m_GravityScale
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 537784174842244465, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 643832262089527509, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3016704744725842495, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
-      propertyPath: drag
-      value: 
-      objectReference: {fileID: 1998945895}
-    - target: {fileID: 3016704744725842495, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
       propertyPath: balloon
       value: 
       objectReference: {fileID: 9154247370790324770}
-    - target: {fileID: 6801842918223169856, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
-      propertyPath: m_TagString
-      value: PlayerChild
-      objectReference: {fileID: 0}
-    - target: {fileID: 8138598928208484672, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8138598928208484672, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8138598928208484672, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5
+    - target: {fileID: 4813616058911439373, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8138598928208484672, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1274,17 +1238,14 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 643832262089527509, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1998945895}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
 --- !u!114 &1998945892 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3016704744725842495, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
   m_PrefabInstance: {fileID: 1998945891}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1998945894}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d2e839d24698ec44898d7fa97344fec, type: 3}
@@ -1295,24 +1256,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8138598928208484672, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
   m_PrefabInstance: {fileID: 1998945891}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1998945894 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 643832262089527509, guid: e9491915269940c4785ba1b9a3e19366, type: 3}
-  m_PrefabInstance: {fileID: 1998945891}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1998945895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1998945894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aedba44ec14347142958344d49952d56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDragging: 0
 --- !u!120 &587191184030239399
 LineRenderer:
   serializedVersion: 2
