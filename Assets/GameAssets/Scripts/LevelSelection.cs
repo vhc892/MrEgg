@@ -34,9 +34,10 @@ public class LevelSelection : MonoBehaviour
     {
         if (_unlocked)
         {
+            AudioManager.Instance.PlaySFX("SelectButton");
             GameConfig.Instance.CurrentLevel = _levelIndex;
-            SceneManager.LoadScene(2);
-            //GameManager.Instance.LoadLevel(_levelIndex);
+            //SceneManager.LoadScene(2);
+            GameManager.Instance.LoadLevel(_levelIndex);
         }
     }
 }

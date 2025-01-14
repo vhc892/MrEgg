@@ -35,7 +35,7 @@ public class Drag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        rb.gravityScale = 5;
+        rb.gravityScale = 3;
         isDragging = false;
     }
 

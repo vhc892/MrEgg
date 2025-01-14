@@ -10,7 +10,10 @@ TagManager:
   - Lock
   - PlayerChild
   - Flower
+  - WheelKeyZone
+  - WheelRandomZone
   - Monster
+  - WaterRaise
   layers:
   - Default
   - TransparentFX
@@ -19,8 +22,8 @@ TagManager:
   - Water
   - UI
   - Box
-  - Player
-  - PlayerClone
+  - WaterLevel
+  - WaterBall
   - 
   - 
   - 

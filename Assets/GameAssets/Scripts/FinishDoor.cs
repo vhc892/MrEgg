@@ -9,7 +9,7 @@ public class FinishDoor : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private bool unlock;
     [SerializeField] private bool clickToUnlock;
-    [SerializeField] private SpriteRenderer lockImage;
+    [SerializeField] private GameObject lockImage;
     private float clickCountToOpen = 3;
 
     Animator anim;
@@ -23,7 +23,7 @@ public class FinishDoor : MonoBehaviour, IPointerClickHandler
 
     private void Awake()
     {
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         col = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
         doorChild = GetComponentInChildren<DoorChild>();
@@ -33,6 +33,7 @@ public class FinishDoor : MonoBehaviour, IPointerClickHandler
     {
         if (!unlock)
         {
+            //lockImage.SetActive(true);
             doorChild.col.enabled = false;
         }
         else
@@ -47,12 +48,17 @@ public class FinishDoor : MonoBehaviour, IPointerClickHandler
             lockImage.gameObject.SetActive(false);
         }
         doorChild.col.enabled = true;
+        AudioManager.Instance.PlaySFX("OpenDoor");
         anim?.Play("DoorOpen");
     }
     public void OnPointerClick(PointerEventData eventData)
     {
         if (clickToUnlock)
         {
+            if (clickCountToOpen > 0)
+            {
+                AudioManager.Instance.PlaySFXOneShot("DoorKnock");
+            }
             --clickCountToOpen;
             var knockEffect = GetComponentInChildren<KnockEffect>();
             if (!unlock && knockEffect != null)
@@ -73,7 +79,7 @@ public class FinishDoor : MonoBehaviour, IPointerClickHandler
 
     public void EndLevel()
     {
-        UIManager.Instance.ingameUI.LevelCompleted();
+        GameEvents.LevelFinish();
     }
 
     public void OnFinish()
@@ -96,12 +102,14 @@ public class FinishDoor : MonoBehaviour, IPointerClickHandler
 
     private void OnEnable()
     {
+        GameEvents.onLevelRestart += OnStart;
         GameEvents.onDoorUnlocked += UnlockDoor;
         GameEvents.onLevelStart += OnStart;
     }
 
     private void OnDisable()
     {
+        GameEvents.onLevelRestart -= OnStart;
         GameEvents.onDoorUnlocked -= UnlockDoor;
         GameEvents.onLevelStart -= OnStart;
     }

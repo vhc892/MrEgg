@@ -8,6 +8,7 @@ namespace Helper
     public struct LevelData
     {
         public Vector2 startPos;
+        public Levels levelIndex;
         public GameObject prefabs;
         public string hint;
         public string rewardHint;

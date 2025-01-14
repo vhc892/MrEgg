@@ -1,5 +1,6 @@
 ﻿
 using DG.Tweening;
+using Helper;
 using Spine.Unity;
 using System;
 using System.Collections;
@@ -8,8 +9,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class CharController : MonoBehaviour
 {
+    public Rigidbody2D RGBD => rb;
 
     private Rigidbody2D rb;
     private Collider2D col;
@@ -17,11 +20,13 @@ public class CharController : MonoBehaviour
     private PlayerMovement playerMovementInput;
     private SkeletonAnimation anim;
     private Tween sequence;
+
     [SerializeField] private LayerMask boxLayer;
     [SerializeField] RescueBalloon balloon;
-    public Drag drag;
 
+    public Drag drag;
     public Vector2 startPosition;
+    public Vector2 endPosition;
 
     [Header("Player Movement")]
     Vector2 inputVector;
@@ -29,7 +34,7 @@ public class CharController : MonoBehaviour
     float animCD = 0.5f;
 
     //MOVING
-    private float movementSpeed = 5;
+    public float movementSpeed = 5;
     bool isMovementPressed = false;
     bool isPushing = false;
     bool isResueing = false;
@@ -48,8 +53,11 @@ public class CharController : MonoBehaviour
     private int maxJumpCount = 20;
     private int jumpCount;
 
+    
+
+
     //STRING CACHING
-    string[] groundTags = { "Ground", "Box" };
+    string[] groundTags = { "Ground", "Box", "Player" };
     string[] runAnimation = { "run", "run2", "run3" } ;
     int currentRunAnimation = 0;
     string idleAnimation = "idle2";
@@ -58,6 +66,18 @@ public class CharController : MonoBehaviour
     string pushAnimation = "push";
     string dieAnimation = "die";
 
+    string jumpSound = "Jump";
+    string jump2Sound = "Jump2";
+    string pushSound = "PushingBox";
+    string walkSound = "Walking";
+
+    private Dictionary<string, float> walkSoundIntervals = new Dictionary<string, float>
+    {
+        { "run", 0.4f },
+        { "run2", 0.33f },
+        { "run3", 0.25f }
+    };
+    private float lastWalkSoundTime;
 
     private void Awake()
     {
@@ -67,6 +87,7 @@ public class CharController : MonoBehaviour
         anim = GetComponentInChildren<SkeletonAnimation>();
 
         playerMovementInput = new PlayerMovement();
+        drag.enabled = false;
     }
 
     private void Start()
@@ -78,6 +99,8 @@ public class CharController : MonoBehaviour
 
     void OnStart()
     {
+        drag.enabled = GameConfig.Instance.CurrentLevel == 14;
+
         PlayerEnable();
         if (canJumpManyTimes) jumpCount = maxJumpCount;
         else jumpCount = 1;
@@ -107,11 +130,22 @@ public class CharController : MonoBehaviour
         }
         else if (isMovementPressed || inputVector.x != 0)
         {
+            if (walkSoundIntervals.TryGetValue(anim.AnimationName, out float currentInterval))
+            {
+                if (Time.time - lastWalkSoundTime >= currentInterval)
+                {
+                    AudioManager.Instance.PlaySFX(walkSound);
+                    lastWalkSoundTime = Time.time;
+                }
+            }
+
             if (anim.AnimationName != runAnimation[currentRunAnimation])
             {
                 AnimationCooldown(runAnimation[currentRunAnimation], true);
             }
         }
+
+
         else
         //if (!isJumpPressed && !isMovementPressed && isGrounded && !isPushing)
         {
@@ -154,6 +188,7 @@ public class CharController : MonoBehaviour
         }
         else if (context.canceled)
         {
+            AudioManager.Instance.StopSFX(walkSound);
             isMovementPressed = false;
         }
     }
@@ -171,6 +206,9 @@ public class CharController : MonoBehaviour
             anim.AnimationState.AddAnimation(0, jumpDownAnimation, false, 0);
             jumpCount--;
             lastYposition = transform.position.y;
+            string selectedJumpSound = UnityEngine.Random.value > 0.5f ? jumpSound : jump2Sound;
+            AudioManager.Instance.PlaySFX(selectedJumpSound);
+            AudioManager.Instance.StopSFX(walkSound);
         }
         if (context.performed)
         {
@@ -215,7 +253,7 @@ public class CharController : MonoBehaviour
             balloon.transform.DOMove(startPosition + Vector2.up * 3, 1f).OnComplete(() =>
             {
                 balloon.isRescueing = false;
-                balloon.transform.DOMove(balloon.startPos, 1f);
+                balloon.transform.DOMove((Vector3)balloon.startPos, 1f);
             });
             transform.DOMove(startPosition, 1f).OnComplete(() => PlayerEnable());
         });
@@ -251,6 +289,7 @@ public class CharController : MonoBehaviour
     {
         PlayerDisable();
         anim.AnimationState.SetAnimation(0, idleAnimation, true);
+        endPosition = transform.position;
         //balloon.transform.DOMove(balloon.startPos, 1f);
     }
 
@@ -270,6 +309,10 @@ public class CharController : MonoBehaviour
     private void OnRestart()
     {
         OnFinishshLevel();
+        if(LevelManager.Instance.levelIndex == Levels.level29)
+        {
+            LevelManager.Instance.SpawnOnRestart();
+        }
         OnStart();
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -279,6 +322,7 @@ public class CharController : MonoBehaviour
             if (IsBoxToSide(Vector2.left) || IsBoxToSide(Vector2.right))
             {
                 isPushing = true;
+                AudioManager.Instance.PlaySFX(pushSound);
                 //anim.AnimationState.SetAnimation(0, "push", true);
             }
         }
@@ -330,6 +374,7 @@ public class CharController : MonoBehaviour
         {
             Vector2 inputVector = playerMovementInput.PlayerMove.Left_Right_Movement.ReadValue<Vector2>();
             isPushing = false;
+            AudioManager.Instance.StopSFX(pushSound);
             //if (isMovementPressed && !isJumpPressed)
             //{
             //    anim.AnimationState.SetAnimation(0, "run", true);

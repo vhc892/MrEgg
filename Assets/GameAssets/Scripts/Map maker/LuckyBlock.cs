@@ -1,4 +1,4 @@
-using Sirenix.OdinInspector;
+    using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,11 +8,10 @@ using Hapiga.UI;
 
 public class LuckyBlock : MonoBehaviour
 {
-    [SerializeField] GameObject original;
-    [SerializeField] GameObject reveal;
-    [SerializeField] GameObject broken;
+    [SerializeField] GameObject[] blockStates;
     [SerializeField] int numberOfHits = 1;
    
+    private int currentBlockState = 0;
     bool isBroken = false;
 
     public Levels levelIndex;
@@ -58,6 +57,7 @@ public class LuckyBlock : MonoBehaviour
 
     public void OnStart()
     {
+        currentBlockState = 0;
         FunctionOnInit();
         SetBlockState();
     }
@@ -218,10 +218,12 @@ public class LuckyBlock : MonoBehaviour
         {
             return;
         }
-        ObjPool star = Pool.Instance.star.GetPrefabInstance();
+        currentBlockState = 0;
+        SetBlockState();
+        GameObject star = Instantiate(starPrefab, transform);
         star.transform.SetParent(transform);
         star.transform.localPosition = Vector3.zero;
-        //star.ReturnObjToPool(1f);
+        Destroy(star, 1f);
     }
     #endregion
 
@@ -238,34 +240,25 @@ public class LuckyBlock : MonoBehaviour
     #endregion
     void OnHit()
     {
+        currentBlockState++;
+        SetBlockState();
         FunctionOnHit();
         numberOfHits--;
-        SetBlockState();
+        if (numberOfHits < 0)
+        {
+            isBroken = true;
+            return;
+        }
     }
 
     void SetBlockState()
     {
-        if (numberOfHits >= 1)
+        currentBlockState = Mathf.Clamp(currentBlockState, 0, blockStates.Length - 1);
+        for (int i = 0; i < blockStates.Length; i++)
         {
-            isBroken = false;
-            original.SetActive(true);
-            reveal.SetActive(false);
-            broken.SetActive(false);
+            blockStates[i].SetActive(false);
         }
-        else if (numberOfHits == 0)
-        {
-            isBroken = false;
-            original.SetActive(false);
-            reveal.SetActive(true);
-            broken.SetActive(false);
-        }
-        else
-        {
-            original.SetActive(false);
-            reveal.SetActive(false);
-            broken.SetActive(true);
-            isBroken = true;
-        }
+        blockStates[currentBlockState].SetActive(true);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

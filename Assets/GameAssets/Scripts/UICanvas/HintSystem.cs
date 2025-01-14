@@ -18,8 +18,11 @@ public class HintSystem : BaseUI
     private bool hintAvailable = false;
 
     [SerializeField] Button no, yes;
-    [SerializeField] TextMeshProUGUI hintCost;
+    [SerializeField] GameObject question;
+    [SerializeField] GameObject revealPanel;
+    [SerializeField] TextMeshProUGUI hintCost; 
     [SerializeField] TextMeshProUGUI hintText;
+    [SerializeField] TextMeshProUGUI hintTextReward;
     [SerializeField] TextMeshProUGUI lightBulbAmount;
     [SerializeField] UIPanel getBulbPanel;
     public void SetUpLevelData(int level)
@@ -27,15 +30,21 @@ public class HintSystem : BaseUI
         if (hintAvailable)
         {
             yes.gameObject.SetActive(false);
-            hintText.text = currentLevelData.rewardHint;
+            hintTextReward.gameObject.SetActive(true);
+            hintText.gameObject.SetActive(false);
+            //hintText.text = currentLevelData.rewardHint;
         }
         else
         {
+            hintTextReward.gameObject.SetActive(false);
+            hintText.gameObject.SetActive(true);
 
+            question.SetActive(true); 
+            revealPanel.SetActive(false);
             yes.gameObject.SetActive(true);
-            hintText.text = "DO YOU GET ANY TIPS ?";
+            //hintText.text = "DO YOU wANT ANY TIPS ?";
         }
-        currentLevelData = levelData.levelPrefabs[level];
+        //currentLevelData = levelData.levelPrefabs[level];
         hintCost.text = "-" + cost.ToString();  
         lightBulb = GameConfig.Instance.LightBulb;
         UpdateCostText();
@@ -48,16 +57,26 @@ public class HintSystem : BaseUI
 
     public void ShowHint()
     {
+        revealPanel.SetActive(true);
+        question.SetActive(false);
         hintAvailable = true;
-        hintText.text = currentLevelData.rewardHint;
+
+        hintTextReward.gameObject.SetActive(true);
+        hintText.gameObject.SetActive(false);
+
+
+        //hintText.text = currentLevelData.rewardHint;
         lightBulb -= cost;
-        yes.gameObject.SetActive(false);
         GameConfig.Instance.LightBulb = lightBulb;
+        UpdateCostText();
+        AudioManager.Instance.PlaySFX("GetHint");
+        yes.gameObject.SetActive(false);
     }
 
     public void DisableHint()
     {
         Hide();
+        AudioManager.Instance.PlaySFX("ShowHintPanel");
     }
 
     public void Hint()

@@ -25,6 +25,14 @@ public class KeyDropBox : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Player")) 
+        {
+            rb.mass = 1;
+        }
+        else
+        {
+            rb.mass = 50;
+        }
         Debug.Log("drop");
         Debug.Log(previousVelocityY);
         if (Mathf.Abs(previousVelocityY) > fallSpeedThreshold)
@@ -33,6 +41,7 @@ public class KeyDropBox : MonoBehaviour
             KnockEffect knockEffect = Instantiate(knockEffectPrefab, transform.position, Quaternion.identity);
             knockEffect.transform.localScale *= 2f;
             knockEffect.PlayKnockAnimation();
+            AudioManager.Instance.PlaySFX("Pop");
         }
     }
 

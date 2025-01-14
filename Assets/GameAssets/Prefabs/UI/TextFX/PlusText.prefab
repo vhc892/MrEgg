@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3628563697197354082}
   - component: {fileID: 5113633042712118149}
   - component: {fileID: 8824118297426578127}
-  - component: {fileID: 8706816655119088834}
   m_Layer: 5
   m_Name: PlusText
   m_TagString: Untagged
@@ -37,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 73.4263, y: 69.3218}
+  m_SizeDelta: {x: 390.1257, y: 368.3181}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3628563697197354082
 CanvasRenderer:
@@ -94,7 +93,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 67.3
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -157,15 +156,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8706816655119088834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 351271772378291560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf0186965ff3074eb174cb7be794a54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

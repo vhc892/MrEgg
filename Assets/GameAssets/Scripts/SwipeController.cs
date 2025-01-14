@@ -27,8 +27,8 @@ public class SwipeController : MonoBehaviour
             targetPos += pageStep;
             MovePage();
             Debug.Log("currentPage" + currentPage);
-            Debug.Log(targetPos.x);
         }
+        AudioManager.Instance.PlaySFX("SelectButton");
     }
     public void Previus()
     {
@@ -39,6 +39,7 @@ public class SwipeController : MonoBehaviour
             MovePage();
             Debug.Log("currentPage" + currentPage);
         }
+        AudioManager.Instance.PlaySFX("SelectButton");
     }
     private void MovePage()
     {

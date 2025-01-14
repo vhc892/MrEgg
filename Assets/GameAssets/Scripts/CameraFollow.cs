@@ -23,6 +23,7 @@ public class CameraFollow : MonoBehaviour
         {
             canFollow = true;
         }
+        
         if (canFollow)
         {
             CameraFollowing();
@@ -32,6 +33,7 @@ public class CameraFollow : MonoBehaviour
     public void ResetPosition()
     {
         transform.position = startPosition;
+        canFollow = false;
     }
     public void CameraFollowing()
     {
@@ -45,5 +47,17 @@ public class CameraFollow : MonoBehaviour
         {
             transform.position = targetPosition;
         }
+    }
+    
+    private void OnEnable()
+    {
+        GameEvents.onLevelStart += ResetPosition;
+        GameEvents.onLevelRestart += ResetPosition;
+    }
+    private void OnDisable()
+    {
+        GameEvents.onLevelStart -= ResetPosition;
+        GameEvents.onLevelRestart -= ResetPosition;
+
     }
 }

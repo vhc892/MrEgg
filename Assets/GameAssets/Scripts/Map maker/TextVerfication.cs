@@ -9,10 +9,11 @@ public class TextVerfication : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "PlayerChild")
         {
             finishDoor.transform.DOMove(finishDoor.transform.position + Vector3.up * 2, 1f);
             GetComponent<Collider2D>().enabled = false;
+            
         }
     }
 }

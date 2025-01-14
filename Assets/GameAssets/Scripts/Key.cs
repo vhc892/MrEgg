@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
-    [SerializeField] private FinishDoor door;
+    [SerializeField] public FinishDoor door;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float stopDistance = 0.1f;
 
@@ -13,6 +13,7 @@ public class Key : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            AudioManager.Instance.PlaySFX("GetKey");
             moveToDoor = true;
             StartCoroutine(MoveToDoor());
         }

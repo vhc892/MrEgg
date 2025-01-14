@@ -108,7 +108,322 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Tile Map 1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 287.3333
+        width: 453.8
+        height: 143.66667
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30e0d087c9022bb47bc19a6d3b77e93b
+      internalID: 1360610459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile Map 1_1
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 287.3333
+        width: 453.8
+        height: 143.66667
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04f058dba583b954c9ed195a3c12ab39
+      internalID: 149180085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile Map 1_2
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 287.3333
+        width: 453.8
+        height: 143.66667
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3477b06635930544a9ed1ac0092a294a
+      internalID: 106978358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile Map 1_3
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 287.3333
+        width: 453.8
+        height: 143.66667
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2185f00cbf06dd47ab359bb9514e728
+      internalID: -967032515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile Map 1_4
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 287.3333
+        width: 453.8
+        height: 143.66667
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82e06bbad6930284f972b991b809ee35
+      internalID: 1214188205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile Map 1_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 144.33333
+        width: 453.8
+        height: 143.66667
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51c79cabf04259148aa4e109aaa6e36a
+      internalID: 1962545788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile Map 1_6
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 144.33333
+        width: 453.8
+        height: 143.66667
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b35f017e6ade24e4ebe527bfec763b76
+      internalID: -2073803343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile Map 1_7
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 144.33333
+        width: 453.8
+        height: 143.66667
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0a982772f58a7844ad049d157a078ee
+      internalID: -1613966619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile Map 1_8
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 144.33333
+        width: 453.8
+        height: 143.66667
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00aa05e53f3269e4d8bff77e29ee72ca
+      internalID: -1996546304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile Map 1_9
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 144.33333
+        width: 453.8
+        height: 143.66667
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 371bef07a83aac94c9f10cc2ff599df3
+      internalID: 1904203678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile Map 1_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1.3333282
+        width: 453.8
+        height: 143.66667
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 352ce93485340f347b8bef7f09502bec
+      internalID: -643242092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile Map 1_11
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 1.3333282
+        width: 453.8
+        height: 143.66667
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed0281a4bf932e24ea3315b59fb5f18e
+      internalID: 1769583410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile Map 1_12
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 1.3333282
+        width: 453.8
+        height: 143.66667
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc7d2af8d14a3ac4cbacaf27408cdaa2
+      internalID: 1238995482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile Map 1_13
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 1.3333282
+        width: 453.8
+        height: 143.66667
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa2dd89d5bb0f50439c3167cd1683844
+      internalID: 1211419252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile Map 1_14
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 1.3333282
+        width: 453.8
+        height: 143.66667
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5242f28b7eb206340a047d226fab6bab
+      internalID: 602192224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +434,22 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Tile Map 1_0: 1360610459
+      Tile Map 1_1: 149180085
+      Tile Map 1_10: -643242092
+      Tile Map 1_11: 1769583410
+      Tile Map 1_12: 1238995482
+      Tile Map 1_13: 1211419252
+      Tile Map 1_14: 602192224
+      Tile Map 1_2: 106978358
+      Tile Map 1_3: -967032515
+      Tile Map 1_4: 1214188205
+      Tile Map 1_5: 1962545788
+      Tile Map 1_6: -2073803343
+      Tile Map 1_7: -1613966619
+      Tile Map 1_8: -1996546304
+      Tile Map 1_9: 1904203678
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

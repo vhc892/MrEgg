@@ -1,6 +1,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class DragUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
@@ -50,8 +51,43 @@ public class DragUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDr
                 break;
         }
 
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(buttonScreenPosition);
+        Vector3 worldPosition = mainCamera.ScreenToWorldPoint(buttonScreenPosition);
         worldPosition.z = 0;
+
+        transform.position = worldPosition;
+        //StartCoroutine(IEInit());
+    }
+
+    IEnumerator IEInit()
+    {
+        yield return new WaitForSeconds(1f);
+        Vector3 buttonScreenPosition = Vector3.zero;
+
+        switch (actionType)
+        {
+            case ActionType.ShowHint:
+                buttonScreenPosition = UIManager.Instance.ingameUI.allButtons[0].transform.position;
+                break;
+            case ActionType.Restart:
+                buttonScreenPosition = UIManager.Instance.ingameUI.allButtons[1].transform.position;
+                break;
+            case ActionType.Pause:
+                buttonScreenPosition = UIManager.Instance.ingameUI.allButtons[2].transform.position;
+                break;
+            case ActionType.MoveLeft:
+                buttonScreenPosition = UIManager.Instance.ingameUI.playerControll[0].transform.position;
+                break;
+            case ActionType.MoveRight:
+                buttonScreenPosition = UIManager.Instance.ingameUI.playerControll[1].transform.position;
+                break;
+            case ActionType.Jump:
+                buttonScreenPosition = UIManager.Instance.ingameUI.playerControll[2].transform.position;
+                break;
+        }
+
+        Vector3 worldPosition = mainCamera.ScreenToWorldPoint(buttonScreenPosition);
+        worldPosition.z = 0;
+        
         transform.position = worldPosition;
     }
 
@@ -72,7 +108,7 @@ public class DragUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDr
         if (Vector2.Distance(pointerDownPosition, eventData.position) > dragThreshold)
         {
             canClick = false;
-            Debug.Log("drag");
+            //Debug.Log("drag");
         }
     }
 
@@ -81,11 +117,11 @@ public class DragUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDr
         if (canClick)
         {
             HandleAction();
-            Debug.Log("click");
+            //Debug.Log("click");
         }
         else
         {
-            Debug.Log("drag end");
+            //Debug.Log("drag end");
         }
 
         isDragging = false;

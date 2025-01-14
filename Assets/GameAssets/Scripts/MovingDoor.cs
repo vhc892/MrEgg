@@ -6,8 +6,8 @@ using UnityEngine.InputSystem.LowLevel;
 public class MovingDoor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public float detectionRadius = 5f;
-    public float moveSpeed = 3f;
-    private Transform player;
+    private float moveSpeed;
+    private CharController player;
     private bool isMouseHold = false;
     private float startMoveSpeed;
     private bool moveDoor;
@@ -27,9 +27,10 @@ public class MovingDoor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player")?.transform;
+        player = GameManager.Instance.player;
+        moveSpeed = GameManager.Instance.player.movementSpeed;
         startMoveSpeed = moveSpeed;
-        lastPlayerPosition = player.position;
+        lastPlayerPosition = player.transform.position;
 
         //SetDoorAnimation(DoorState.Idle);
         currentDoorState = DoorState.Idle;
@@ -42,7 +43,7 @@ public class MovingDoor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (currentDoorState == DoorState.Open) return;
         if (player == null) return;
 
-        float sqrDistance = (transform.position - player.position).sqrMagnitude;
+        float sqrDistance = (transform.position - player.transform.position).sqrMagnitude;
         if (sqrDistance <= detectionRadius * detectionRadius && !moveDoor)
         {
             moveDoor = true;
@@ -51,25 +52,37 @@ public class MovingDoor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
         if (moveDoor)
         {
-            float playerMovementDelta = Mathf.Abs(player.position.x - lastPlayerPosition.x);
-
-            if (playerMovementDelta > 0.01f)
+            //float playerMovementDelta = Mathf.Abs(player.transform.position.x - lastPlayerPosition.x);
+            float playerMovementDelta = Mathf.Abs(player.RGBD.velocity.x);
+            if (playerMovementDelta > 0)
             {
                 if (currentDoorState != DoorState.Run)
                 {
+                    Debug.Log("run");
                     SetDoorAnimation(DoorState.Run);
                 }
-
-                if (player.position.x > lastPlayerPosition.x)
+                
+                if (player.RGBD.velocity.x > 0)
                 {
                     DoorMoveRight();
                     FlipDoor(false); // Face right
                 }
-                else if (player.position.x < lastPlayerPosition.x)
+                else if (player.RGBD.velocity.x < 0)
                 {
                     DoorMoveLeft();
                     FlipDoor(true); // Face left
                 }
+                //rb.velocity = player.RGBD.velocity;
+                //if (player.position.x > lastPlayerPosition.x)
+                //{
+                //    DoorMoveRight();
+                //    FlipDoor(false); // Face right
+                //}
+                //else if (player.position.x < lastPlayerPosition.x)
+                //{
+                //    DoorMoveLeft();
+                //    FlipDoor(true); // Face left
+                //}
             }
             else
             {
@@ -80,7 +93,7 @@ public class MovingDoor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             }
         }
 
-        lastPlayerPosition = player.position;
+        lastPlayerPosition = player.transform.position;
 
         if (isMouseHold && moveSpeed > 0)
         {
@@ -91,17 +104,15 @@ public class MovingDoor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             moveSpeed = startMoveSpeed;
         }
     }
-
+   
     private void DoorMoveRight()
     {
-        Vector2 newPosition = rb.position + Vector2.right * moveSpeed * Time.deltaTime;
-        rb.MovePosition(newPosition);
+        transform.Translate(moveSpeed * Time.deltaTime, 0f, 0f);
     }
 
     private void DoorMoveLeft()
     {
-        Vector2 newPosition = rb.position + Vector2.left * moveSpeed * Time.deltaTime;
-        rb.MovePosition(newPosition);
+        transform.Translate(-moveSpeed * Time.deltaTime, 0f, 0f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -110,7 +121,7 @@ public class MovingDoor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             moveSpeed = 0f;
             SetDoorAnimation(DoorState.Open);
-            UIManager.Instance.ingameUI.LevelCompleted();
+            GameEvents.LevelFinish();
         }
     }
 

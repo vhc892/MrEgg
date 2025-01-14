@@ -8,8 +8,6 @@ using Hapiga.UI;
 
 public class UIManager : UIManagerSingleton<UIManager>
 {
-
-    public UIPanel startMenu;
     public LevelDisplay levelDisplay;
     public IngameUI ingameUI;
     public MenuUI menuUI;
@@ -23,49 +21,61 @@ public class UIManager : UIManagerSingleton<UIManager>
     public override void Init()
     {
         base.Init();
-        DontDestroyOnLoad(this.gameObject);
     }
     public void ShowLevel()
     {
+        AudioManager.Instance.PlaySFX("SelectButton");
         levelDisplay.Show();
         levelDisplay.OnStart();
     }
-    public void HideLevel()
-    {
-        levelDisplay.Hide();
-    }
-    private void Start()
+
+    public void ShowStartUI()
     {
         menuUI?.SetInfor();
-        //startMenu?.Show(true);
-        //ingameUI?.Hide();
-        //HideLevel();
+        ingameUI?.Hide();
+        levelDisplay.Hide();
+    }
+    public void HideLevel()
+    {
+        AudioManager.Instance.PlaySFX("SelectButton");
+        levelDisplay.Hide();
     }
 
     public void OnLevelLoaded()
     {
         //startMenu?.Hide(true);
-        menuUI.Close();
+        GameEvents.onLevelFinish += FinishLevel;
+        menuUI.Hide();
         HideLevel();
         ingameUI?.Show();
         ingameUI?.OnStart();
+        AudioManager.Instance.IngameMusic();
     }
 
     public void BackToMainMenu()
     {
+        GameEvents.onLevelFinish -= FinishLevel;
         ingameUI?.Hide();
-        startMenu?.Show(true);
         menuUI.SetInfor();
         levelUI?.SetInfor();
+        GameEvents.ReturnToMenu();
+        AudioManager.Instance.MenuMusic();
+    }
+
+    public void FinishLevel()
+    {
+        ingameUI?.OnLevelCompleted();
     }
 
     private void OnEnable()
     {
         GameEvents.onLevelStart += OnLevelLoaded;
+        GameEvents.onLevelFinish += FinishLevel;
     }
 
     private void OnDisable()
     {
         GameEvents.onLevelStart -= OnLevelLoaded;
+        GameEvents.onLevelFinish -= FinishLevel;
     }
 }

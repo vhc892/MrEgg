@@ -6,6 +6,6 @@ public class FinishText : MonoBehaviour
 {
     public void EndLevel()
     {
-        UIManager.Instance.ingameUI.LevelCompleted();
+        GameEvents.LevelFinish();
     }
 }

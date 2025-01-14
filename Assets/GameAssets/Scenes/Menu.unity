@@ -2225,6 +2225,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6429184160392880890, guid: 60bf2f303a15e6046b5166586939e29c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6429184160392880890, guid: 60bf2f303a15e6046b5166586939e29c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7307312254494936262, guid: 60bf2f303a15e6046b5166586939e29c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2320,6 +2328,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f31c4f5ca3814d4d94bbad4a3c65a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  configData: {fileID: 11400000, guid: ff1c92f6079a56045b8ba7414118681d, type: 2}
+  IsMusicOn: 0
+  IsSFXOn: 0
 --- !u!1 &1730108294 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4555604462264333997, guid: 163a5bc5c54ced248b267feb5eb30eaa, type: 3}
@@ -3032,7 +3043,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUseBackground: 1
   background: {fileID: 9533358}
-  startMenu: {fileID: 0}
   levelDisplay: {fileID: 5540084660855695551}
   ingameUI: {fileID: 378231341}
   menuUI: {fileID: 4107316161915175010}

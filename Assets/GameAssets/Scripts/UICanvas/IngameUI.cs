@@ -6,20 +6,28 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Hapiga.UI;
 using UnityEngine.UI;
+using Hapiga.Tracking;
+using Hapiga.Ads;
 
 public class IngameUI : BaseUI
 {
     [SerializeField] UIPanel panelPause;
+    [SerializeField] UIPanel languagePanel;
     [SerializeField] TextMeshProUGUI txtLevel;
     [SerializeField] UIPanel levelCompletePopup;
-    [SerializeField] UIPanel blackScreen;
+    [SerializeField] BlackScreenUI blackScreen;
     [SerializeField] HintSystem hintSystem;
+    [SerializeField] UIPanel topButton;
+    [SerializeField] UIPanel bottomButton;
+    [SerializeField] ToggleUI[] toggleUIs;
     public Button[] allButtons;
     public Button[] playerControll;
+    public Button backMenuBtn;
 
     GameManager gameManager;
     GameConfig gameConfig;
     UIManager uiManager;
+
     private int currentLevel;
     private int nextLevel;
     private void Awake()
@@ -31,19 +39,16 @@ public class IngameUI : BaseUI
         gameConfig = GameConfig.Instance;
         uiManager = UIManager.Instance;
 
+        bool isLevel20 = GameConfig.Instance.CurrentLevel == 20;
         foreach (Button button in playerControll)
         {
-            if (GameConfig.Instance.CurrentLevel == 20)
-                button.gameObject.SetActive(false);
-            else
-                button.gameObject.SetActive(true);
+            button.gameObject.SetActive(!isLevel20);
         }
+
+        bool isLevel25 = GameConfig.Instance.CurrentLevel == 25;
         foreach (Button button in allButtons)
         {
-            if(GameConfig.Instance.CurrentLevel == 25)
-                button.gameObject.SetActive(false);
-            else
-                button.gameObject.SetActive(true);
+            button.gameObject.SetActive(!isLevel25);
         }
 
         txtLevel.text = "Level " + (GameConfig.Instance.CurrentLevel + 1);
@@ -51,24 +56,38 @@ public class IngameUI : BaseUI
         levelCompletePopup.Hide(true);
 
         nextLevel = currentLevel + 1;
-        EnableAllButtons();
+        OnLevelLoaded();
     }
 
     #region LEVEL
-    public void LevelCompleted()
+
+    public void OnLevelLoaded()
     {
+        topButton.Show(true);
+        bottomButton.Show(true);
+        EnableAllButtons();
+    }
+    public void OnLevelCompleted()
+    {
+        AudioManager.Instance.PlaySFX("Win");
+        topButton.Show(false);
+        bottomButton.Show(false);
+        TrackingManager.TrackEvent(FirebaseParamater.END_LEVEL, FirebaseParamater.LEVEL, (GameConfig.Instance.CurrentLevel + 1).ToString());
         gameConfig.CurrentLevel = nextLevel;
         SaveSystemData.SavePlayer(GameConfig.Instance.gameData);
-        GameEvents.LevelFinish();
+
         levelCompletePopup?.Show(true);
     }
 
     public void NextLevelButton()
     {
+        AudioManager.Instance.PlaySFX("SelectButton");
         //buttonSequence.DeactivateButtons();
         levelCompletePopup.Hide(true);
         gameManager.LoadLevel(currentLevel);
-        GameEvents.LevelStart();
+
+        if (GameConfig.Instance.CurrentLevel >= GameConfig.Instance.configData.level_show_ads)
+            AdManager.Instance.ShowInterstitialAds("end_level");
     }
     public void BackMenu()
     {
@@ -78,6 +97,7 @@ public class IngameUI : BaseUI
 
         SaveSystemData.SavePlayer(GameConfig.Instance.gameData);
         uiManager.BackToMainMenu();
+        AudioManager.Instance.PlaySFX("SelectButton");
         //SceneManager.LoadScene(0);
     }
 
@@ -112,29 +132,71 @@ public class IngameUI : BaseUI
     }
     public void Pause()
     {
+        AudioManager.Instance.PlaySFX("SelectButton");
+        backMenuBtn.gameObject.SetActive(true);
         panelPause.Show(true);
         GameEvents.LevelPause();   
+        foreach (ToggleUI toggleUI in toggleUIs)
+        {
+            toggleUI.OnStart();
+        }
+    }
+    public void PauseInMenu()
+    {
+        AudioManager.Instance.PlaySFX("SelectButton");
+        backMenuBtn.gameObject.SetActive(false);
+        panelPause.Show(true);
+        GameEvents.LevelPause();
+        foreach (ToggleUI toggleUI in toggleUIs)
+        {
+            toggleUI.OnStart();
+        }
+    }
+    public void LanguageOpen()
+    {
+        AudioManager.Instance.PlaySFX("SelectButton");
+        languagePanel.Show(true);
+    }
+    public void LanguageClose()
+    {
+        AudioManager.Instance.PlaySFX("SelectButton");
+        languagePanel.Hide(true);
     }
 
     public void Unpause()
     {
+        AudioManager.Instance.PlaySFX("SelectButton");
         GameEvents.LevelResume();
         panelPause.Hide(true);
     }
-    #endregion
+    #endregion 
 
     #region RESTART
     public void Restart()
     {
-        blackScreen.Show(true);
-        GameEvents.LevelRestart();
-        blackScreen.Hide(true);
+        AudioManager.Instance.PlaySFX("SelectButton");
+        StartCoroutine(RestartSequence());
     }
+
+    private IEnumerator RestartSequence()
+    {
+        blackScreen.SetInfor();
+
+        yield return new WaitForSeconds(0.15f);
+
+        GameEvents.LevelRestart();
+
+        //yield return new WaitForSeconds(0.15f);
+
+        blackScreen.Close();
+    }
+
     #endregion
 
     #region TIPS
     public void ShowHint()
     {
+        AudioManager.Instance.PlaySFX("ShowHintPanel");
         hintSystem.Show();
         hintSystem.SetUpLevelData(GameConfig.Instance.CurrentLevel);
     }

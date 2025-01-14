@@ -12,5 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74e692485f7943a78cd6a7b311905183, type: 3}
   m_Name: RemoteConfigData
   m_EditorClassIdentifier: 
-  isGetRemoteConfig: 0
-  RemoteConfigList: []
+  isGetRemoteConfig: 1
+  RemoteConfigList:
+  - key: interval
+    type: 1
+    defaultValue: 30
+    value: 30
+  - key: level_show_ads
+    type: 1
+    defaultValue: 3
+    value: 3
+  - key: show_AOA
+    type: 0
+    defaultValue: true
+    value: true

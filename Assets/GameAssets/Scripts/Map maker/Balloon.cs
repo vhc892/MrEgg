@@ -51,6 +51,7 @@ public class Balloon : MonoBehaviour, IPointerDownHandler
             KnockEffect knockEffect = Instantiate(knockEffectPrefab, position, Quaternion.identity);
             knockEffect.PlayKnockAnimation();
         }
+        AudioManager.Instance.PlaySFX("Pop");
     }
 
     private void StopFlying()

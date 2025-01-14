@@ -25,35 +25,38 @@ public class DigitalClock : MonoBehaviour
 
     IEnumerator StartTimer()
     {
-        //second++;
-        //secondHand.text = second.ToString("00");
-        Second = Second + 1;
-        if (Second >= 60)
+        while (true)
         {
-            Second = 0;
-            //minute++;
-            //minuteHand.text = minute.ToString("00");
-            Minute = Minute + 1;
-            if (Minute >= 60)
+            // Increment seconds
+            Second++;
+            if (Second >= 60)
             {
-                Minute = 0;
-                //hour++;
-                //hourHand.text = hour.ToString("00");
-                Hour = Hour + 1;
-                if (Hour >= 24)
+                Second = 0;
+                Minute++;
+
+                // Increment minutes
+                if (Minute >= 60)
                 {
-                    Hour = 0;
+                    Minute = 0;
+                    Hour++;
+
+                    // Increment hours
+                    if (Hour >= 24)
+                    {
+                        Hour = 0;
+                    }
                 }
             }
+
+            // Wait for 1 second before repeating
+            yield return new WaitForSeconds(1);
         }
-        yield return new WaitForSeconds(1);
-        StartCoroutine(StartTimer());
     }
 
     public void AddToSeconds()
     {
         Second = Second + 1;
-        ObjPool plusSecond = Pool.Instance.plusText.GetPrefabInstance();
+        TextMeshProUGUI plusSecond = Instantiate(plusText,transform);
         plusSecond.transform.SetParent(secondHand.transform);
         plusSecond.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         if (Second >= 60)
@@ -70,12 +73,12 @@ public class DigitalClock : MonoBehaviour
                 }
             }
         }
-        plusSecond.ReturnObjToPool(1.5f);
+        Destroy(plusSecond.gameObject, 1.5f);
     }
     public void AddToMinutes()
     {
         Minute = Minute + 1;
-        ObjPool plusMinute = Pool.Instance.plusText.GetPrefabInstance();
+        TextMeshProUGUI plusMinute = Instantiate(plusText, transform);
         plusMinute.transform.SetParent(minuteHand.transform);
         plusMinute.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         if (Minute >= 60)
@@ -87,12 +90,12 @@ public class DigitalClock : MonoBehaviour
                 Hour = 0;
             }
         }
-        plusMinute.ReturnObjToPool(1.5f);
+        Destroy(plusMinute.gameObject, 1.5f);
     }
     public void AddToHours()
     {
         Hour = Hour + 1;
-        ObjPool plusHour = Pool.Instance.plusText.GetPrefabInstance();
+        TextMeshProUGUI plusHour = Instantiate(plusText, transform);
         plusHour.transform.SetParent(hourHand.transform);
         plusHour.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         if (Hour >= 24)
@@ -103,6 +106,6 @@ public class DigitalClock : MonoBehaviour
         {
             GameEvents.UnlockDoor();
         }
-        plusHour.ReturnObjToPool(1.5f);
+        Destroy(plusHour.gameObject, 1.5f);
     }
 }

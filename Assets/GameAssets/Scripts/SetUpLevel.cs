@@ -7,12 +7,12 @@ using UnityEngine;
 public class SetUpLevel : MonoBehaviour
 {
     public Transform playerStartPosition;
-    public TextMeshProUGUI hintText;
+    public TextMeshPro hintText;
     private LevelData data;
 
     private void Awake()
     {
-        hintText = GetComponentInChildren<TextMeshProUGUI>();
+        //hintText = GetComponentInChildren<TextMeshPro>();
         playerStartPosition = transform.Find("StartPos");
     }
 
@@ -20,6 +20,5 @@ public class SetUpLevel : MonoBehaviour
     {
         this.data = data;
         playerStartPosition.position = data.startPos;
-        hintText.text = data.hint;
     }
 }

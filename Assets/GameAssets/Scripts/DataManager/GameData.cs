@@ -4,6 +4,7 @@ public class GameData
     private int levelPass;
     private int currentLevel;
     private int lightBulb;
+    private int session;
 
     public int LevelPass
     {
@@ -36,6 +37,17 @@ public class GameData
         set
         {
             lightBulb = value;
+        }
+    }
+    public int Session
+    {
+        get
+        {
+            return session;
+        }
+        set
+        {
+            session = value;
         }
     }
 }

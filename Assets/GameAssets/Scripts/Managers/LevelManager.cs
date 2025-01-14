@@ -1,17 +1,30 @@
-﻿using System.Collections;
+﻿using Assets.SimpleLocalization.Scripts;
+using Helper;
+using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public LevelPrefabData levelData;
     public static LevelManager Instance;
+   
+    //LEVELS
+    public LevelPrefabData levelData;
     private GameObject currentLevelPrefab;
+    public Levels levelIndex;
+
+    private CharController player;
     public CameraFollow cameraFollow;
-    //public int levelIndex = 0;
+    private Vector3 initialCameraPosition;
 
 
+    [SerializeField] Collider2D col;
+
+    [ShowIf("levelIndex", Levels.level29), EnableIf("levelIndex", Levels.level29)]
+    [SerializeField] private GameObject boxPf;
+    private List<GameObject> boxes = new List<GameObject>();
 
     private void Awake()
     {
@@ -22,22 +35,19 @@ public class LevelManager : MonoBehaviour
     }
     private void Start()
     {
+        initialCameraPosition = Camera.main.transform.position;
         //levelIndex = PlayerPrefs.GetInt("SelectedLevel", 0);
         //LoadLevel(GameConfig.Instance.CurrentLevel);
     }
     public void LoadLevel(int level)
     {
+        Camera.main.transform.position = initialCameraPosition;
         if (transform.childCount > 0)
             Destroy(transform.GetChild(0).gameObject);
 
+        col.enabled = false;
         cameraFollow.isCameraFollow = false;
         GameManager.Instance.player.canJumpManyTimes = false;
-
-        if (level == 6 || level == 24)
-            cameraFollow.isCameraFollow = true;
-
-        if (level == 9 || level == 17)
-            GameManager.Instance.player.canJumpManyTimes = true;
 
 
         if (level < 0 || level > levelData.levelPrefabs.Count)
@@ -50,12 +60,79 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(currentLevelPrefab);
         }
+        levelIndex = levelData.levelPrefabs[level].levelIndex;
+        LoadLevelProperties();
         currentLevelPrefab = Instantiate(levelData.levelPrefabs[level].prefabs, this.transform);
+        currentLevelPrefab.transform.SetSiblingIndex(0);
         SetUpLevel setUpLevel = currentLevelPrefab.GetComponent<SetUpLevel>();
         setUpLevel.SetLevelData(levelData.levelPrefabs[level]);
 
         //GameManager.Instance.buttonSequence.StartSequence();
-
+        //LocalizationManager.Language = SaveSystemData.LoadLanguage();
+        //LocalizationManager.OnLocalizationChanged?.Invoke();
         //UIManager.Instance.OnLevelLoaded();
+    }
+
+    private void LoadLevelProperties()
+    {
+        switch (levelIndex)
+        {
+            case Levels.level7:
+                cameraFollow.isCameraFollow = true;
+                break;
+            case Levels.level25:
+                cameraFollow.isCameraFollow = true;
+                break;
+            case Levels.level10:
+                GameManager.Instance.player.canJumpManyTimes = true;
+                break;
+            case Levels.level18:
+                GameManager.Instance.player.canJumpManyTimes = true;
+                break;
+            case Levels.level29:
+                col.enabled = true;
+                break;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PlayerChild"))
+        {
+            player = collision.GetComponentInParent<CharController>();
+        }
+    }
+
+    public void SpawnOnRestart()
+    {
+        if (player)
+        {
+            GameObject box = Instantiate(boxPf, transform);
+            box.transform.SetParent(transform);
+            box.transform.SetSiblingIndex(1);
+            box.transform.position = player.endPosition;
+            box.GetComponent<Rigidbody2D>().isKinematic = true;
+            box.GetComponent<Collider2D>().isTrigger = false;
+            boxes.Add(box);
+        }
+    }
+
+    private void DeleteOnFinishLevel()
+    {
+        foreach (var item in boxes)
+        {
+            Destroy(item);
+        }
+    }
+
+    private void OnEnable()
+    {
+        GameEvents.onReturnToMenu += DeleteOnFinishLevel;
+        GameEvents.onLevelFinish += DeleteOnFinishLevel;
+    }
+    private void OnDisable()
+    {
+        GameEvents.onReturnToMenu -= DeleteOnFinishLevel;
+        GameEvents.onLevelFinish -= DeleteOnFinishLevel;
     }
 }

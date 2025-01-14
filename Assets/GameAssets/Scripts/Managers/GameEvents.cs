@@ -42,6 +42,13 @@ public static class GameEvents
     {
         onDoorUnlocked?.Invoke();
     }
+
+    public delegate void OnReturnToMenu();
+    public static OnReturnToMenu onReturnToMenu;
+    public static void ReturnToMenu()
+    {
+        onReturnToMenu?.Invoke();
+    }
     #endregion
 
     #region VALUES

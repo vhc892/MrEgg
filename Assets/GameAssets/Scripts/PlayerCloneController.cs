@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Spine.Unity;
 using UnityEngine.UIElements;
+using System.Collections.Generic;
 
 public class PlayerCloneController : MonoBehaviour
 {
@@ -8,7 +9,16 @@ public class PlayerCloneController : MonoBehaviour
     [SerializeField] private KnockEffect knockEffectPrefab;
 
     private SkeletonAnimation anim;
-    private string runAnimation = "run";
+    string[] runAnimation = { "run", "run2", "run3" };
+    private Dictionary<string, float> walkSoundIntervals = new Dictionary<string, float>
+    {
+        { "run", 0.4f },
+        { "run2", 0.33f },
+        { "run3", 0.25f }
+    };
+    private float lastWalkSoundTime;
+
+
 
     void Awake()
     {
@@ -19,17 +29,26 @@ public class PlayerCloneController : MonoBehaviour
     {
         if (anim != null)
         {
-            anim.AnimationState.SetAnimation(0, runAnimation, true);
+            string randomAnimation = runAnimation[Random.Range(0, runAnimation.Length)];
+            anim.AnimationState.SetAnimation(0, randomAnimation, true);
         }
     }
 
     void Update()
     {
         transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
+        if (walkSoundIntervals.TryGetValue(anim.AnimationName, out float currentInterval))
+        {
+            if (Time.time - lastWalkSoundTime >= currentInterval)
+            {
+                AudioManager.Instance.PlaySFX("Walking");
+                lastWalkSoundTime = Time.time;
+            }
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Monster")
+        if (collision.gameObject.tag == "Monster" || collision.gameObject.tag == "Border")
         {
             if (knockEffectPrefab != null)
             {
@@ -38,6 +57,7 @@ public class PlayerCloneController : MonoBehaviour
                 KnockEffect knockEffect = Instantiate(knockEffectPrefab, effectPosition, Quaternion.identity);
                 knockEffect.PlayKnockAnimation();
             }
+            AudioManager.Instance.PlaySFX("Pop");
             Destroy(this.gameObject);
         }
     }

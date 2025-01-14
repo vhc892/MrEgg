@@ -14,152 +14,186 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelPrefabs:
   - startPos: {x: -6.72, y: 0.73}
+    levelIndex: 0
     prefabs: {fileID: 983889076098346962, guid: beafecc306d5f6948b8149ccc44fc299, type: 3}
-    hint: Jump to get to the door
+    hint: Reach the door to win.
     rewardHint: 'Pass through the door to beat the level '
     reward_amount: 0
   - startPos: {x: -6.91, y: 2.29}
+    levelIndex: 1
     prefabs: {fileID: 7061931294822370204, guid: 1be64bf858c134346b1a7bbc089ede56, type: 3}
-    hint: Push the box
+    hint: Try jumping on boxes.
     rewardHint: 'push the box and step onto it '
     reward_amount: 0
   - startPos: {x: -5.86, y: 3}
+    levelIndex: 2
     prefabs: {fileID: 2626619664812095647, guid: f34fd4524fcd72740b82d1d6a34789e8, type: 3}
-    hint: Grab the key
+    hint: The door is locked.
     rewardHint: 'Get to the key to unlock the door '
     reward_amount: 0
   - startPos: {x: -5.82, y: 0}
+    levelIndex: 3
     prefabs: {fileID: 6205447375526757679, guid: b4c053e39bb97464b9dda3803ceceb71, type: 3}
-    hint: Break the pin
+    hint: Tap to unpin.
     rewardHint: 'Tap to remove the pin to swing the door '
     reward_amount: 0
   - startPos: {x: -5.82, y: 0}
+    levelIndex: 4
     prefabs: {fileID: 2626619664812095647, guid: 8028b0e09ed89964da99a556483c1983, type: 3}
     hint: Be polite
     rewardHint: Knock on the door until it opens.
     reward_amount: 0
   - startPos: {x: -7.21, y: 0}
+    levelIndex: 5
     prefabs: {fileID: 6809889667156357015, guid: 3afb6befba7892f409718379b14fc0da, type: 3}
     hint: The door is flying
     rewardHint: Tap on the balloons to pop it, stopping the door from floating away.
     reward_amount: 0
   - startPos: {x: -5.82, y: 0}
+    levelIndex: 6
     prefabs: {fileID: 2626619664812095647, guid: 643668af83557cb4ab6031157de85108, type: 3}
-    hint: There seems to be something wrong with this door
+    hint: Something is wrong with this door...
     rewardHint: Press and hold on the door to stop it from running.
     reward_amount: 0
   - startPos: {x: -5.34, y: 0}
+    levelIndex: 7
     prefabs: {fileID: 2626619664812095647, guid: 30fffbe6e9b367b43969d5a9384dd2af, type: 3}
-    hint: Relative motion
-    rewardHint: Drag the ground under Mr. Egg horizontally.
+    hint: Move Grounds.
+    rewardHint: Drag the ground under Potato horizontally.
     reward_amount: 0
   - startPos: {x: -8.37, y: 0}
+    levelIndex: 8
     prefabs: {fileID: 6809889667156357015, guid: 5bd4c46f4fe854843a1244a703db6e30, type: 3}
     hint: The door is flying again!
     rewardHint: 'Tap Pause to stop the balloon '
     reward_amount: 0
   - startPos: {x: -4.52, y: 0}
+    levelIndex: 9
     prefabs: {fileID: 2626619664812095647, guid: 0104114f230771244911c4aebfa9b120, type: 3}
-    hint: One is not enough. Once again!
+    hint: If once isn't enough then try again.
     rewardHint: You can jump non-stop
     reward_amount: 0
   - startPos: {x: -7.81, y: 0}
+    levelIndex: 10
     prefabs: {fileID: 9138216475801261633, guid: eba611a8a428acd428a01de0e996a271, type: 3}
-    hint: Can't see it but can walk on it
+    hint: You can't see it but it's there.
     rewardHint: Hit the block to create a path
     reward_amount: 0
   - startPos: {x: -6.8, y: 3.2}
+    levelIndex: 11
     prefabs: {fileID: 2626619664812095647, guid: 22ef7f287c1f14145815d215ec0f320a, type: 3}
-    hint: 
-    rewardHint: 
+    hint: Can you reach the key?
+    rewardHint: Drag the lock from the door with your finger.
     reward_amount: 0
   - startPos: {x: -8.53, y: 0}
+    levelIndex: 12
     prefabs: {fileID: 8463079650241015217, guid: 3308c7757cfe7da45ac93b9c89aa6522, type: 3}
-    hint: The store opens at 9 o'clock
+    hint: This place opens at 9 o'clock.
     rewardHint: Use the block to increase hour
     reward_amount: 0
   - startPos: {x: -8.8, y: 1}
+    levelIndex: 13
     prefabs: {fileID: 8134674596747237315, guid: e97ff1f257f6d054db4e858505faf2b3, type: 3}
     hint: Pull it up
     rewardHint: Hit the block twice
     reward_amount: 0
   - startPos: {x: -9.5, y: 0}
+    levelIndex: 14
     prefabs: {fileID: 2626619664812095647, guid: fcbaac5ad75de13418e6299b931662bf, type: 3}
-    hint: 
-    rewardHint: 
+    hint: Handle with care.
+    rewardHint: Drag Potato accross the the screen and bypass all the traps.
     reward_amount: 0
   - startPos: {x: -6.6, y: 2.5}
+    levelIndex: 15
     prefabs: {fileID: 2626619664812095647, guid: c420da2ab7d7071468c543391a4af2ad, type: 3}
-    hint: 
-    rewardHint: 
+    hint: Follow the rule
+    rewardHint: Stop at redlight and wait for greenlight to go.
     reward_amount: 0
   - startPos: {x: -7.7, y: 0}
+    levelIndex: 16
     prefabs: {fileID: 2626619664812095647, guid: 999a89ce5a4fcf741ace2cdefa9e1db9, type: 3}
-    hint: 
-    rewardHint: 
+    hint: The key is inside the box.
+    rewardHint: Drag the box up and drops it to break it open.
     reward_amount: 0
   - startPos: {x: 0, y: 0}
+    levelIndex: 17
     prefabs: {fileID: 2626619664812095647, guid: 3aa0f165811b0564697bb3cf18bf3327, type: 3}
-    hint: 
-    rewardHint: 
+    hint: Reach the ceiling.
+    rewardHint: Go to the top right of the map.
+    reward_amount: 0
+  - startPos: {x: -10.1, y: 0}
+    levelIndex: 18
+    prefabs: {fileID: 2626619664812095647, guid: 03764bf52b90f6d40bc2a0a342d03cce, type: 3}
+    hint: The faucet is misplaced!
+    rewardHint: Drag the faucet over the hole and fill the hole up.
     reward_amount: 0
   - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 2626619664812095647, guid: 3aa0f165811b0564697bb3cf18bf3327, type: 3}
-    hint: 
-    rewardHint: 
+    levelIndex: 19
+    prefabs: {fileID: 8788169837600094870, guid: 4f58ca7cf7ddf2747a5e3ac30b555550, type: 3}
+    hint: Is there no door ?
+    rewardHint: Go to the word "door" on the tagline.
     reward_amount: 0
   - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 2626619664812095647, guid: 3aa0f165811b0564697bb3cf18bf3327, type: 3}
-    hint: 
-    rewardHint: 
-    reward_amount: 0
-  - startPos: {x: 0, y: 0}
+    levelIndex: 20
     prefabs: {fileID: 2626619664812095647, guid: 223ef2ed1c7a7d6419e48043a065fd81, type: 3}
-    hint: 
-    rewardHint: 
+    hint: All moves are blocked!
+    rewardHint: Drag the jump button to push Mr. Egg to the door.
     reward_amount: 0
   - startPos: {x: 0, y: 0}
+    levelIndex: 21
     prefabs: {fileID: 1225140425252191559, guid: 7746eb1dc4c02fe45b452f50d74e6bed, type: 3}
-    hint: 
-    rewardHint: 
+    hint: What is the password ?
+    rewardHint: Hit the lucky blocks from order left to right, watch carefully how
+      many time you can hit the blocks.
     reward_amount: 0
   - startPos: {x: -6.2, y: 5}
+    levelIndex: 22
     prefabs: {fileID: 2626619664812095647, guid: 03d0ee188520eae4295f4c7334d996fc, type: 3}
-    hint: 
-    rewardHint: 
+    hint: Adjustable Platform
+    rewardHint: The middle platform can be dragged down for an easier jump.
     reward_amount: 0
-  - startPos: {x: -9.5, y: 0}
+  - startPos: {x: -10, y: 0}
+    levelIndex: 23
     prefabs: {fileID: 2626619664812095647, guid: 0265808dbf1fe124a8091a9ba2d1f553, type: 3}
-    hint: 
-    rewardHint: 
-    reward_amount: 0
-  - startPos: {x: -5.7, y: 0}
-    prefabs: {fileID: 2626619664812095647, guid: 309284d08360f1644a371d33312718db, type: 3}
-    hint: 
-    rewardHint: 
+    hint: An Unconventional Way Out.
+    rewardHint: Jump into the first gap.
     reward_amount: 0
   - startPos: {x: -6, y: 0}
-    prefabs: {fileID: 2626619664812095647, guid: edcfaf84172f5fa42b8ec83a1154a403, type: 3}
-    hint: 
-    rewardHint: 
+    levelIndex: 24
+    prefabs: {fileID: 2626619664812095647, guid: 309284d08360f1644a371d33312718db, type: 3}
+    hint: This door again?
+    rewardHint: Pause the game when the door run away.
     reward_amount: 0
-  - startPos: {x: 0, y: 0}
+  - startPos: {x: -7.6, y: 0}
+    levelIndex: 25
+    prefabs: {fileID: 2626619664812095647, guid: edcfaf84172f5fa42b8ec83a1154a403, type: 3}
+    hint: Think outside of the box.
+    rewardHint: Drag the buttons in the top left down to use as platform to jump
+      over to the other side.
+    reward_amount: 0
+  - startPos: {x: -8.53, y: -0.47}
+    levelIndex: 26
     prefabs: {fileID: 1498041998335131829, guid: 6354bef1ffdf79940bb88712dda42910, type: 3}
     hint: 
-    rewardHint: 
+    rewardHint: Press "next level"
     reward_amount: 0
   - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 2626619664812095647, guid: 6190ff26703510342a8647afbc7062f0, type: 3}
-    hint: 
-    rewardHint: 
+    levelIndex: 27
+    prefabs: {fileID: 2626619664812095647, guid: 46b69a227469dad4287a803e6120301a, type: 3}
+    hint: is power
+    rewardHint: Drag "Unity" into the monster.
     reward_amount: 0
-  - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 0}
-    hint: 
-    rewardHint: 
+  - startPos: {x: -7.2, y: 0}
+    levelIndex: 28
+    prefabs: {fileID: 1630200357900758583, guid: e94049cf02347c54f99e521386d43e32, type: 3}
+    hint: Endless Resets.
+    rewardHint: Everytime the level is reset, Potato left a previous version of himself
+      in the scene, which can be used as platform to jump on.
     reward_amount: 0
-  - startPos: {x: 0, y: 0}
-    prefabs: {fileID: 0}
-    hint: 
-    rewardHint: 
+  - startPos: {x: -4.7, y: 0}
+    levelIndex: 29
+    prefabs: {fileID: 7779424382261851951, guid: 14933f7e70f63d04581468a4a071fad1, type: 3}
+    hint: All you need is "luck".
+    rewardHint: Change the position of the wheel's arrow to rig the wheel to spin
+      for the key.
     reward_amount: 0

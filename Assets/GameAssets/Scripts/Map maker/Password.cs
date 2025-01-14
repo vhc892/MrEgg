@@ -12,6 +12,7 @@ public class Password : BaseUI
 
     [SerializeField] string password;
     [SerializeField] TextMeshProUGUI[] txtPassword;
+    [SerializeField] TextMeshProUGUI wrongPassword;
     // Start is called before the first frame update
 
     public void InputPassword(string input)
@@ -49,8 +50,9 @@ public class Password : BaseUI
             {
                 txt.text = "0";
             }
-            ObjPool wrongText = Pool.Instance.plusText.GetPrefabInstance();
-            wrongText.GetComponent<TextMeshProUGUI>().text = "Wrong Password";
+            TextMeshProUGUI wrongText = Instantiate(wrongPassword,transform);
+            wrongText.text = "Wrong Password";
+            Destroy(wrongText.gameObject, 1f);
         }
     }
 

@@ -1,8 +1,12 @@
+using Hapiga.Ads;
+using Hapiga.Tracking;
 using Helper;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Assets.SimpleLocalization.Scripts;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -33,24 +37,38 @@ public class GameManager : MonoBehaviour
     {
         gameConfig = GameConfig.Instance;
         levelManager = LevelManager.Instance;
-        LoadLevel(GameConfig.Instance.CurrentLevel);
-        GameEvents.LevelStart();
+        if (GameConfig.Instance.Session <= 1)
+        {
+            LoadLevel(0);
+        }
+        if(gameConfig.gameData.Session > 1)
+        {
+            AdManager.Instance.ShowAppOpenAds();
+        }
     }
 
     public void LoadLevel(int index)
     {
         //int level = index % 10;
         GameMode = GameMode.Gameplay;
-        levelManager.cameraFollow.ResetPosition();
-        levelManager.LoadLevel(index); 
-        player.startPosition = levelManager.levelData.levelPrefabs[index].startPos;
+        levelManager.LoadLevel(index%30); 
+        player.startPosition = levelManager.levelData.levelPrefabs[index%30].startPos;
         player.enabled = true;
         Time.timeScale = 1;
+        GameEvents.LevelStart();
+        Debug.LogError(LocalizationManager.Language);
+        TrackingManager.TrackEvent(FirebaseParamater.START_LEVEL, FirebaseParamater.LEVEL, (GameConfig.Instance.CurrentLevel + 1).ToString());
     }
 
     private void RestartLevel()
     {
-        LoadLevel(gameConfig.CurrentLevel);
+        /*LoadLevel(gameConfig.CurrentLevel); */
+        AudioManager.Instance.PlaySFX("RestartLevel");
+        GameMode = GameMode.Gameplay;
+        levelManager.LoadLevel(GameConfig.Instance.CurrentLevel);
+        player.startPosition = levelManager.levelData.levelPrefabs[GameConfig.Instance.CurrentLevel].startPos;
+        player.enabled = true;
+        Time.timeScale = 1;
     }
 
     public void PauseGame()
@@ -67,15 +85,17 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEvents.onLevelRestart += RestartLevel;
         GameEvents.onLevelPause += PauseGame;
         GameEvents.onLevelResume += ResumeGame;
+        GameEvents.onLevelRestart += RestartLevel;
+
     }
 
     private void OnDisable()
     {
-        GameEvents.onLevelRestart -= RestartLevel;
         GameEvents.onLevelPause -= PauseGame;
         GameEvents.onLevelResume -= ResumeGame;
+        GameEvents.onLevelRestart -= RestartLevel;
+
     }
 }

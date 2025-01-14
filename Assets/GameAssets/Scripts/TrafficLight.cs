@@ -39,7 +39,7 @@ public class TrafficLight : MonoBehaviour
             redLight.SetActive(false);
             greenLight.SetActive(true);
 
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1.5f);
 
             // Blink
             yield return StartCoroutine(BlinkGrayLight(1.5f));
@@ -50,7 +50,7 @@ public class TrafficLight : MonoBehaviour
             redLight.SetActive(true);
             greenLight.SetActive(false);
 
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1.5f);
 
             // Blink
             yield return StartCoroutine(BlinkGrayLight(1.5f));
@@ -75,7 +75,6 @@ public class TrafficLight : MonoBehaviour
     private bool PlayerIsMoving()
     {
         Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
-        Debug.Log(playerRb.velocity);
         return Mathf.Abs(playerRb.velocity.x) > 0.1f || Mathf.Abs(playerRb.velocity.y) > 0.1f;
     }
 }

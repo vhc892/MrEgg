@@ -37,8 +37,9 @@ public class Pin : MonoBehaviour, IPointerDownHandler
             knockEffect.PlayKnockAnimation();
         }
         OnPinPress?.Invoke(this, new PinPressEventArgs { position = eventData.pointerCurrentRaycast.worldPosition });
+        AudioManager.Instance.PlaySFX("Pop");
     }
-    
+
     private void FixedUpdate()
     {
         lineRenderer.SetPosition(0, transform.position);

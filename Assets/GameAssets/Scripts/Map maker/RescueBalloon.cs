@@ -5,14 +5,13 @@ using UnityEngine;
 public class RescueBalloon : MonoBehaviour
 {
     LineRenderer line;
+    [SerializeField] public Vector2 startPos;
     [HideInInspector] public bool isRescueing = false;
     [HideInInspector] public GameObject rescueTarget;
-    [HideInInspector] public Vector2 startPos;
 
     private void Start()
     {
         line = GetComponent<LineRenderer>();
-        startPos = transform.position;
     }
 
     private void Update()
@@ -31,16 +30,19 @@ public class RescueBalloon : MonoBehaviour
 
     private void StopRescue()
     {
+        transform.position = startPos;
         isRescueing = false;
     }
 
     private void OnEnable()
     {
+        GameEvents.onLevelStart += StopRescue;
         GameEvents.onLevelRestart += StopRescue;
     }
 
     private void OnDisable()
     {
+        GameEvents.onLevelStart -= StopRescue;
         GameEvents.onLevelRestart -= StopRescue;
     }
 }

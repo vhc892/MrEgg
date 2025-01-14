@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63817d93022759543b57e795c78efe11, type: 3}
+  m_Name: LocalizationSettings
+  m_EditorClassIdentifier: 
+  TableId: 14zCG83LBcjE3xVtZOqx5Xv8twhTuqSSIYzOxdzillJg
+  Sheets:
+  - Name: TagLine
+    Id: 0
+    TextAsset: {fileID: 4900000, guid: 38ab4bee0c2588a48b6662d5d343b777, type: 3}
+  - Name: Hint
+    Id: 783450620
+    TextAsset: {fileID: 4900000, guid: e914270db64ab7f4f9c6e4961417b226, type: 3}
+  - Name: LanguageBtn
+    Id: 1569606709
+    TextAsset: {fileID: 4900000, guid: ed93b0da5fe00744080a2926d4462226, type: 3}
+  - Name: Content
+    Id: 1917373807
+    TextAsset: {fileID: 4900000, guid: 232af7585ef5cb74c9792092b6572382, type: 3}
+  SaveFolder: {fileID: 102900000, guid: 6a6f0ece6bec2cd4e857df69680aee70, type: 3}
