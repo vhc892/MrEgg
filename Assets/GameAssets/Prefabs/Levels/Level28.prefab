@@ -1205,7 +1205,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5398985279612363834, guid: 8c8305fb213f29b43a076fc33fb9620d, type: 2}
+  - {fileID: 7347885061290891815, guid: 8067d12b0bfc915429f57fbea4fa2b3f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1249,8 +1249,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Unity
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8c8305fb213f29b43a076fc33fb9620d, type: 2}
-  m_sharedMaterial: {fileID: 5398985279612363834, guid: 8c8305fb213f29b43a076fc33fb9620d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8067d12b0bfc915429f57fbea4fa2b3f, type: 2}
+  m_sharedMaterial: {fileID: 7347885061290891815, guid: 8067d12b0bfc915429f57fbea4fa2b3f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1622,6 +1622,10 @@ PrefabInstance:
     - target: {fileID: 6109852641081912517, guid: ad4c2f9a349926e48a43ef30a6c5de54, type: 3}
       propertyPath: m_Name
       value: HintText (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6158309834253189636, guid: ad4c2f9a349926e48a43ef30a6c5de54, type: 3}
+      propertyPath: LocalizationKey
+      value: tagline_lv28
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

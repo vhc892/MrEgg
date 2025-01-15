@@ -93,8 +93,8 @@ public class HintSystem : BaseUI
 
     public void GetLightBulb()
     {
-        //AdManager.Instance.ShowRewardedVideo(CallbackRewardLB, "get_light_bulb");
-        CallbackRewardLB();
+        AdManager.Instance.ShowRewardedVideo(CallbackRewardLB, "get_light_bulb");
+        //CallbackRewardLB();
     }
     private void CallbackRewardLB()
     {

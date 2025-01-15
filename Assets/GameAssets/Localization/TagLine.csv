@@ -2,7 +2,7 @@ Key,English,Russian,German,French,Brazil
 tagline_lv1,Reach the door to win.,"Доберитесь до двери, чтобы победить.","Erreichen Sie die Tür, um zu gewinnen.",Atteignez la porte pour gagner.,Alcance a porta para vencer.
 tagline_lv2,Try jumping on boxes!,Попробуйте прыгать по ящикам!,"Versuchen Sie, auf Kisten zu springen!",Essayez de sauter sur des boîtes !,Experimente pular nas caixas!
 tagline_lv3,Unlock the door!,Открой дверь!,Öffne die Tür!,Déverrouillez la porte !,Destranque a porta!
-tagline_lv4,Tap to unpin.,"Нажмите, чтобы открепить.",Zum Lösen antippen.,Appuyez pour désépingler.,Toque para liberar.
+tagline_lv4,Tap to unpin.,"Нажмите, чтобы открепить.",Zum Lösen antippen.,Appuyez pour désépingler.,Toque para soltar.
 tagline_lv5,Be polite.,Будьте вежливы.,Seien Sie höflich.,Soyez poli.,Ser bem educado.
 tagline_lv6,The door is flying away!,Дверь улетает!,Die Tür fliegt weg!,La porte s'envole !,A porta está voando!
 tagline_lv7,Something is wrong with this door...,Что-то не так с этой дверью...,Mit dieser Tür stimmt etwas nicht...,Quelque chose ne va pas avec cette porte...,Tem alguma coisa errada com essa porta...
@@ -25,7 +25,8 @@ tagline_lv23,Adjustable Platform,Регулируемая платформа,Ver
 tagline_lv24,An Unconventional Way Out.,Нетрадиционный выход.,Ein unkonventioneller Ausweg.,Une sortie non conventionnelle.,Uma saída não convencional.
 tagline_lv25,This door again?,Опять эта дверь?,Schon wieder diese Tür?,Encore cette porte ?,Esta porta de novo?
 tagline_lv26,Think outside of the box.,Думайте нестандартно.,Denken Sie über den Tellerrand hinaus.,Sortez des sentiers battus.,Pense fora da caixa.
-tagline_lv27,Is there no next level?,Неужели нет следующего уровня?,Gibt es kein nächstes Level?,N'y a-t-il pas de niveau suivant ?,Não existe próximo nível?
+tagline_lv27a,No door to,Нет двери в,Keine Tür zu,Pas de porte pour,Nenhuma porta para
+tagline_lv27b,next level?,следующий уровень?,nächstes Level?,prochain niveau ?,próximo nível?
 tagline_lv28,is power,это сила,ist Macht,c'est le pouvoir,é poder
 tagline_lv29,Endless Resets.,Бесконечные перезагрузки.,Endlose Resets.,Réinitialisations sans fin.,Reinicializações infinitas.
 tagline_lv30,"All you need is ""luck"".","Все, что вам нужно, это «удача».","Alles, was Sie brauchen, ist „Glück“.","Tout ce dont vous avez besoin, c'est de « chance ».",Tudo que você precisa é de “sorte”.

@@ -842,6 +842,7 @@ GameObject:
   - component: {fileID: 6284970796773346091}
   - component: {fileID: 4083966173581282164}
   - component: {fileID: 5274029747271400514}
+  - component: {fileID: 5876322974397445881}
   m_Layer: 5
   m_Name: YES
   m_TagString: Untagged
@@ -965,6 +966,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5876322974397445881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894014153392704916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2404a37f3bd75444aa4ad05d0f228347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LocalizationKey: hintpanel_yes
 --- !u!1 &937128479450214901
 GameObject:
   m_ObjectHideFlags: 0
@@ -3305,6 +3319,7 @@ GameObject:
   - component: {fileID: 1380167611025227573}
   - component: {fileID: 1434113244451311989}
   - component: {fileID: 7927400689673192399}
+  - component: {fileID: 5224326063413557982}
   m_Layer: 5
   m_Name: YES
   m_TagString: Untagged
@@ -3428,6 +3443,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5224326063413557982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3220314006969045895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2404a37f3bd75444aa4ad05d0f228347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LocalizationKey: hintpanel_yes
 --- !u!1 &3465945395669074486
 GameObject:
   m_ObjectHideFlags: 0
@@ -6175,6 +6203,7 @@ GameObject:
   - component: {fileID: 4786753776151395788}
   - component: {fileID: 4243761752262643829}
   - component: {fileID: 7419867581361198670}
+  - component: {fileID: 6825105594673248340}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -6298,6 +6327,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6825105594673248340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5141261800087309616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2404a37f3bd75444aa4ad05d0f228347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LocalizationKey: hintpanel_no
 --- !u!1 &5204066905437745544
 GameObject:
   m_ObjectHideFlags: 0
@@ -7527,8 +7569,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.15100098, y: -0.006958008}
-  m_SizeDelta: {x: -0.30200195, y: 0.013916016}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2440611203339767027
 CanvasRenderer:
@@ -7558,7 +7600,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level 1
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8c8305fb213f29b43a076fc33fb9620d, type: 2}
   m_sharedMaterial: {fileID: 5398985279612363834, guid: 8c8305fb213f29b43a076fc33fb9620d, type: 2}
@@ -9919,6 +9961,7 @@ GameObject:
   - component: {fileID: 8457210182345578794}
   - component: {fileID: 8271766333916341926}
   - component: {fileID: 3142290314025495348}
+  - component: {fileID: 1230047233898434079}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -10042,6 +10085,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1230047233898434079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8060058090432177678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2404a37f3bd75444aa4ad05d0f228347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LocalizationKey: hintpanel_no
 --- !u!1 &8433126820314843952
 GameObject:
   m_ObjectHideFlags: 0

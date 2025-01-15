@@ -52,6 +52,8 @@ public class IngameUI : BaseUI
         }
 
         txtLevel.text = "Level " + (GameConfig.Instance.CurrentLevel + 1);
+        //txtLevel.text = (GameConfig.Instance.CurrentLevel + 1).ToString();
+
         panelPause.Hide(true);
         levelCompletePopup.Hide(true);
 

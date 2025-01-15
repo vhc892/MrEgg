@@ -334,6 +334,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HintText
       objectReference: {fileID: 0}
+    - target: {fileID: 6158309834253189636, guid: ad4c2f9a349926e48a43ef30a6c5de54, type: 3}
+      propertyPath: LocalizationKey
+      value: tagline_lv29
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

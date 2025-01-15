@@ -6,6 +6,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Assets.SimpleLocalization.Scripts;
+
 
 
 public class Loading : MonoBehaviour
@@ -26,6 +28,8 @@ public class Loading : MonoBehaviour
         AdManager = AdManager.Instance;
         timer = 0;
         GameConfig.Instance.LoadGame();
+        yield return new WaitUntil(() => AdManager.IsAppOpenAdsLoaded() || timer > timeCheck);
+        DoProcess(timer);
         if (GameConfig.Instance.Session > 1)
         {
             UIManager.Instance.ShowStartUI();
@@ -33,12 +37,9 @@ public class Loading : MonoBehaviour
         else
         {
             StartGame();
+            CheckLanguageByCountry();
             //GameManager.Instance?.LoadLevel(0);
         }
-        yield return new WaitUntil(() => AdManager.IsAppOpenAdsLoaded() || timer > timeCheck);
-        DoProcess(timer);
-        //TrackingManager.TrackEvent(FirebaseParameter.LOADED);
-
     }
     private IEnumerator TurnOffLoading()
     {
@@ -66,6 +67,36 @@ public class Loading : MonoBehaviour
     {
         DG.Tweening.DOTweenModuleUI.DOValue(progressbar, 1, timer).OnComplete(() => ShowButton());
     }
+    private void CheckLanguageByCountry()
+    {
+        SystemLanguage systemLanguage = Application.systemLanguage;
+        //SystemLanguage systemLanguage = SystemLanguage.Russian;
+        string selectedLanguage;
+
+        switch (systemLanguage)
+        {
+            case SystemLanguage.English:
+                selectedLanguage = "English";
+                break;
+            case SystemLanguage.Russian:
+                selectedLanguage = "Russian";
+                break;
+            case SystemLanguage.German:
+                selectedLanguage = "German";
+                break;
+            case SystemLanguage.French:
+                selectedLanguage = "French";
+                break;
+            case SystemLanguage.Portuguese:
+                selectedLanguage = "Brazil";
+                break;
+            default:
+                selectedLanguage = "English";
+                break;
+        }
+        GameConfig.Instance.Language(selectedLanguage);
+    }
+
 
 
 }

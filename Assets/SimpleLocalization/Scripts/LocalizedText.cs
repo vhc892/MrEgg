@@ -35,11 +35,8 @@ namespace Assets.SimpleLocalization.Scripts
         {
             if (GameConfig.Instance != null)
             {
-                int currentLevel = (GameConfig.Instance.CurrentLevel + 1) % 30;
-                if (currentLevel == 0)
-                {
-                    currentLevel = 30;
-                }
+                int currentLevel = (GameConfig.Instance.CurrentLevel % 30) + 1;
+                
                 var textType = GetComponent<TextType>();
                 if (textType != null)
                 {
@@ -47,7 +44,7 @@ namespace Assets.SimpleLocalization.Scripts
                 }
                 else
                 {
-                    Debug.LogWarning("No TextType ");
+                    Debug.Log("No TextType ");
                 }
             }
         }

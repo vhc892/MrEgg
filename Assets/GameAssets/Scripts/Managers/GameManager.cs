@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
         player.enabled = true;
         Time.timeScale = 1;
         GameEvents.LevelStart();
-        Debug.LogError(LocalizationManager.Language);
+        //Debug.LogError(LocalizationManager.Language);
         TrackingManager.TrackEvent(FirebaseParamater.START_LEVEL, FirebaseParamater.LEVEL, (GameConfig.Instance.CurrentLevel + 1).ToString());
     }
 

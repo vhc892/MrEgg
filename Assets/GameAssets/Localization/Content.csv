@@ -6,3 +6,8 @@ winpanel_continue,Continue,Продолжать,Weitermachen,Continuer,Continuar
 hintpanel_yes,YES,ДА,JA,OUI,SIM
 hintpanel_no,NO,НЕТ,NEIN,NON,NÃO
 menu_mainmenu,MAIN LEVEL,ОСНОВНОЙ УРОВЕНЬ,HAUPTEBENE,NIVEAU PRINCIPAL,NÍVEL PRINCIPAL
+lv25_text,The same trick won't work,Тот же трюк не сработает,Der gleiche Trick wird nicht funktionieren,La même astuce ne fonctionnera pas,O mesmo truque não funcionará
+levelpanel_text,Big Adventure,Большое приключение,Großes Abenteuer,Grande aventure,Grande aventura
+levelpanel_level,LEVEL,УРОВЕНЬ,EBENE,NIVEAU,NÍVEL
+levelpanel_chapter,Chapter 1,Глава 1,Kapitel 1,Chapitre 1,Capítulo 1
+ingame_leveltext,Level,Уровень,Ebene,Niveau,Nível
