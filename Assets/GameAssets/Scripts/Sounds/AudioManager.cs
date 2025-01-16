@@ -126,6 +126,7 @@ public class AudioManager : MonoBehaviour
         {
             s.source.mute = !s.source.mute;
         }
+        GameEvents.ToggleMusic();
     }
 
     public void ToggleSFX()

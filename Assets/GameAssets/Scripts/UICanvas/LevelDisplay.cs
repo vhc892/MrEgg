@@ -11,6 +11,7 @@ public class LevelDisplay : BaseUI
     public RectTransform levelPage1;
     public RectTransform levelPage2;
     public RectTransform levelPage3;
+    public RectTransform levelPage4;
     int levelPerGroup = 10;
 
     GameConfig gameConfig;
@@ -38,10 +39,11 @@ public class LevelDisplay : BaseUI
                 string groupName = "Group " + (i / levelPerGroup);
                 Transform existingGroup = null;
 
-                int groupIndex = (i / levelPerGroup) % 3;
+                int groupIndex = (i / levelPerGroup) % 4;
                 RectTransform parentPage = groupIndex == 0 ? levelPage1
                                     : groupIndex == 1 ? levelPage2
-                                    : levelPage3;
+                                    : groupIndex == 2 ? levelPage3
+                                    : levelPage4;
 
                 existingGroup = parentPage.Find(groupName);
                 if (existingGroup != null)
@@ -71,6 +73,4 @@ public class LevelDisplay : BaseUI
             levelSelector.OnInit(i);
         }
     }
-
-
 }

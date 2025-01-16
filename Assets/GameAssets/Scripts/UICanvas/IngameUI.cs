@@ -39,17 +39,7 @@ public class IngameUI : BaseUI
         gameConfig = GameConfig.Instance;
         uiManager = UIManager.Instance;
 
-        bool isLevel20 = GameConfig.Instance.CurrentLevel == 20;
-        foreach (Button button in playerControll)
-        {
-            button.gameObject.SetActive(!isLevel20);
-        }
-
-        bool isLevel25 = GameConfig.Instance.CurrentLevel == 25;
-        foreach (Button button in allButtons)
-        {
-            button.gameObject.SetActive(!isLevel25);
-        }
+        CheckButton();
 
         txtLevel.text = "Level " + (GameConfig.Instance.CurrentLevel + 1);
         //txtLevel.text = (GameConfig.Instance.CurrentLevel + 1).ToString();
@@ -191,6 +181,21 @@ public class IngameUI : BaseUI
         //yield return new WaitForSeconds(0.15f);
 
         blackScreen.Close();
+    }
+    private void CheckButton()
+    {
+        bool isLevel20 = gameConfig.CurrentLevel == 20;
+        foreach (Button button in playerControll)
+        {
+            button.gameObject.SetActive(!isLevel20);
+        }
+
+        bool isLevel25 = gameConfig.CurrentLevel == 25;
+        foreach (Button button in allButtons)
+        {
+            button.gameObject.SetActive(!isLevel25);
+        }
+        playerControll[2].gameObject.SetActive(!(gameConfig.CurrentLevel == 34));
     }
 
     #endregion

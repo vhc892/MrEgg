@@ -92,6 +92,10 @@ public class LevelManager : MonoBehaviour
             case Levels.level29:
                 col.enabled = true;
                 break;
+            case Levels.level34:
+                GameConfig.Instance.TurnOnMusic();
+                Debug.Log("music on");
+                break;
         }
     }
 

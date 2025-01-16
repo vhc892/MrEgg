@@ -53,6 +53,15 @@ namespace Helper
         level28,
         level29,
         level30,
-        level31
+        level31,
+        level32,
+        level33,
+        level34,
+        level35,
+        level36,
+        level37,
+        level38,
+        level39,
+        level40,
     }
 }

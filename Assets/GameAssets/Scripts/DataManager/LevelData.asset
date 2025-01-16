@@ -197,3 +197,63 @@ MonoBehaviour:
     rewardHint: Change the position of the wheel's arrow to rig the wheel to spin
       for the key.
     reward_amount: 0
+  - startPos: {x: 0, y: 0}
+    levelIndex: 30
+    prefabs: {fileID: 983889076098346962, guid: beafecc306d5f6948b8149ccc44fc299, type: 3}
+    hint: 
+    rewardHint: 
+    reward_amount: 0
+  - startPos: {x: 0, y: 0}
+    levelIndex: 31
+    prefabs: {fileID: 983889076098346962, guid: beafecc306d5f6948b8149ccc44fc299, type: 3}
+    hint: 
+    rewardHint: 
+    reward_amount: 0
+  - startPos: {x: -7.4, y: 0}
+    levelIndex: 32
+    prefabs: {fileID: 6809889667156357015, guid: 300e9c02fc34e0647a93abd1bbb6b97c, type: 3}
+    hint: 
+    rewardHint: 
+    reward_amount: 0
+  - startPos: {x: -7.4, y: 0}
+    levelIndex: 33
+    prefabs: {fileID: 6809889667156357015, guid: 2a08f1d80f6156346b0eeafc48d91242, type: 3}
+    hint: 
+    rewardHint: 
+    reward_amount: 0
+  - startPos: {x: -8.7, y: 1.7}
+    levelIndex: 34
+    prefabs: {fileID: 2626619664812095647, guid: eba624bcbd02eae4dac7e343c973e0be, type: 3}
+    hint: 
+    rewardHint: 
+    reward_amount: 0
+  - startPos: {x: -6.8, y: 0}
+    levelIndex: 35
+    prefabs: {fileID: 2626619664812095647, guid: 7ab0851916d38e24dab91d0a90deab02, type: 3}
+    hint: 
+    rewardHint: 
+    reward_amount: 0
+  - startPos: {x: -6.8, y: 0}
+    levelIndex: 36
+    prefabs: {fileID: 2626619664812095647, guid: 4d1a9aded655dea4fb144b9c129ef8df, type: 3}
+    hint: 
+    rewardHint: 
+    reward_amount: 0
+  - startPos: {x: 0, y: 0}
+    levelIndex: 37
+    prefabs: {fileID: 983889076098346962, guid: beafecc306d5f6948b8149ccc44fc299, type: 3}
+    hint: 
+    rewardHint: 
+    reward_amount: 0
+  - startPos: {x: 0, y: 0}
+    levelIndex: 38
+    prefabs: {fileID: 983889076098346962, guid: beafecc306d5f6948b8149ccc44fc299, type: 3}
+    hint: 
+    rewardHint: 
+    reward_amount: 0
+  - startPos: {x: 0, y: 0}
+    levelIndex: 39
+    prefabs: {fileID: 983889076098346962, guid: beafecc306d5f6948b8149ccc44fc299, type: 3}
+    hint: 
+    rewardHint: 
+    reward_amount: 0

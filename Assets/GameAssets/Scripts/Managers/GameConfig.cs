@@ -43,7 +43,12 @@ public class GameConfig : MonoBehaviour
 
     public void LoadGame()
     {
+#if !UNITY_EDITOR
+        Application.targetFrameRate = 60;
+        Debug.unityLogger.logEnabled = false;
+#endif
         StartCoroutine(LoadGameCoroutine());
+        configData.GetRemoteConfig();
     }
 
     IEnumerator LoadGameCoroutine()
@@ -112,5 +117,14 @@ public class GameConfig : MonoBehaviour
         LocalizationManager.Language = language;
         SaveSystemData.SaveLanguage(language);
         UIManager.Instance.ingameUI.LanguageClose();
+    }
+    public void TurnOnMusic()
+    {
+        if (!IsMusicOn)
+        {
+            IsMusicOn = true;
+            SaveSystemData.SaveSettingsData(IsMusicOn, IsSFXOn);
+            AudioManager.Instance.ToggleMusic();
+        }
     }
 }

@@ -51,8 +51,8 @@ public class GameManager : MonoBehaviour
     {
         //int level = index % 10;
         GameMode = GameMode.Gameplay;
-        levelManager.LoadLevel(index%30); 
-        player.startPosition = levelManager.levelData.levelPrefabs[index%30].startPos;
+        levelManager.LoadLevel(index%40); 
+        player.startPosition = levelManager.levelData.levelPrefabs[index%40].startPos;
         player.enabled = true;
         Time.timeScale = 1;
         GameEvents.LevelStart();
