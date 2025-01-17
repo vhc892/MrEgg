@@ -44,15 +44,6 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Dive"",
-                    ""type"": ""Button"",
-                    ""id"": ""9dd01adf-d5ee-4ec2-b59b-1bbc4f2031a1"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -99,17 +90,6 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5c4c8ede-35e4-405c-97b5-ae4deff684da"",
-                    ""path"": ""<Keyboard>/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Dive"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -120,7 +100,6 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         m_PlayerMove = asset.FindActionMap("PlayerMove", throwIfNotFound: true);
         m_PlayerMove_Left_Right_Movement = m_PlayerMove.FindAction("Left_Right_Movement", throwIfNotFound: true);
         m_PlayerMove_Jump = m_PlayerMove.FindAction("Jump", throwIfNotFound: true);
-        m_PlayerMove_Dive = m_PlayerMove.FindAction("Dive", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -184,14 +163,12 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
     private List<IPlayerMoveActions> m_PlayerMoveActionsCallbackInterfaces = new List<IPlayerMoveActions>();
     private readonly InputAction m_PlayerMove_Left_Right_Movement;
     private readonly InputAction m_PlayerMove_Jump;
-    private readonly InputAction m_PlayerMove_Dive;
     public struct PlayerMoveActions
     {
         private @PlayerMovement m_Wrapper;
         public PlayerMoveActions(@PlayerMovement wrapper) { m_Wrapper = wrapper; }
         public InputAction @Left_Right_Movement => m_Wrapper.m_PlayerMove_Left_Right_Movement;
         public InputAction @Jump => m_Wrapper.m_PlayerMove_Jump;
-        public InputAction @Dive => m_Wrapper.m_PlayerMove_Dive;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMove; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -207,9 +184,6 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @Dive.started += instance.OnDive;
-            @Dive.performed += instance.OnDive;
-            @Dive.canceled += instance.OnDive;
         }
 
         private void UnregisterCallbacks(IPlayerMoveActions instance)
@@ -220,9 +194,6 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @Dive.started -= instance.OnDive;
-            @Dive.performed -= instance.OnDive;
-            @Dive.canceled -= instance.OnDive;
         }
 
         public void RemoveCallbacks(IPlayerMoveActions instance)
@@ -244,6 +215,5 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
     {
         void OnLeft_Right_Movement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnDive(InputAction.CallbackContext context);
     }
 }

@@ -90,6 +90,29 @@ public class Loading : MonoBehaviour
             case SystemLanguage.Portuguese:
                 selectedLanguage = "Brazil";
                 break;
+            case SystemLanguage.Chinese:
+                selectedLanguage = "ChineseMainland";
+                break;
+            //no Hongkong and Taiwan in systemlanguage (use chinese)
+            case SystemLanguage.Korean:
+                selectedLanguage = "SouthKorea";
+                break;
+            case SystemLanguage.Japanese:
+                selectedLanguage = "Japan";
+                break;
+            //no Malaysia
+            case SystemLanguage.Indonesian:
+                selectedLanguage = "Indonesia";
+                break;
+            case SystemLanguage.Turkish:
+                selectedLanguage = "Turkey";
+                break;
+            //no Philipin
+            case SystemLanguage.Vietnamese:
+                selectedLanguage = "Vietnam";
+                break;
+
+
             default:
                 selectedLanguage = "English";
                 break;

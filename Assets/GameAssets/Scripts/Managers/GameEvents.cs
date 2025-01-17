@@ -36,13 +36,6 @@ public static class GameEvents
         onLevelRestart?.Invoke();
     }
 
-    public delegate void OnToggleMusic();
-    public static OnToggleMusic onToggleMusic;
-    public static void ToggleMusic()
-    {
-        onToggleMusic?.Invoke();
-    }
-
     public delegate void OnDoorUnlocked();
     public static OnDoorUnlocked onDoorUnlocked;
     public static void UnlockDoor()

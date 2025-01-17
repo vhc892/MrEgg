@@ -118,13 +118,4 @@ public class GameConfig : MonoBehaviour
         SaveSystemData.SaveLanguage(language);
         UIManager.Instance.ingameUI.LanguageClose();
     }
-    public void TurnOnMusic()
-    {
-        if (!IsMusicOn)
-        {
-            IsMusicOn = true;
-            SaveSystemData.SaveSettingsData(IsMusicOn, IsSFXOn);
-            AudioManager.Instance.ToggleMusic();
-        }
-    }
 }
