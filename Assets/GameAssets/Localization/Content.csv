@@ -1,13 +1,13 @@
-key,English,Russian,German,French,Brazil,ChineseMainland,ChineseHongKong,ChineseTaiwan,SouthKorea,Japan,Malaysia,Indonesia,Turkey,Philippines,Vietnam
-hintpanel_ques1,DO YOU WANT ANY TIPS ?,ХОТИТЕ СОВЕТЫ?,WÜNSCHEN SIE TIPPS?,VOUS VOULEZ DES CONSEILS ?,QUER ALGUMA DICA?,您需要任何提示吗？,您需要任何提示嗎？,您需要任何提示嗎？,어떤 팁을 원하시나요?,何かヒントが欲しいですか?,ANDA MAHU SEBARANG TIPS?,APAKAH ANDA INGIN TIPS?,HERHANGİ BİR İPUCU İSTER MİSİNİZ?,GUSTO MO BA NG ANUMANG TIPS?,BẠN CÓ MUỐN MẸO NÀO KHÔNG?
-hintpanel_ques2,DO YOU WANT A LIGHT BULB?,ХОТИТЕ ЛАМПОЧКУ?,WOLLEN SIE EINE GLÜHBIRNE?,VOULEZ-VOUS UNE AMPOULE?,QUER UMA LÂMPADA?,你想要一个灯泡吗？,你想要一個燈泡嗎？,你想要一個燈泡嗎？,전구를 원하시나요?,電球が欲しいですか?,ANDA INGIN MENOLONG LAMPU?,ANDA INGIN BOLA LAMPU?,AMPUL İSTER MİSİNİZ?,GUSTO MO BA NG LIGHT BULB?,BẠN CÓ MUỐN MỘT BÓNG ĐÈN?
-winpanel_victory,VICTORY,ПОБЕДА,SIEG,VICTOIRE,VITÓRIA,胜利,勝利,勝利,승리,勝利,KEMENANGAN,KEMENANGAN,ZAFER,TAGUMPAY,THẮNG
-winpanel_continue,Continue,Продолжать,Weitermachen,Continuer,Continuar,继续,繼續,繼續,계속하다,続く,Teruskan,Melanjutkan,Devam etmek,Magpatuloy,Tiếp tục
-hintpanel_yes,YES,ДА,JA,OUI,SIM,是的,是的,是的,예,はい,YA,YA,EVET,OO,CÓ
-hintpanel_no,NO,НЕТ,NEIN,NON,NÃO,不,不,不,아니요,いいえ,TIDAK,TIDAK,HAYIR,HINDI,KHÔNG
-menu_mainmenu,MAIN LEVEL,ОСНОВНОЙ УРОВЕНЬ,HAUPTEBENE,NIVEAU PRINCIPAL,NÍVEL PRINCIPAL,主要级别,主要級別,主要級別,메인 레벨,メインレベル,PERINGKAT UTAMA,TINGKAT UTAMA,ANA SEVİYE,PANGUNAHING LEVEL,CẤP CHÍNH
-lv25_text,The same trick won't work,Тот же трюк не сработает,Der gleiche Trick wird nicht funktionieren,La même astuce ne fonctionnera pas,O mesmo truque não funcionará,同样的伎俩行不通,同樣的伎倆行不通,同樣的伎倆行不通,같은 트릭은 작동하지 않습니다,同じトリックはうまくいきません,Helah yang sama tidak akan berfungsi,Trik yang sama tidak akan berhasil,Aynı numara işe yaramayacak,Ang parehong trick ay hindi gagana,Thủ thuật tương tự sẽ không hiệu quả
-levelpanel_text,Big Adventure,Большое приключение,Großes Abenteuer,Grande aventure,Grande aventura,大冒险,大冒險,大冒險,큰 모험,大冒険,Pengembaraan Besar,Petualangan Besar,Büyük Macera,Malaking Pakikipagsapalaran,Cuộc phiêu lưu lớn
-levelpanel_level,LEVEL,УРОВЕНЬ,EBENE,NIVEAU,NÍVEL,等级,等級,等級,수준,レベル,TINGKAT,TINGKAT,SEVİYE,LEVEL,MỨC ĐỘ
-levelpanel_chapter,Chapter 1,Глава 1,Kapitel 1,Chapitre 1,Capítulo 1,第一章,第一章,第一章,제1장,第1章,Bab 1,Bab 1,Bölüm 1,Kabanata 1,Chương 1
-ingame_leveltext,Level,Уровень,Ebene,Niveau,Nível,等级,等級,等級,수준,レベル,Tahap,Tingkat,Seviye,Antas,Mức độ
+key,English,Russian,German,French,Brazil
+hintpanel_ques1,DO YOU WANT ANY TIPS ?,ХОТИТЕ СОВЕТЫ?,WÜNSCHEN SIE TIPPS?,VOUS VOULEZ DES CONSEILS ?,QUER ALGUMA DICA?
+hintpanel_ques2,DO YOU WANT A LIGHT BULB?,ХОТИТЕ ЛАМПОЧКУ?,WOLLEN SIE EINE GLÜHBIRNE?,VOULEZ-VOUS UNE AMPOULE?,QUER UMA LÂMPADA?
+winpanel_victory,VICTORY,ПОБЕДА,SIEG,VICTOIRE,VITÓRIA
+winpanel_continue,Continue,Продолжать,Weitermachen,Continuer,Continuar
+hintpanel_yes,YES,ДА,JA,OUI,SIM
+hintpanel_no,NO,НЕТ,NEIN,NON,NÃO
+menu_mainmenu,MAIN LEVEL,ОСНОВНОЙ УРОВЕНЬ,HAUPTEBENE,NIVEAU PRINCIPAL,NÍVEL PRINCIPAL
+lv25_text,The same trick won't work,Тот же трюк не сработает,Der gleiche Trick wird nicht funktionieren,La même astuce ne fonctionnera pas,O mesmo truque não funcionará
+levelpanel_text,Big Adventure,Большое приключение,Großes Abenteuer,Grande aventure,Grande aventura
+levelpanel_level,LEVEL,УРОВЕНЬ,EBENE,NIVEAU,NÍVEL
+levelpanel_chapter,Chapter 1,Глава 1,Kapitel 1,Chapitre 1,Capítulo 1
+ingame_leveltext,Level,Уровень,Ebene,Niveau,Nível

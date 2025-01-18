@@ -53,6 +53,7 @@ public class CharController : MonoBehaviour
     private int maxJumpCount = 20;
     private int jumpCount;
 
+    private bool isSwimming;
     
 
 
@@ -99,7 +100,8 @@ public class CharController : MonoBehaviour
 
     void OnStart()
     {
-        drag.enabled = GameConfig.Instance.CurrentLevel == 14;
+        drag.enabled = GameConfig.Instance.CurrentLevel == 14 || GameConfig.Instance.CurrentLevel == 32;
+        isSwimming = GameConfig.Instance.CurrentLevel == 34; 
 
         PlayerEnable();
         if (canJumpManyTimes) jumpCount = maxJumpCount;
@@ -113,6 +115,11 @@ public class CharController : MonoBehaviour
     {
         if (isFinished)
         {
+            return;
+        }
+        if (isSwimming)
+        {
+            AnimationCooldown(jumpUpAnimation, true);
             return;
         }
         CheckJump();
@@ -216,6 +223,23 @@ public class CharController : MonoBehaviour
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
     }
+    void Dive(InputAction.CallbackContext context)
+    {
+        if (isSwimming)
+        {
+            float diveDepth = 1f;
+            float diveSpeed = 1f;
+
+            Vector3 diveTarget = transform.position + Vector3.down * diveDepth;
+
+            transform.DOMoveY(diveTarget.y, diveSpeed).SetEase(Ease.InOutSine).OnComplete(() =>
+            {
+                AnimationCooldown(jumpDownAnimation, true);
+            });
+        }
+    }
+
+
 
     void CheckJump()
     {
@@ -263,7 +287,7 @@ public class CharController : MonoBehaviour
     {
         col.enabled = true;
         childCtrl.col.enabled = true;
-        rb.isKinematic = false;
+        rb.isKinematic = isSwimming;
         isFinished = false;
         isResueing = false;
 
@@ -426,6 +450,9 @@ public class CharController : MonoBehaviour
         playerMovementInput.PlayerMove.Left_Right_Movement.started += Move;
         playerMovementInput.PlayerMove.Left_Right_Movement.performed += Move;
         playerMovementInput.PlayerMove.Left_Right_Movement.canceled += Move;
+
+        playerMovementInput.PlayerMove.Dive.started += Dive;
+        playerMovementInput.PlayerMove.Dive.performed += Dive;
     }
     void DisableInput()
     {
@@ -435,6 +462,9 @@ public class CharController : MonoBehaviour
         playerMovementInput.PlayerMove.Left_Right_Movement.started -= Move;
         playerMovementInput.PlayerMove.Left_Right_Movement.performed -= Move;
         playerMovementInput.PlayerMove.Left_Right_Movement.canceled -= Move;
+
+        playerMovementInput.PlayerMove.Dive.started -= Dive;
+        playerMovementInput.PlayerMove.Dive.performed -= Dive;
     }
 
 }

@@ -1,17 +1,7 @@
-key,English,Russian,German,French,Brazil,ChineseMainland,ChineseHongKong,ChineseTaiwan,SouthKorea,Japan,Malaysia,Indonesia,Turkey,Philippines,Vietnam
-btnEN,English,Английский,Englisch,Anglais,Inglês,英语,英語,英語,영어,英語,Inggeris,Bahasa inggris,İngilizce,Ingles,Tiếng Anh
-btnRU,Russia,Россия,Russland,Russie,Rússia,俄罗斯,俄羅斯,俄羅斯,러시아 제국,ロシア,Rusia,Rusia,Rusya,Russia,Nga
-btnDE,German,немецкий,Deutsch,Allemand,Alemão,德语,德文,德文,독일 사람,ドイツ語,Jerman,Jerman,Almanca,Aleman,tiếng Đức
-btnFR,France,Франция,Frankreich,France,França,法国,法國,法國,프랑스,フランス,Perancis,Perancis,Fransa,France,Pháp
-btnBR,Brazil,Бразилия,Brasilien,Brésil,Brasil,巴西,巴西,巴西,브라질,ブラジル,Brazil,Brazil,Brezilya,Brazil,Brazil
-btnCN,Chinese,китайский,chinesisch,Chinois,chinês,中国人,中國人,中國人,중국인,中国語,cina,Cina,Çince,Intsik,Tiếng Trung
-btnHK,HongKong,Гонконг,Hongkong,Hong Kong,Hong Kong,香港,香港,香港,홍콩,香港,HongKong,HongKong,HongKong,HongKong,Hồng Kông
-btnTW,Taiwan,Тайвань,Taiwan,Taïwan,Taiwan,台湾,台灣,台灣,대만,台湾,Taiwan,Taiwan,Tayvan,Taiwan,Đài Loan
-btnKR,SouthKorea,Южная Корея,Südkorea,Corée du Sud,Coreia do Sul,韩国,韓國,韓國,대한민국,韓国,Korea Selatan,Korea Selatan,Güney Kore,Timog Korea,Hàn Quốc
-btnJP,Japan,Япония,Japan,Japon,Japão,日本,日本,日本,일본,日本,Jepun,Jepang,Japonya,Japan,Nhật Bản
-btnMY,Malaysia,Малайзия,Malaysia,Malaisie,Malásia,马来西亚,馬來西亞,馬來西亞,말레이시아,マレーシア,Malaysia,Malaysia,Malezya,Malaysia,Malaysia
-btnID,Indonesia,Индонезия,Indonesien,Indonésie,Indonésia,印度尼西亚,印尼,印尼,인도네시아 공화국,インドネシア,Indonesia,Indonesia,Endonezya,Indonesia,Indonesia
-btnTR,Turkey,Турция,Truthahn,Turquie,Peru,火鸡,火雞,火雞,칠면조,七面鳥,Turki,Turki,Türkiye,Turkey,Thổ Nhĩ Kỳ
-btnPH,Philippines,Филиппины,Philippinen,Philippines,Filipinas,菲律宾,菲律賓,菲律賓,필리핀 제도,フィリピン,Filipina,Filipina,Filipinler,Pilipinas,Philippin
-btnVN,Vietnam,Вьетнам,Vietnam,Viêt Nam,Vietnã,越南,越南,越南,베트남,ベトナム,Vietnam,Vietnam,Vietnam,Vietnam,Việt Nam
-language,EN ,RU,DE,FR,BR,CN,HK,TW,KR,JP,MY,ID,TR,PH,VN
+key,English,Russian,German,French,Brazil
+btnEN,English,Английский,Englisch,Anglais,Inglês
+btnRU,Russian,Русский,Russisch,russe,russo
+btnGE,German,немецкий,Deutsch,Allemand,Alemão
+btnFR,French,Французский,Französisch,Français,Francês
+btnBR,Brazil,Бразилия,Brasilien,Brésil,Brasil
+language,EN ,RU,GE,FR,BR
